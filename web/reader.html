@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dioscorides — parallel reader</title>
+<link rel="stylesheet" href="reader.css?v=20260905-sprengel-linebreak">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">Dioscorides<span class="sub">De materia medica — parallel reader</span></div>
+  <div class="pickers">
+    <select id="pickL" aria-label="Left edition"></select>
+    <span class="vs">⇄</span>
+    <select id="pickR" aria-label="Right edition"></select>
+  </div>
+  <nav class="chnav" aria-label="Chapter navigation">
+    <button class="btn" id="prev" title="Previous chapter (←)">‹</button>
+    <span class="where" id="where">–</span>
+    <button class="btn" id="next" title="Next chapter (→)">›</button>
+  </nav>
+  <div class="tools">
+    <a class="btn tool-link" id="pageView" href="diplomatic.html#/sprengel1829/0033" hidden>Pages</a>
+    <button class="btn" id="toggleToc" title="Show or hide the table of contents">Contents</button>
+    <button class="btn" id="toggleLineation" type="button" aria-pressed="false" title="Show original printed line breaks, line numbers, and line-end hyphens">Lineation</button>
+    <button class="btn" id="toggleFw" title="Show running heads, page numbers and line-end hyphens">Page furniture</button>
+    <button class="btn" id="toggleFacs" title="Show or hide the facsimile pane">Facsimile</button>
+  </div>
+</header>
+
+<div class="frame">
+  <aside id="toc" aria-label="Table of contents"></aside>
+  <main class="panes">
+    <article class="pane" id="paneL" data-side="L">
+      <div class="pane-head"></div>
+      <div class="pane-body"></div>
+    </article>
+    <article class="pane" id="paneR" data-side="R">
+      <div class="pane-head"></div>
+      <div class="pane-body"></div>
+    </article>
+  </main>
+  <aside id="facs" hidden aria-label="Facsimile">
+    <div id="osd"></div>
+    <div class="facs-caption"><span id="facsLabel"></span><a id="facsDirect" href="#" target="_blank" rel="noopener" hidden>open image</a></div>
+  </aside>
+</div>
+
+<div id="popover" hidden role="dialog" aria-label="Note"></div>
+
+<script src="vendor/openseadragon/openseadragon.min.js"></script>
+<script src="reader.js"></script>
+</body>
+</html>
