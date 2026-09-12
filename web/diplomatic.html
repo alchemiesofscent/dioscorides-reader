@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sprengel 1829 — diplomatic pages</title>
+<link rel="stylesheet" href="reader.css">
+<link rel="stylesheet" href="diplomatic.css?v=20260905-left-align">
+</head>
+<body class="diplomatic-reader">
+
+<header class="topbar">
+  <div class="brand">Dioscorides<span class="sub">Sprengel 1829 · diplomatic pages</span></div>
+  <nav class="page-nav" aria-label="Page navigation">
+    <button class="btn" id="prev" title="Previous scan leaf (←)">‹</button>
+    <form id="jumpForm" class="jump-form">
+      <label for="jump">Go to</label>
+      <input id="jump" autocomplete="off" spellcheck="false" placeholder="p. 467 or leaf 0499" aria-describedby="jumpHint">
+      <button class="btn" type="submit">Go</button>
+    </form>
+    <button class="btn" id="next" title="Next scan leaf (→)">›</button>
+    <span class="where" id="where" aria-live="polite">Loading…</span>
+  </nav>
+  <div class="tools">
+    <label class="view-picker" for="streamView">Show
+      <select id="streamView">
+        <option value="both">Greek + Latin</option>
+        <option value="grc">Greek only</option>
+        <option value="lat">Latin only</option>
+      </select>
+    </label>
+    <a class="btn tool-link" id="chapterLink" href="reader.html#/sprengel1829-grc/sprengel1829-lat/1.1">Chapters</a>
+    <button class="btn active" id="toggleFacs" title="Show or hide the original scan">Scan</button>
+  </div>
+</header>
+
+<p id="jumpHint" class="sr-only">Enter a printed page such as 467, or a four-digit scan leaf such as 0499.</p>
+<div id="message" role="status" hidden></div>
+
+<div class="diplomatic-frame">
+  <main id="transcription" aria-label="Line-preserving diplomatic transcription">
+    <div class="page-intro">
+      <div>
+        <div class="eyebrow">Line-preserving transcription</div>
+        <h1 id="pageTitle">Sprengel 1829</h1>
+      </div>
+      <div class="page-provenance" id="pageProvenance"></div>
+    </div>
+    <article id="paper" class="paper" aria-busy="true"></article>
+  </main>
+  <aside id="facs" aria-label="Original scan">
+    <div id="osd"></div>
+    <div class="facs-caption">
+      <span id="facsLabel">Original scan</span>
+      <a id="facsDirect" href="#" target="_blank" rel="noopener">open image</a>
+    </div>
+  </aside>
+</div>
+
+<script src="vendor/openseadragon/openseadragon.min.js"></script>
+<script src="diplomatic.js"></script>
+</body>
+</html>
