@@ -7,12 +7,14 @@ scholarly corrections; the reader consumes immutable exports and never edits the
 
 ## Run locally
 
-Use Python 3.12 or newer. From this repository:
+Use Python 3.12 or newer and an authenticated GitHub CLI (`gh`) with access to the private corpus. From this repository:
 
 ```bash
 python3 -m venv .venv
-.venv/bin/python -m pip install -e '.[test]'
-.venv/bin/python -m dioscorides_reader build --bundle /absolute/path/to/corpus-export --output dist
+.venv/bin/python -m pip install -r requirements-test.txt
+.venv/bin/python -m pip install --no-deps -e .
+.venv/bin/python -m dioscorides_reader fetch --repository alchemiesofscent/edition-workbench --tag corpus-aae7a8e99faba49b --lock corpus.lock.json
+.venv/bin/python -m dioscorides_reader build --bundle .cache/corpus/aae7a8e99faba49bae3f9ce9395239f674d4844813adade3eac394cd04f571fc --lock corpus.lock.json --output dist
 .venv/bin/python -m dioscorides_reader serve --directory dist
 ```
 
@@ -26,11 +28,10 @@ publishing an entry under the ignored cache and prints the resulting bundle dire
 
 ```bash
 .venv/bin/python -m dioscorides_reader fetch --source /absolute/path/to/corpus-export --cache .cache/corpus --lock corpus.lock.json
-.venv/bin/python -m dioscorides_reader fetch --repository alchemiesofscent/edition-workbench --tag corpus-ID --asset dioscorides-corpus.tar.gz --cache .cache/corpus --lock corpus.lock.json
+.venv/bin/python -m dioscorides_reader fetch --repository alchemiesofscent/edition-workbench --tag corpus-aae7a8e99faba49b --asset dioscorides-corpus.tar.gz --cache .cache/corpus --lock corpus.lock.json
 ```
 
-Private release retrieval uses the authenticated `gh` CLI. Replace `corpus-ID` with the
-exact release recorded in the project handoff. It downloads no scan images. Release
+Private release retrieval uses the authenticated `gh` CLI. The exact release and bundle are recorded in `corpus.lock.json`. It downloads no scan images. Release
 archives must contain one bundle directory and regular files; links and escaping paths
 are rejected before extraction. Reader builds reject corrupt or unsupported bundles and
 replace previous completed output only after all generation succeeds.
