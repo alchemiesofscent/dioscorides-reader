@@ -7,17 +7,22 @@ const vm = require("node:vm");
 
 function node() {
   let content = "";
-  const children = new Map();
+  const selectors = new Map();
   return {
+    children: [], attributes: {},
     hidden: true, dataset: {}, classList: { add() {}, remove() {}, toggle() {} },
-    set textContent(value) { content = value; }, get textContent() { return content; },
-    set innerHTML(value) { content = value; }, get innerHTML() { return content; },
+    set textContent(value) { content = value; this.children = []; },
+    get textContent() { return content + this.children.map(child => child.textContent).join(""); },
+    set innerHTML(value) { this.htmlAssigned = true; content = value; this.children = []; },
+    get innerHTML() { return content; },
     querySelector(selector) {
-      if (!children.has(selector)) children.set(selector, node());
-      return children.get(selector);
+      if (!selectors.has(selector)) selectors.set(selector, node());
+      return selectors.get(selector);
     },
     querySelectorAll() { return []; },
-    setAttribute() {}, replaceChildren(...values) { content = values.map(value => value.textContent).join(""); },
+    setAttribute(name, value) { this.attributes[name] = value; },
+    appendChild(child) { this.children.push(child); return child; },
+    replaceChildren(...values) { content = ""; this.children = values; },
   };
 }
 
@@ -31,7 +36,7 @@ function harness(filename, hook) {
       },
       createElement() { return node(); },
     },
-    window: { setTimeout, clearTimeout },
+    window: { setTimeout, clearTimeout }, URL,
     finishes: [],
   });
   const source = fs.readFileSync(path.join(__dirname, "../web", filename), "utf8");
@@ -41,6 +46,83 @@ function harness(filename, hook) {
   vm.runInContext(beforeBoot + hook + "\n})();", context);
   return { context, nodes, api: context.harness };
 }
+
+test("credits stay with the selected edition through delayed navigation", async () => {
+  const { nodes, api } = harness("reader.js", `
+    globalThis.harness = {
+      render, renderCredits,
+      setup(loader) {
+        manifest = { editions: Object.fromEntries(["first", "second"].map(id => [id, {
+          label: id, lang: "grc", credits: { sections: [{ title: "Project", entries: [
+            {label: "Responsibility", text: id + " editor", links: []}
+          ] }] }
+        }])) };
+        loadChunk = loader;
+        buildToc = () => {};
+        currentIndex = () => ({flat: [{}], i: 0});
+        updateDiplomaticLink = () => {};
+      },
+      route(route) { Object.assign(state, route); }
+    };
+  `);
+  const old = deferred();
+  const chunk = { chapters: { "1": {html: "Greek", pages: [], noteIds: []} }, notes: {}, apps: {} };
+  api.setup(edition => edition === "first" ? old.promise : Promise.resolve(chunk));
+  api.route({ edL: "first", edR: "-", book: "1", ch: "1" });
+  const pending = api.render();
+  const details = nodes.get("#paneL").querySelector(".edition-credits");
+  details.open = true;
+  api.route({ edL: "second" });
+  await api.render();
+  assert.equal(details.open, false);
+  assert.equal(details.dataset.edition, "second");
+  assert.match(details.querySelector(".credits-content").textContent, /second editor/);
+  assert.equal(details.querySelector("summary").attributes["aria-label"], "Source and credits for second");
+  details.open = true;
+  await api.render();
+  assert.equal(details.open, true, "chapter rerender keeps the disclosure open");
+  old.resolve(chunk);
+  await pending;
+  assert.equal(details.dataset.edition, "second");
+  assert.doesNotMatch(details.querySelector(".credits-content").textContent, /first editor/);
+});
+
+test("credit text stays literal and only ordinary web links become anchors", () => {
+  const { nodes, api } = harness("reader.js", `globalThis.harness = { renderCredits };`);
+  const pane = nodes.get("#paneL");
+  api.renderCredits(pane, "test", {label: "Test", credits: {sections: [{
+    title: "<img onerror=bad>", entries: [{label: "Author", text: "<script>bad()</script>", links: [
+      {text: "<img>", href: "https://example.org/source"},
+      {text: "bad", href: "javascript:alert(1)"}, {text: "bad", href: "//example.org"},
+      {text: "bad", href: "https://user:password@example.org"}
+    ]}]
+  }]}});
+  const content = pane.querySelector(".edition-credits").querySelector(".credits-content");
+  const walk = item => [item, ...item.children.flatMap(walk)];
+  const all = walk(content);
+  assert.equal(all.some(item => item.htmlAssigned), false);
+  assert.match(content.textContent, /<script>bad\(\)<\/script>/);
+  const anchors = all.filter(item => item.href);
+  assert.equal(anchors.length, 1);
+  assert.equal(anchors[0].href, "https://example.org/source");
+  assert.equal(anchors[0].rel, "noopener noreferrer");
+  api.renderCredits(pane, "missing", {label: "Missing"});
+  assert.match(content.textContent, /not recorded/);
+});
+
+test("keyboard input within credits never turns the chapter", () => {
+  const { context, api } = harness("reader.js", `
+    step = direction => globalThis.finishes.push(direction);
+    globalThis.harness = { handleKeydown };
+  `);
+  const inside = { closest: () => ({}), matches: () => false };
+  for (const key of ["ArrowLeft", "ArrowRight", "Enter", " ", "Tab"]) {
+    api.handleKeydown({key, target: inside});
+  }
+  assert.equal(context.finishes.length, 0);
+  api.handleKeydown({key: "ArrowRight", target: {closest: () => null, matches: () => false}});
+  assert.equal(context.finishes[0], 1);
+});
 
 function deferred() {
   let resolve, reject;

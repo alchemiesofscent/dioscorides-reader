@@ -13,8 +13,8 @@ Use Python 3.12 or newer and an authenticated GitHub CLI (`gh`) with access to t
 python3 -m venv .venv
 .venv/bin/python -m pip install -r requirements-test.txt
 .venv/bin/python -m pip install --no-deps -e .
-.venv/bin/python -m dioscorides_reader fetch --repository alchemiesofscent/edition-workbench --tag corpus-aae7a8e99faba49b --lock corpus.lock.json
-.venv/bin/python -m dioscorides_reader build --bundle .cache/corpus/aae7a8e99faba49bae3f9ce9395239f674d4844813adade3eac394cd04f571fc --lock corpus.lock.json --output dist
+.venv/bin/python -m dioscorides_reader fetch --repository alchemiesofscent/edition-workbench --tag corpus-5b2356c89644b0a7 --lock corpus.lock.json
+.venv/bin/python -m dioscorides_reader build --bundle .cache/corpus/5b2356c89644b0a721d9811b6192608591b260c21241024d3acf34875728e1d8 --lock corpus.lock.json --output dist
 .venv/bin/python -m dioscorides_reader serve --directory dist
 ```
 
@@ -28,7 +28,7 @@ publishing an entry under the ignored cache and prints the resulting bundle dire
 
 ```bash
 .venv/bin/python -m dioscorides_reader fetch --source /absolute/path/to/corpus-export --cache .cache/corpus --lock corpus.lock.json
-.venv/bin/python -m dioscorides_reader fetch --repository alchemiesofscent/edition-workbench --tag corpus-aae7a8e99faba49b --asset dioscorides-corpus.tar.gz --cache .cache/corpus --lock corpus.lock.json
+.venv/bin/python -m dioscorides_reader fetch --repository alchemiesofscent/edition-workbench --tag corpus-5b2356c89644b0a7 --asset dioscorides-corpus.tar.gz --cache .cache/corpus --lock corpus.lock.json
 ```
 
 Private release retrieval uses the authenticated `gh` CLI. The exact release and bundle are recorded in `corpus.lock.json`. It downloads no scan images. Release
@@ -95,3 +95,17 @@ the physical-page bridge, mobile layout and continued reading with unavailable i
 ```bash
 node tests/browser_smoke.cjs dist /absolute/path/to/chromium /tmp/dioscorides-browser-evidence
 ```
+
+## Source and credits
+
+Open **Source and credits** beneath either edition heading to see the source edition,
+recorded contributors and responsibilities, project methods, funding and licence. The
+content comes from the pinned TEI headers; it is not inferred from author names or witnesses.
+The Wellmann headers now credit Sean Coughlin and Alchemies of Scent for documented
+transcription corrections, editorial review, TEI/apparatus work and quality checks, while
+retaining the original First1K contributors and distinguishing the printed editor.
+Automated/AI-assisted methods and review limits remain explicit.
+
+The September 2026 Wellmann attribution correction preserves every non-header XML byte.
+The reader still displays the same chapter text and apparatus, and inherited full-document
+EpiDoc limitations remain recorded by the producer.

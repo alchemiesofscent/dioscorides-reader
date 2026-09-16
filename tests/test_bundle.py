@@ -94,6 +94,26 @@ def test_corrupt_payload_does_not_replace_completed_output(tmp_path):
     assert snapshot(output) == before
 
 
+def test_header_credits_change_without_chapter_or_apparatus_changes(tmp_path):
+    before = make_bundle(tmp_path / "before")
+    revised = TEI.replace('</titleStmt>', '''<respStmt>
+      <resp>Source correction, editorial review and AI-assisted encoding</resp>
+      <persName>Test editor</persName><note type="affiliation">Institute</note>
+      </respStmt></titleStmt>''').replace('</fileDesc>', '''</fileDesc><encodingDesc>
+      <projectDesc><p>Corrected against the printed source.</p></projectDesc></encodingDesc>''')
+    after = make_bundle(tmp_path / "after", revised)
+    first = compile_bundle(before, tmp_path / "first")
+    second = compile_bundle(after, tmp_path / "second")
+    assert first['bundle_id'] != second['bundle_id']
+    assert first['editions']['beck2020']['source_sha256'] != second['editions']['beck2020']['source_sha256']
+    assert first['editions']['beck2020']['books'] == second['editions']['beck2020']['books']
+    assert (tmp_path / 'first/data/beck2020/book-1.json').read_bytes() == (tmp_path / 'second/data/beck2020/book-1.json').read_bytes()
+    credits = second['editions']['beck2020']['credits']
+    assert 'Test editor — Source correction, editorial review and AI-assisted encoding' in json.dumps(credits, ensure_ascii=False)
+    assert 'Corrected against the printed source.' in json.dumps(credits)
+    assert 'Codex A' not in json.dumps(credits), 'included witnesses are not edition credits'
+
+
 @pytest.mark.parametrize("href", ["../../../../../../etc/passwd", "https://example.org/witness.xml", "/etc/passwd", "absent.xml"])
 def test_missing_or_external_include_is_rejected(tmp_path, href):
     bundle = make_bundle(tmp_path / "input", TEI.replace("../listWit.xml", href))
