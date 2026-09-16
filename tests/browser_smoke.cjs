@@ -31,11 +31,15 @@ async function main() {
   let socket;
   try {
     const activePort = path.join(profile, "DevToolsActivePort");
-    for (let attempt = 0; !fs.existsSync(activePort); attempt++) {
+    let port;
+    for (let attempt = 0; !port; attempt++) {
       if (attempt > 150 || browser.exitCode !== null) throw new Error("Chromium did not start: " + diagnostics);
-      await sleep(100);
+      if (fs.existsSync(activePort)) {
+        const value = fs.readFileSync(activePort, "utf8").split("\n")[0];
+        if (/^[0-9]+$/.test(value) && Number(value) > 0) port = value;
+      }
+      if (!port) await sleep(100);
     }
-    const port = fs.readFileSync(activePort, "utf8").split("\n")[0];
     const target = await (await fetch(`http://127.0.0.1:${port}/json/new?about:blank`, { method: "PUT" })).json();
     socket = new WebSocket(target.webSocketDebuggerUrl);
     await new Promise((resolve, reject) => { socket.addEventListener("open", resolve); socket.addEventListener("error", reject); });
@@ -71,6 +75,11 @@ async function main() {
       await rpc("Page.navigate", { url: address + route });
       await waitFor("document.readyState === 'complete'");
     };
+    const key = async (name, code, keyCode) => {
+      const text = name === "Enter" ? "\r" : name === " " ? " " : undefined;
+      await rpc("Input.dispatchKeyEvent", {type: "keyDown", key: name, code, windowsVirtualKeyCode: keyCode, text});
+      await rpc("Input.dispatchKeyEvent", {type: "keyUp", key: name, code, windowsVirtualKeyCode: keyCode});
+    };
     await rpc("Page.enable");
     await rpc("Runtime.enable");
     await rpc("Network.enable");
@@ -79,6 +88,31 @@ async function main() {
     await rpc("Emulation.setDeviceMetricsOverride", { width: 1280, height: 850, deviceScaleFactor: 1, mobile: false });
     await navigate("/reader.html#/wellmann1906/sprengel1829-grc/1.1");
     await waitFor("document.querySelectorAll('.pane-body .chapter').length === 2");
+    assert.equal(await evaluate("document.querySelector('#paneL .edition-credits').open"), false);
+    await evaluate("document.querySelector('#paneL .edition-credits summary').focus()");
+    assert.equal(await evaluate("document.activeElement.matches('#paneL .edition-credits summary')"), true);
+    await key("Enter", "Enter", 13);
+    await waitFor("document.querySelector('#paneL .edition-credits').open");
+    assert.equal(await evaluate(`(async () => {
+      const manifest = await (await fetch('data/manifest.json')).json();
+      return ['L', 'R'].every(side => {
+        const pane = document.querySelector('#pane' + side);
+        const details = pane.querySelector('.edition-credits');
+        const edition = manifest.editions[details.dataset.edition];
+        return edition.credits.sections.every(section => section.entries.every(entry =>
+          details.querySelector('.credits-content').textContent.includes(entry.text)));
+      });
+    })()`), true);
+    assert.match(await evaluate("document.querySelector('#paneL .edition-credits summary').getAttribute('aria-label')"), /Wellmann/);
+    assert.match(await evaluate("document.querySelector('#paneR .edition-credits summary').getAttribute('aria-label')"), /Sprengel/);
+    const beforeCreditsKey = await evaluate("location.hash");
+    await key("ArrowRight", "ArrowRight", 39);
+    assert.equal(await evaluate("location.hash"), beforeCreditsKey, "credits keyboard navigation must not turn the chapter");
+    await key("Tab", "Tab", 9);
+    assert.equal(await evaluate("document.activeElement.tagName === 'A' && !!document.activeElement.closest('.edition-credits')"), true);
+    await evaluate("document.querySelector('#paneL .edition-credits summary').focus()");
+    await key(" ", "Space", 32);
+    await waitFor("!document.querySelector('#paneL .edition-credits').open");
     await evaluate("document.querySelector('#paneL .app').click()");
     await waitFor("!document.querySelector('#popover').hidden && document.querySelector('#popover').textContent.length > 5");
     await evaluate("document.querySelector('.pop-close').click()");
@@ -93,8 +127,15 @@ async function main() {
     await evaluate("document.querySelector('#toggleLineation').click()");
     assert.equal(await evaluate("document.body.classList.contains('show-lineation')"), true);
     await rpc("Emulation.setDeviceMetricsOverride", { width: 390, height: 844, deviceScaleFactor: 1, mobile: false });
+    await evaluate("if (!document.querySelector('#toc').classList.contains('hidden')) document.querySelector('#toggleToc').click()");
+    await evaluate("document.querySelector('#paneL .edition-credits').open = true");
     await sleep(100);
     assert.equal(await evaluate("document.documentElement.scrollWidth <= innerWidth"), true);
+    assert.equal(await evaluate(`(() => {
+      const credits = document.querySelector('#paneL .edition-credits');
+      const bounds = credits.getBoundingClientRect();
+      return bounds.width > 250 && bounds.right <= innerWidth && credits.scrollWidth <= credits.clientWidth;
+    })()`), true);
     const screenshot = await rpc("Page.captureScreenshot", { format: "png" });
     fs.writeFileSync(path.join(output, "reader-mobile.png"), Buffer.from(screenshot.data, "base64"));
     await navigate("/diplomatic.html?chapter=3.122#/sprengel1829/0499");
@@ -107,7 +148,7 @@ async function main() {
     const pagesScreenshot = await rpc("Page.captureScreenshot", { format: "png" });
     fs.writeFileSync(path.join(output, "diplomatic-mobile.png"), Buffer.from(pagesScreenshot.data, "base64"));
     assert.deepEqual(exceptions, []);
-    const result = { passed: true, checks: ["parallel routes", "apparatus popover", "draft label", "footnote popover",
+    const result = { passed: true, checks: ["parallel routes", "source-bound credits", "credits keyboard and link access", "credits mobile layout", "apparatus popover", "draft label", "footnote popover",
       "lineation", "chapter-page bridge", "390px layout", "physical line identity", "stream switching",
       "reading with unavailable remote facsimiles"], javascript_exceptions: exceptions };
     fs.writeFileSync(path.join(output, "browser-smoke.json"), JSON.stringify(result, null, 2) + "\n");

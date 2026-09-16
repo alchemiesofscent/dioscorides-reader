@@ -20,6 +20,7 @@ from urllib.parse import quote, unquote, urlparse
 import xml.etree.ElementTree as ET
 
 from .xml_utils import local_name, norm_space, parse_tei, xml_id
+from .credits import extract as extract_credits
 
 # Configured by the bundle compiler; never points to another checkout.
 ROOT = Path(".")
@@ -954,6 +955,9 @@ def global_footnote_bodies(root: ET.Element, renderer: ChapterRenderer) -> dict[
 def build_edition(cfg: dict, table: dict, report: Report,
                   out_dir: Path = OUT_DIR) -> dict | None:
     tei_path = ROOT / cfg["tei_path"]
+    # Bundle verification already checked this XML. Attribution is read before
+    # includes expand the separate witness/reference libraries into the header.
+    credits = extract_credits(ET.parse(tei_path).getroot())
     root = parse_tei(tei_path)
     if root is None:
         report.add(cfg["key"], "structure", f"cannot parse {cfg['tei_path']}")
@@ -1049,5 +1053,6 @@ def build_edition(cfg: dict, table: dict, report: Report,
         "tei_path": cfg["tei_path"],
         "facs_mode": cfg["facs"],
         "footnote_display": cfg.get("footnote_display", "chapter-end"),
+        "credits": credits,
         "books": books_manifest,
     }

@@ -104,6 +104,18 @@ select:hover, .btn:hover { border-color: var(--leaf); }
   margin-bottom: 14px; padding-bottom: 6px; border-bottom: 1px solid var(--rule);
 }
 .pane-body { max-width: 39em; }
+.edition-credits {
+  max-width: 44em; margin: -6px 0 16px;
+  font: 13px/1.5 var(--ui); overflow-wrap: anywhere;
+}
+.edition-credits > summary { cursor: pointer; color: var(--leaf); width: fit-content; }
+.edition-credits > summary:focus-visible { outline: 2px solid var(--leaf); outline-offset: 3px; }
+.credits-content { padding: 8px 0 12px; border-bottom: 1px solid var(--rule); }
+.credits-content h3 { font-size: 13px; margin: 12px 0 5px; }
+.credits-content dt { font-weight: 600; margin-top: 7px; }
+.credits-content dd { margin: 0 0 5px; white-space: normal; }
+.credits-content a { color: var(--leaf); }
+.credits-links { list-style: none; margin-top: 4px; }
 .pane-body p { margin: 0 0 0.85em; text-align: justify; hyphens: manual; }
 .pane[data-lang="grc"] .pane-body, .pane-body .grc, .pane-body [lang="grc"] {
   font-family: var(--greek);

@@ -132,6 +132,58 @@
     if (cur) cur.scrollIntoView({ block: "center" });
   }
 
+  function renderCredits(pane, edition, metadata) {
+    const details = pane.querySelector(".edition-credits");
+    if (details.dataset.edition === edition) return;
+    details.dataset.edition = edition;
+    details.open = false;
+    details.querySelector("summary").setAttribute("aria-label", `Source and credits for ${metadata.label}`);
+    const content = details.querySelector(".credits-content");
+    content.replaceChildren();
+    const sections = metadata.credits?.sections || [];
+    if (!sections.length) {
+      const empty = document.createElement("p");
+      empty.textContent = "Source and credit details are not recorded in this edition’s metadata.";
+      content.appendChild(empty);
+      return;
+    }
+    for (const section of sections) {
+      const heading = document.createElement("h3");
+      heading.textContent = section.title;
+      content.appendChild(heading);
+      const list = document.createElement("dl");
+      for (const entry of section.entries) {
+        const label = document.createElement("dt");
+        label.textContent = entry.label;
+        const description = document.createElement("dd");
+        const text = document.createElement("span");
+        text.textContent = entry.text;
+        description.appendChild(text);
+        const links = document.createElement("ul");
+        links.className = "credits-links";
+        for (const link of entry.links || []) {
+          // Defence in depth for generated metadata: no HTML, relative URLs or
+          // executable URL schemes are inserted into the reading surface.
+          let url;
+          try { url = new URL(link.href); } catch (_error) { continue; }
+          if (!["http:", "https:"].includes(url.protocol) || url.username || url.password) continue;
+          const item = document.createElement("li");
+          const anchor = document.createElement("a");
+          anchor.textContent = link.text === entry.text ? "Open reference" : link.text;
+          anchor.href = url.href;
+          anchor.target = "_blank";
+          anchor.rel = "noopener noreferrer";
+          item.appendChild(anchor);
+          links.appendChild(item);
+        }
+        if (links.children.length) description.appendChild(links);
+        list.appendChild(label);
+        list.appendChild(description);
+      }
+      content.appendChild(list);
+    }
+  }
+
   async function renderPane(pane, edition, route, generation) {
     const head = pane.querySelector(".pane-head");
     const body = pane.querySelector(".pane-body");
@@ -143,6 +195,7 @@
     }
     pane.classList.remove("hidden");
     const ed = manifest.editions[edition];
+    renderCredits(pane, edition, ed);
     pane.dataset.lang = ed.lang;
     const status = typeof ed.status === "string" ? ed.status.replaceAll("_", " ") : "";
     head.textContent = `${ed.label} · ${route.book}.${route.ch}${status ? ` · ${status}` : ""}`;
@@ -345,6 +398,14 @@
 
   // ---------- wiring ----------
 
+  function handleKeydown(event) {
+    if (event.target.closest(".edition-credits")) return;
+    if (event.target.matches("input, select, textarea")) return;
+    if (event.key === "ArrowLeft") step(-1);
+    if (event.key === "ArrowRight") step(1);
+    if (event.key === "Escape") hidePopover();
+  }
+
   function bind() {
     window.addEventListener("hashchange", () => {
       const route = parseHash();
@@ -368,12 +429,7 @@
     });
     $("#prev").addEventListener("click", () => step(-1));
     $("#next").addEventListener("click", () => step(1));
-    document.addEventListener("keydown", (e) => {
-      if (e.target.matches("input, select, textarea")) return;
-      if (e.key === "ArrowLeft") step(-1);
-      if (e.key === "ArrowRight") step(1);
-      if (e.key === "Escape") hidePopover();
-    });
+    document.addEventListener("keydown", handleKeydown);
     $("#toggleToc").addEventListener("click", (e) => {
       toc.classList.toggle("hidden");
       e.currentTarget.classList.toggle("active", !toc.classList.contains("hidden"));
