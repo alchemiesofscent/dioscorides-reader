@@ -36,6 +36,22 @@ archives must contain one bundle directory and regular files; links and escaping
 are rejected before extraction. Reader builds reject corrupt or unsupported bundles and
 replace previous completed output only after all generation succeeds.
 
+## Public site
+
+`.github/workflows/pages.yml` publishes the reader to
+<https://alchemiesofscent.github.io/dioscorides-reader/> on every push to `main` (or by hand
+from the Actions tab). It fetches the pinned release and builds with `--exclude beck2020`:
+Beck 2020 is in copyright and never appears in the public site, and the workflow refuses to
+deploy if any Beck text or facsimile record reaches the output. The same public build locally:
+
+```bash
+.venv/bin/python -m dioscorides_reader build --bundle <bundle> --lock corpus.lock.json --output dist --exclude beck2020
+```
+
+The workflow needs two repository settings: Pages with source "GitHub Actions", and an Actions
+secret `CORPUS_TOKEN`, a fine-grained token with read-only Contents access to
+`alchemiesofscent/edition-workbench` so it can download the private corpus release.
+
 ## Corpus interface
 
 `manifest.json` declares `dioscorides-corpus-export/1`, the production commit, the selected

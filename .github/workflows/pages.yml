@@ -1,0 +1,61 @@
+name: pages
+# Publishes the public reader to https://alchemiesofscent.github.io/dioscorides-reader/.
+# Beck 2020 is in copyright and is excluded from this build; the step after the
+# build fails the deployment if any trace of it reaches the site data.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r requirements.txt
+      - run: python -m pip install --no-deps -e .
+      # The pinned corpus is a private edition-workbench release: CORPUS_TOKEN is a
+      # fine-grained token with read-only Contents access to that repository.
+      - name: Fetch pinned corpus
+        env:
+          GH_TOKEN: ${{ secrets.CORPUS_TOKEN }}
+        run: |
+          python - <<'PY' > "$RUNNER_TEMP/lock.env"
+          import json
+          lock = json.load(open("corpus.lock.json"))
+          for key in ("repository", "tag", "asset"):
+              print(f"{key.upper()}={lock[key]}")
+          PY
+          . "$RUNNER_TEMP/lock.env"
+          bundle=$(python -m dioscorides_reader fetch --repository "$REPOSITORY" --tag "$TAG" \
+            --asset "$ASSET" --cache .cache/corpus --lock corpus.lock.json)
+          echo "BUNDLE=$bundle" >> "$GITHUB_ENV"
+      - name: Build public reader
+        run: python -m dioscorides_reader build --bundle "$BUNDLE" --lock corpus.lock.json --output dist --exclude beck2020
+      - name: Refuse to publish Beck 2020
+        run: |
+          test ! -e dist/data/beck2020
+          ! grep -rl -e beck2020 -e 'beck-0' -e 'Beck 2020' dist/data
+      - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9
+        with:
+          path: dist
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346
