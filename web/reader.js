@@ -57,7 +57,9 @@
   function defaultRoute() {
     const keys = Object.keys(manifest.editions);
     const edL = keys.includes("sprengel1829-grc") ? "sprengel1829-grc" : keys[0];
-    const edR = keys.includes("beck2020") ? "beck2020" : (keys[1] || NONE);
+    // Builds may omit streams (a public build has no Beck), so never pair a stream with itself.
+    const edR = ["beck2020", "sprengel1829-lat"].find((key) => keys.includes(key))
+      || keys.find((key) => key !== edL) || NONE;
     const book = manifest.editions[edL].books[0];
     const ch = book.chapters[0];
     return { edL, edR, book: book.n, ch: ch.n };

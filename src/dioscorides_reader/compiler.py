@@ -33,9 +33,19 @@ def web_directory() -> Path:
     raise ValueError("Reader web assets are missing; reinstall dioscorides-reader")
 
 
-def compile_bundle(bundle_path: Path, output: Path, lock: Path | None = None) -> dict:
+def compile_bundle(bundle_path: Path, output: Path, lock: Path | None = None,
+                   exclude: tuple[str, ...] = ()) -> dict:
     bundle = Bundle(bundle_path)
     verify_lock(bundle, lock)
+    # Excluded streams (e.g. in-copyright editions in a public build) leave no
+    # text, report entries or facsimile records in the output.
+    exported = [item["id"] for item in bundle.manifest["editions"]]
+    unknown = sorted(set(exclude) - set(exported))
+    if unknown:
+        raise ValueError(f"Cannot exclude streams absent from the bundle: {unknown}")
+    selections = [item for item in bundle.manifest["editions"] if item["id"] not in exclude]
+    if not selections:
+        raise ValueError("Every exported stream was excluded")
     if output.is_symlink():
         raise ValueError("Output must not be a symbolic link")
     output = output.resolve()
@@ -66,7 +76,7 @@ def compile_bundle(bundle_path: Path, output: Path, lock: Path | None = None) ->
         report = render.Report()
         configs = {entry["key"]: entry for entry in render.EDITIONS}
         editions = {}
-        for selection in bundle.manifest["editions"]:
+        for selection in selections:
             key = selection["id"]
             if key not in configs:
                 raise ValueError(f"No reader adapter for exported stream: {key}")
@@ -78,8 +88,7 @@ def compile_bundle(bundle_path: Path, output: Path, lock: Path | None = None) ->
                            edition_id=selection.get("edition_id", key))
             editions[key] = edition
         if any(key.startswith("sprengel1829-") for key in editions):
-            selection = next(item for item in bundle.manifest["editions"]
-                             if item["id"].startswith("sprengel1829-"))
+            selection = next(item for item in selections if item["id"].startswith("sprengel1829-"))
             diplomatic.build(bundle.read_json("payload/diplomatic/sprengel1829.json"),
                              bundle.path(selection["tei_path"]), data / "sprengel1829-diplomatic")
         # Broken textual links/structure must not silently become a completed build.
@@ -95,7 +104,14 @@ def compile_bundle(bundle_path: Path, output: Path, lock: Path | None = None) ->
                                             encoding="utf-8")
         report.write(data / "REPORT.md")
         # Retain retrieval guidance even when optional facsimile images are unavailable.
-        shutil.copyfile(bundle.path("payload/facsimiles.json"), data / "facsimiles.json")
+        if exclude:
+            included_tei = {item["tei_path"] for item in selections}
+            facsimiles["resources"] = [item for item in facsimiles["resources"]
+                                       if item["tei_path"] in included_tei]
+            (data / "facsimiles.json").write_text(json.dumps(facsimiles, ensure_ascii=False, indent=1) + "\n",
+                                                  encoding="utf-8")
+        else:
+            shutil.copyfile(bundle.path("payload/facsimiles.json"), data / "facsimiles.json")
         (staging / MARKER).write_text(bundle.manifest["bundle_id"] + "\n", encoding="ascii")
         (staging / "index.html").write_text(
             '<!doctype html><html lang="en"><meta charset="utf-8"><title>Dioscorides reader</title>'

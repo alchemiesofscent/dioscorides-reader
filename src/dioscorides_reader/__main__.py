@@ -16,6 +16,8 @@ def main(argv: list[str] | None = None) -> int:
     build.add_argument("--bundle", type=Path, required=True)
     build.add_argument("--output", type=Path, required=True)
     build.add_argument("--lock", type=Path)
+    build.add_argument("--exclude", action="append", default=[], metavar="STREAM",
+                       help="Omit an exported stream from the output (repeatable)")
     fetch = commands.add_parser("fetch", help="Verify and cache a local immutable corpus export")
     fetch_source = fetch.add_mutually_exclusive_group(required=True)
     fetch_source.add_argument("--source", type=Path)
@@ -31,7 +33,7 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     try:
         if args.command == "build":
-            result = compile_bundle(args.bundle, args.output, args.lock)
+            result = compile_bundle(args.bundle, args.output, args.lock, tuple(args.exclude))
             print(f"Built {len(result['editions'])} streams from {result['bundle_id']} -> {args.output}")
         elif args.command == "fetch":
             if args.source:

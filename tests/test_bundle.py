@@ -244,3 +244,35 @@ def test_dtd_is_rejected_in_all_xml_encodings_and_preserves_output(tmp_path, enc
     with pytest.raises(ValueError, match="DTD/entity"):
         compile_bundle(source, output)
     assert snapshot(output) == before
+
+
+def test_excluded_stream_leaves_no_text_or_facsimile_records(tmp_path):
+    bundle = make_bundle(tmp_path / "input")
+    other = TEI_PATH.replace("beck/tei/beck2020_fresh_diplomatic_epidoc", "berendes/tei/berendes1902_epidoc")
+    (bundle / other).parent.mkdir(parents=True)
+    (bundle / other).write_text(TEI.replace('href="../listWit.xml"', 'href="../../beck/listWit.xml"'),
+                                encoding="utf-8")
+    (bundle / "payload/facsimiles.json").write_text(json.dumps({"schema": "facsimiles/1", "resources": [
+        {"tei_path": TEI_PATH, "facs": "beck-0001.png", "url": None},
+        {"tei_path": other, "facs": "berendes-0001.png", "url": None}]}), encoding="utf-8")
+
+    def add_berendes(manifest):
+        for entry in manifest["files"]:
+            if entry["path"] == "payload/facsimiles.json":
+                entry.update(sha256=sha256(bundle / entry["path"]), size=(bundle / entry["path"]).stat().st_size)
+        manifest["files"].append({"path": other, "sha256": sha256(bundle / other),
+                                  "size": (bundle / other).stat().st_size})
+        manifest["editions"].append({**manifest["editions"][0], "id": "berendes1902", "edition_id": "berendes1902",
+                                     "label": "Berendes 1902",
+                                     "tei_path": other, "source_sha256": sha256(bundle / other)})
+    rewrite_manifest(bundle, add_berendes)
+    output = tmp_path / "dist"
+    result = compile_bundle(bundle, output, exclude=("beck2020",))
+    assert list(result["editions"]) == ["berendes1902"]
+    assert not (output / "data/beck2020").exists()
+    assert "beck" not in (output / "data/manifest.json").read_text()
+    assert "beck" not in (output / "data/REPORT.md").read_text()
+    assert [item["facs"] for item in json.loads((output / "data/facsimiles.json").read_text())["resources"]] \
+        == ["berendes-0001.png"]
+    with pytest.raises(ValueError, match="absent from the bundle"):
+        compile_bundle(bundle, tmp_path / "other", exclude=("beck2021",))
