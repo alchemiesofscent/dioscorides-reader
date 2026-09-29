@@ -95,13 +95,68 @@
     parent.appendChild(wrapper);
   }
 
-  function appendNotes(block, notes) {
+  // Printed note markers are superscript digits, sometimes with a letter
+  // (⁸²ᵃ); note labels spell the same marker as "82ᵃ", "82 ᵃ" or "82 a".
+  const SUPERSCRIPTS = "⁰¹²³⁴⁵⁶⁷⁸⁹";
+  const MARKER_RE = /[⁰¹²³⁴⁵⁶⁷⁸⁹]+(?:\s?[ᵃᵇᶜᵈ])?/g;
+
+  function markerKey(text) {
+    return text.replace(/\s+/g, "")
+      .replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹]/g, (digit) => String(SUPERSCRIPTS.indexOf(digit)))
+      .replace(/[ᵃᵇᶜᵈ]/g, (letter) => "abcd"["ᵃᵇᶜᵈ".indexOf(letter)]);
+  }
+
+  function flash(element) {
+    element.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    element.classList.remove("flash");
+    void element.offsetWidth;
+    element.classList.add("flash");
+  }
+
+  // A marker without its letter ("82") still reaches the only lettered note
+  // with that number ("82ᵃ"), and vice versa.
+  function findNote(noteRows, key) {
+    if (noteRows.has(key)) return noteRows.get(key);
+    const digits = key.replace(/[a-d]$/, "");
+    if (digits !== key && noteRows.has(digits)) return noteRows.get(digits);
+    const lettered = [...noteRows.keys()].filter((candidate) => candidate.replace(/[a-d]$/, "") === digits);
+    return lettered.length === 1 ? noteRows.get(lettered[0]) : null;
+  }
+
+  function appendLineText(row, line, noteRows) {
+    const text = node("span", "line-text");
+    let last = 0;
+    for (const match of (line || "").matchAll(MARKER_RE)) {
+      const target = findNote(noteRows, markerKey(match[0]));
+      if (!target) continue;
+      text.append(line.slice(last, match.index));
+      const ref = node("button", "note-ref", match[0]);
+      ref.type = "button";
+      ref.title = target.note.lines.join(" ");
+      ref.setAttribute("aria-label", `Note ${target.note.n}: ${ref.title}`);
+      ref.addEventListener("click", () => flash(target.row));
+      target.refs.push(ref);
+      text.append(ref);
+      last = match.index + match[0].length;
+    }
+    text.append(last ? line.slice(last) : (line || "\u00a0"));
+    row.appendChild(text);
+  }
+
+  function appendNotes(block, notes, noteRows) {
     if (!notes.length) return;
     const section = node("div", "notes-block");
     for (const note of notes) {
       const lines = note.lines.length ? note.lines : [""];
+      const entry = noteRows.get(markerKey(note.n));
       lines.forEach((line, ordinal) => {
         const row = node("div", "note-row");
+        if (ordinal === 0 && entry && entry.note === note) {
+          entry.row = row;
+          row.classList.add("linked-note");
+          row.title = "Show the marker in the text";
+          row.addEventListener("click", () => { if (entry.refs.length) flash(entry.refs[0]); });
+        }
         let label = "";
         let labelClass = "note-n";
         if (ordinal === 0 && note.n !== "cont") label = note.n;
@@ -127,6 +182,13 @@
     if (data.continues) {
       block.appendChild(node("div", "page-continues", "continues from preceding scan leaf"));
     }
+    // Markers resolve to notes on the same leaf and stream; a note row is
+    // attached once the notes block is built below the lines.
+    const noteRows = new Map();
+    for (const note of data.notes) {
+      const key = markerKey(note.n);
+      if (note.n !== "cont" && !noteRows.has(key)) noteRows.set(key, { note, row: null, refs: [] });
+    }
     const lines = node("div", "stream-lines");
     data.lines.forEach((line, ordinal) => {
       const encoded = data.lineation
@@ -147,11 +209,11 @@
       }
       row.appendChild(node("span", "line-number", encoded ? String(Number(encoded.slice(1))) : ""));
       row.lastChild.setAttribute("aria-hidden", "true");
-      row.appendChild(node("span", "line-text", line || "\u00a0"));
+      appendLineText(row, line, noteRows);
       lines.appendChild(row);
     });
     block.appendChild(lines);
-    appendNotes(block, data.notes);
+    appendNotes(block, data.notes, noteRows);
     parent.appendChild(block);
   }
 

@@ -243,6 +243,23 @@
   font: italic 9px var(--ui);
 }
 .note-line { white-space: pre; }
+.note-ref {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #8a2f1d;
+  font: inherit;
+  cursor: pointer;
+}
+.note-ref:hover,
+.note-ref:focus-visible { text-decoration: underline; }
+.linked-note { cursor: pointer; }
+.linked-note:hover .note-n { color: #8a2f1d; }
+.flash { animation: note-flash 1.6s ease-out; }
+@keyframes note-flash {
+  from { background: #f3d9a4; }
+  to { background: transparent; }
+}
 
 .furniture-bottom {
   min-height: 24px;
