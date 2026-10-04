@@ -253,13 +253,15 @@ a.fnref.note-hl { border-radius: 2px; }
 .note-n { color: var(--rubric); font-weight: bold; font-size: 0.9em; }
 /* sigla (codices, editions) open the Notes section, one printed entry a line */
 .endnotes .siglorum .lb { display: block; }
-.endnotes .siglorum .tei-label { font-variant: normal; font-weight: bold; margin-right: 0.4em; }
+.endnotes .siglorum .tei-label { display: block; font-variant: normal; font-weight: bold; margin: 0.3em 0 0.15em; }
 .siglorum {
   font-size: 0.92em; background: var(--paper-deep);
   border: 1px solid var(--rule); border-radius: 3px;
   padding: 10px 14px; margin: 0.8em 0;
 }
 .tei-label { font-variant: small-caps; letter-spacing: 0.06em; }
+/* Sperrdruck (TEI hi rend="spaced"): letter-spaced as printed */
+.hi[data-rend="spaced"] { letter-spacing: 0.16em; }
 
 .app { border-bottom: 1px dotted var(--rubric); cursor: pointer; }
 .app-testimonia { border-bottom-style: dashed; }
