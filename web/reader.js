@@ -219,14 +219,13 @@
       return;
     }
     let html = chapter.html;
-    if (
-      ed.footnote_display !== "tei-order" &&
-      chapter.noteIds && chapter.noteIds.length
-    ) {
-      const items = chapter.noteIds
+    const sigla = (chapter.sigla || []).join("");
+    const noteIds = chapter.noteIds || [];
+    if (sigla || noteIds.length) {
+      const items = noteIds
         .map((id) => `<li id="en-${id}">${chunk.notes[id] || ""}</li>`)
         .join("");
-      html += `<section class="endnotes"><h4>Notes</h4><ol>${items}</ol></section>`;
+      html += `<section class="endnotes"><h4>Notes</h4>${sigla}${items ? `<ol>${items}</ol>` : ""}</section>`;
     }
     body.innerHTML = html;
     const commentaryBlocks = body.querySelectorAll(".chapter > .commentary");

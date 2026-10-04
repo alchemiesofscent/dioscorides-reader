@@ -245,23 +245,16 @@ a.fnref:hover sup { text-decoration: underline; }
   border-left: 2px solid var(--rubric-soft);
   padding-left: 12px; margin: 0.5em 0 0.9em;
 }
-.endnotes.tei-order {
-  font-size: 0.92em;               /* same size as the commentary it sits beside */
-  color: #55402e;
-  border-left: 2px solid var(--rubric-soft);
-  padding-left: 12px;
-  margin: 0.5em 0 0.9em;
-}
-.endnotes.tei-order ol { margin-top: 0; margin-bottom: 0; }
-.endnotes.tei-order li { font-size: 1em; }          /* no second reduction */
-.commentary .endnotes.tei-order { font-size: 1em; } /* already at commentary size */
 /* a note and its marks, highlighted together when either is clicked */
 .endnotes li { cursor: pointer; border-radius: 2px; }
 .note-hl { background: var(--rubric-soft); box-shadow: 0 0 0 2px var(--rubric-soft); }
 a.fnref.note-hl { border-radius: 2px; }
 .note-n { color: var(--rubric); font-weight: bold; font-size: 0.9em; }
+/* sigla (codices, editions) open the Notes section, one printed entry a line */
+.endnotes .siglorum .lb { display: block; }
+.endnotes .siglorum .tei-label { font-variant: normal; font-weight: bold; margin-right: 0.4em; }
 .siglorum {
-  font-size: 0.9em; background: var(--paper-deep);
+  font-size: 0.92em; background: var(--paper-deep);
   border: 1px solid var(--rule); border-radius: 3px;
   padding: 10px 14px; margin: 0.8em 0;
 }
@@ -278,7 +271,7 @@ a.fnref.note-hl { border-radius: 2px; }
   color: var(--rubric); margin-bottom: 0.6em; font-weight: normal;
 }
 .endnotes ol { list-style: none; }
-.endnotes li { font-size: 0.88em; margin-bottom: 0.45em; color: #4c463a; }
+.endnotes li { font-size: 0.92em; margin-bottom: 0.45em; color: #4c463a; } /* = commentary */
 
 /* ---------- facsimile drawer ---------- */
 #facs {

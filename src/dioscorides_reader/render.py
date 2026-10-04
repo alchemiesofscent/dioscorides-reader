@@ -96,9 +96,6 @@ EDITIONS = [
         "facs": "heidelberg",
         "label_source": "table:grc",
         "anchored_notes": True,
-        # Keep note bodies where the TEI places them.  They are also retained
-        # in the book-level side table so inline refs can open popovers.
-        "footnote_display": "tei-order",
     },
     {
         "key": "beck2020",
@@ -313,6 +310,7 @@ class ChapterRenderer:
         self.pages: list[dict] = []
         self.note_ids: list[str] = []
         self.ref_note_ids: list[str] = []
+        self.sigla: list[str] = []
         self._track_running_text = True
         self._last_running_text: tuple[list[str], int] | None = None
         self._pending_page_break: (
@@ -478,30 +476,6 @@ class ChapterRenderer:
         i = 0
         while i < len(children):
             child = children[i]
-            if (
-                self.cfg.get("footnote_display") == "tei-order"
-                and local_name(child.tag) == "note"
-                and child.get("type") == "footnote"
-            ):
-                run: list[ET.Element] = []
-                while i < len(children):
-                    candidate = children[i]
-                    if not (
-                        local_name(candidate.tag) == "note"
-                        and candidate.get("type") == "footnote"
-                    ):
-                        break
-                    run.append(candidate)
-                    i += 1
-                out.append('<section class="endnotes tei-order"><ol>')
-                for note in run:
-                    key, body = self._footnote(note)
-                    out.append(f'<li id="en-{esc(key)}">{body}</li>')
-                out.append("</ol></section>")
-                for note in run:
-                    if note.tail:
-                        self._append_text(out, note.tail)
-                continue
             self.render_element(child, out)
             if child.tail:
                 tail = child.tail
@@ -547,7 +521,17 @@ class ChapterRenderer:
         self.render_children(el, out)
         out.append("</p>")
 
+    def _sigla(self, el: ET.Element, nid: str = "") -> None:
+        """A list of sigla (codices, editions) belongs with the notes: the chapter's
+        Notes section shows it first, so the running text is not interrupted."""
+        inner: list[str] = []
+        self._render_children_isolated(el, inner)
+        self.sigla.append(f'<div class="siglorum" id="{esc(nid)}">{"".join(inner).strip()}</div>')
+
     def el_ab(self, el: ET.Element, out: list[str]) -> None:
+        if el.get("subtype") == "siglorum" or el.get("type") == "siglorum":
+            self._sigla(el, xml_id(el))
+            return
         ab_type = el.get("subtype") or el.get("type") or "ab"
         out.append(f'<div class="tei-ab tei-ab-{esc(ab_type)}">')
         self.render_children(el, out)
@@ -666,9 +650,7 @@ class ChapterRenderer:
             if not self.cfg["anchored_notes"]:
                 out.append(f'<span class="note-block" id="{esc(nid)}">{body}</span>')
         elif note_type == "siglorum":
-            out.append(f'<div class="siglorum" id="{esc(nid)}">')
-            self.render_children(el, out)
-            out.append("</div>")
+            self._sigla(el, nid)
         else:
             out.append('<span class="note-inline">')
             self.render_children(el, out)
@@ -787,6 +769,7 @@ class ChapterRenderer:
             self.pages.append(inherited)
         self.note_ids = []
         self.ref_note_ids = []
+        self.sigla = []
         out: list[str] = []
         n = div.get("n", "")
         cid = xml_id(div)
@@ -799,6 +782,7 @@ class ChapterRenderer:
             "pages": self.pages,
             "noteIds": self.note_ids,
             "refNoteIds": self.ref_note_ids,
+            "sigla": self.sigla,
         }
 
 
@@ -1055,7 +1039,6 @@ def build_edition(cfg: dict, table: dict, report: Report,
         "lang": cfg["lang"],
         "tei_path": cfg["tei_path"],
         "facs_mode": cfg["facs"],
-        "footnote_display": cfg.get("footnote_display", "chapter-end"),
         "credits": credits,
         "books": books_manifest,
     }
