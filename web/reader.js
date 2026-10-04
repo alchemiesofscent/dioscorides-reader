@@ -307,14 +307,30 @@
     popover.hidden = true;
   }
 
+  function highlightNote(pane, elements) {
+    document.querySelectorAll(".note-hl").forEach((el) => el.classList.remove("note-hl"));
+    elements.forEach((el) => el.classList.add("note-hl"));
+  }
+
   function handleTextClick(event) {
     const fnref = event.target.closest("a.fnref");
     const app = event.target.closest("span.app");
     const pb = event.target.closest("a.pb");
     const pane = event.target.closest(".pane");
+    const endnote = event.target.closest(".endnotes li[id^='en-']");
+    if (endnote && pane && !event.target.closest("a")) {
+      // a note clicked: highlight it and its marks, bring the first mark into view
+      const id = endnote.id.slice(3);
+      const refs = [...pane.querySelectorAll(`a.fnref[data-note="${CSS.escape(id)}"]`)];
+      highlightNote(pane, [endnote, ...refs]);
+      if (refs.length) refs[0].scrollIntoView({ block: "center", behavior: "smooth" });
+      return;
+    }
     if (fnref && pane && pane._chunk) {
       event.preventDefault();
       const id = fnref.dataset.note;
+      const target = pane.querySelector(`#en-${CSS.escape(id)}`);
+      highlightNote(pane, [fnref, ...(target ? [target] : [])]);
       const note = pane._chunk.notes[id];
       if (note) {
         const endnote = pane.querySelector(`#en-${CSS.escape(id)}`);

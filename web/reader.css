@@ -204,6 +204,24 @@ a.pb:hover { background: var(--rubric); color: #fff; }
 a.pb.nobreak-bridge { display: none; }
 body.show-fw a.pb.nobreak-bridge,
 body.show-lineation a.pb.nobreak-bridge { display: inline; }
+/* page numbers are furniture, never part of a text selection */
+a.pb { user-select: none; -webkit-user-select: none; }
+/* reading view: a paragraph the page break splits (TEI @part I/M/F) flows on as one
+   paragraph; the page marker stays inline, as in editions that break inside <p> */
+body:not(.show-lineation) .pane-body > .chapter > p.part-I,
+body:not(.show-lineation) .pane-body > .chapter > p.part-M,
+body:not(.show-lineation) .pane-body > .chapter > p.part-F { display: inline; }
+body:not(.show-lineation) .pane-body > .chapter > p.part-F::after { content: ""; display: block; margin-bottom: 0.75em; }
+/* lineation view: every page marker in the left margin, wherever the TEI puts it */
+body.show-lineation .pane-body a.pb {
+  position: absolute;
+  inset-inline-start: 0.25rem;
+  inline-size: 2rem;
+  padding-inline: 0;
+  text-align: end;
+  background: transparent;
+  transform: translateY(0.35em);
+}
 body.show-lineation .pane-body > .chapter > a.pb {
   position: absolute;
   inset-inline-start: 0.25rem;
@@ -228,13 +246,19 @@ a.fnref:hover sup { text-decoration: underline; }
   padding-left: 12px; margin: 0.5em 0 0.9em;
 }
 .endnotes.tei-order {
-  font-size: 0.88em;
+  font-size: 0.92em;               /* same size as the commentary it sits beside */
   color: #55402e;
   border-left: 2px solid var(--rubric-soft);
   padding-left: 12px;
   margin: 0.5em 0 0.9em;
 }
 .endnotes.tei-order ol { margin-top: 0; margin-bottom: 0; }
+.endnotes.tei-order li { font-size: 1em; }          /* no second reduction */
+.commentary .endnotes.tei-order { font-size: 1em; } /* already at commentary size */
+/* a note and its marks, highlighted together when either is clicked */
+.endnotes li { cursor: pointer; border-radius: 2px; }
+.note-hl { background: var(--rubric-soft); box-shadow: 0 0 0 2px var(--rubric-soft); }
+a.fnref.note-hl { border-radius: 2px; }
 .note-n { color: var(--rubric); font-weight: bold; font-size: 0.9em; }
 .siglorum {
   font-size: 0.9em; background: var(--paper-deep);

@@ -539,7 +539,10 @@ class ChapterRenderer:
             out.append("</div>")
 
     def el_p(self, el: ET.Element, out: list[str]) -> None:
-        cls = "commentary" if el.get("rend") == "commentary" else ""
+        classes = ["commentary"] if el.get("rend") == "commentary" else []
+        if el.get("part") in ("I", "M", "F"):     # a paragraph split by a page break
+            classes.append(f"part-{el.get('part')}")
+        cls = " ".join(classes)
         out.append(f'<p class="{cls}">' if cls else "<p>")
         self.render_children(el, out)
         out.append("</p>")
