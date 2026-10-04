@@ -130,6 +130,54 @@ function deferred() {
   return { promise, resolve, reject };
 }
 
+for (const scenario of [
+  { name: "chapter commentary takes precedence", direct: 2, nested: 1, notes: true, sigla: true },
+  { name: "nested section commentary is the fallback", direct: 0, nested: 2, notes: true },
+  { name: "sigla alone precede commentary", direct: 1, nested: 0, sigla: true },
+  { name: "editions without commentary keep notes at the end", direct: 0, nested: 0, notes: true },
+  { name: "commentary without notes still gets its rule", direct: 1, nested: 0 },
+]) {
+  test(`Notes placement: ${scenario.name}`, async () => {
+    const { nodes, api } = harness("reader.js", `
+      globalThis.harness = {
+        renderPane,
+        setup(chunk) {
+          manifest = { editions: { test: {label: "Test", lang: "deu"} } };
+          loadChunk = () => Promise.resolve(chunk);
+        }
+      };
+    `);
+    const pane = nodes.get("#paneL"), body = pane.querySelector(".pane-body");
+    const endnotes = node(), moves = [], marked = [];
+    const commentary = () => ({
+      before(value) { moves.push([this, value]); },
+      classList: { add(value) { marked.push([this, value]); } },
+    });
+    const direct = Array.from({ length: scenario.direct }, commentary);
+    const nested = Array.from({ length: scenario.nested }, commentary);
+    body.querySelectorAll = selector => ({
+      ".chapter > .commentary": direct,
+      ".chapter .section > .commentary": nested,
+    })[selector] || [];
+    body.querySelector = selector => selector === ".endnotes" && (scenario.notes || scenario.sigla)
+      ? endnotes : null;
+    const chapter = {
+      html: '<div class="chapter"><p>Translation</p></div>',
+      noteIds: scenario.notes ? ["n1"] : [],
+      sigla: scenario.sigla ? ['<div class="siglorum">Sigla</div>'] : [],
+    };
+    api.setup({ chapters: { "5": chapter }, notes: { n1: "Footnote" } });
+    await api.renderPane(pane, "test", { book: "1", ch: "5" }, 0);
+    const first = direct[0] || nested[0];
+    assert.deepEqual(marked, first ? [[first.classList, "commentary-first"]] : []);
+    assert.deepEqual(moves, first && (scenario.notes || scenario.sigla) ? [[first, endnotes]] : []);
+    const items = scenario.notes ? '<ol><li id="en-n1">Footnote</li></ol>' : "";
+    const notesHTML = scenario.notes || scenario.sigla
+      ? `<section class="endnotes"><h4>Notes</h4>${chapter.sigla.join("")}${items}</section>` : "";
+    assert.equal(body.innerHTML, chapter.html + notesHTML, "note content and IDs are unchanged before the DOM move");
+  });
+}
+
 for (const failure of [false, true]) {
   test(`chapter reader discards stale ${failure ? "failure" : "success"} and final navigation update`, async () => {
     const { context, nodes, api } = harness("reader.js", `

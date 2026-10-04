@@ -141,7 +141,8 @@ select:hover, .btn:hover { border-color: var(--leaf); }
 .chapter > p.commentary {
   text-align: left;
 }
-.chapter > .commentary-first {
+.chapter > .commentary-first,
+.chapter .section > .commentary-first {
   border-top: 1px solid var(--rule);
   margin-top: 1.5em;
   padding-top: 0.9em;

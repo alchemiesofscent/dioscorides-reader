@@ -228,9 +228,13 @@
       html += `<section class="endnotes"><h4>Notes</h4>${sigla}${items ? `<ol>${items}</ol>` : ""}</section>`;
     }
     body.innerHTML = html;
-    const commentaryBlocks = body.querySelectorAll(".chapter > .commentary");
-    if (commentaryBlocks.length) {
-      commentaryBlocks[0].classList.add("commentary-first");
+    const firstCommentary = body.querySelectorAll(".chapter > .commentary")[0]
+      || body.querySelectorAll(".chapter .section > .commentary")[0];
+    if (firstCommentary) {
+      // Move the existing Notes section so its content and note IDs stay intact.
+      const endnotes = body.querySelector(".endnotes");
+      if (endnotes) firstCommentary.before(endnotes);
+      firstCommentary.classList.add("commentary-first");
     }
     body.scrollTop = 0;
     pane.scrollTop = 0;
