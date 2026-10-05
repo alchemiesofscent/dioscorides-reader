@@ -94,7 +94,9 @@ EDITIONS = [
         "tei_path": "editions/berendes/tei/berendes1902_epidoc.xml",
         "stream": {"type": "translation"},
         "facs": "heidelberg",
-        "label_source": "table:grc",
+        # Berendes cites his own chapters as printed (DC-001: 5.115bis, 3.41a, bis keys):
+        # label from his heads, not from the Sprengel table.
+        "label_source": "head",
         "anchored_notes": True,
     },
     {
