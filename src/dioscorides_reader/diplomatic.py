@@ -46,17 +46,24 @@ def tei_facsimiles(path: Path) -> dict[str, str]:
 
 
 def tei_chapter_starts(path: Path) -> dict[str, dict[str, dict[str, dict[str, object]]]]:
-    """Map every chapter head to its exact physical page and printed line."""
+    """Map each chapter opening to its exact physical page and printed line."""
     tree = etree.parse(str(path), etree.XMLParser(resolve_entities=False, no_network=True))
     starts: dict[str, dict[str, dict[str, dict[str, object]]]] = {}
     chapters = tree.xpath("//tei:div[@subtype='chapter']", namespaces=NS)
     for chapter in chapters:
         heads = chapter.xpath("./tei:head[1]", namespaces=NS)
-        if not heads:
+        if heads:
+            line_breaks = heads[0].xpath("(.//tei:lb)[1]", namespaces=NS)
+        elif chapter.get("n") == "praef":
+            # DC-013: book II–V prefaces have no printed chapter heading.
+            line_breaks = chapter.xpath(
+                "(.//tei:lb[not(ancestor::tei:note or ancestor::tei:fw)])[1]",
+                namespaces=NS,
+            )
+        else:
             raise ValueError(f"chapter {chapter.get('n')!r} has no head")
-        line_breaks = heads[0].xpath("(.//tei:lb)[1]", namespaces=NS)
         if not line_breaks:
-            raise ValueError(f"chapter {chapter.get('n')!r} head has no line start")
+            raise ValueError(f"chapter {chapter.get('n')!r} opening has no line start")
         line_break = line_breaks[0]
         page_breaks = line_break.xpath("preceding::tei:pb[1]", namespaces=NS)
         if not page_breaks:
@@ -152,10 +159,16 @@ def build(records: dict, tei_path: Path, output: Path) -> dict:
         raise ValueError(f"Sprengel diplomatic stream inventory mismatch: {counts}")
     chapter_counts = {stream: sum(len(streams.get(stream, {})) for streams in starts.values())
                       for stream in ("grc", "lat")}
-    # 947 numbered chapters + the proem per stream since edition-workbench e48e49a0
-    # (SD-001: the 27 formerly folded chapters restored); 921 before.
-    if chapter_counts != {"grc": 948, "lat": 948}:
-        raise ValueError(f"Sprengel diplomatic chapter-start inventory mismatch: {chapter_counts}")
+    # Support the pinned SD-001 bundle and DC-013's five book prefaces;
+    # both retain exactly 947 numbered chapters per stream.
+    for stream in ("grc", "lat"):
+        prefaces = {
+            item["chapter"] for streams in starts.values()
+            for item in streams.get(stream, {}).values() if item["n"] == "praef"
+        }
+        if (prefaces not in ({"1.praef"}, {f"{book}.praef" for book in range(1, 6)})
+                or chapter_counts[stream] != 947 + len(prefaces)):
+            raise ValueError(f"Sprengel diplomatic chapter-start inventory mismatch: {chapter_counts}")
     output.mkdir(parents=True, exist_ok=True)
     index_pages = []
     chunks = {}
