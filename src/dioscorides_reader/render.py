@@ -572,6 +572,24 @@ class ChapterRenderer:
         self.render_children(el, out)
         out.append(f"</{tag}>" if tag else "</span>")
 
+    def el_choice(self, el: ET.Element, out: list[str]) -> None:
+        """<choice><sic/><corr/></choice>: the text as printed, the correction on hover."""
+        sic = el.find(f"{TEI}sic")
+        corr = el.find(f"{TEI}corr")
+        if sic is None:
+            self.render_children(el, out)
+            return
+        recte = norm_space("".join(corr.itertext())) if corr is not None else ""
+        title = f' title="recte: {esc(recte)}" data-corr="{esc(recte)}"' if recte else ""
+        out.append(f'<span class="sic"{title}>')
+        self.render_children(sic, out)
+        out.append("</span>")
+
+    def el_sic(self, el: ET.Element, out: list[str]) -> None:
+        out.append('<span class="sic">')
+        self.render_children(el, out)
+        out.append("</span>")
+
     def el_label(self, el: ET.Element, out: list[str]) -> None:
         out.append('<span class="tei-label">')
         self.render_children(el, out)

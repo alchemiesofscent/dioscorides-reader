@@ -260,6 +260,8 @@ a.fnref.note-hl { border-radius: 2px; }
   padding: 10px 14px; margin: 0.8em 0;
 }
 .tei-label { font-variant: small-caps; letter-spacing: 0.06em; }
+/* printer's error kept as printed; the correction shows on hover */
+.sic { text-decoration: underline dotted var(--rubric); text-underline-offset: 3px; cursor: help; }
 /* Sperrdruck (TEI hi rend="spaced"): letter-spaced as printed */
 .hi[data-rend="spaced"] { letter-spacing: 0.16em; }
 
