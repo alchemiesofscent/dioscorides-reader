@@ -1038,12 +1038,23 @@ def build_edition(cfg: dict, table: dict, report: Report,
         chunks.append((chunk_path, chunk))
         books_manifest.append({"n": book_n, "chapters": chapter_list})
 
+    # A chapter's Notes are the notes its own marks cite, in citation order — not the notes
+    # printed on its pages: a page's footnotes can belong to the chapter before or after
+    # (Sprengel 1830 1.2 printed 31b–33 of 1.1 and lacked its own 35). Notes printed in a
+    # chapter that no mark in the edition cites stay listed there, so nothing disappears.
+    all_cited = {
+        note_id
+        for _, chunk in chunks
+        for chapter in chunk["chapters"].values()
+        for note_id in chapter.get("refNoteIds", [])
+    }
     for chunk_path, chunk in chunks:
-        referenced = {
-            note_id
-            for chapter in chunk["chapters"].values()
-            for note_id in chapter.pop("refNoteIds")
-        }
+        referenced = set()
+        for chapter in chunk["chapters"].values():
+            cited = list(dict.fromkeys(chapter.pop("refNoteIds")))
+            uncited = [n for n in chapter.get("noteIds", []) if n not in all_cited and n not in cited]
+            chapter["noteIds"] = cited + uncited
+            referenced.update(cited)
         for note_id in sorted(referenced):
             body = global_notes.get(note_id)
             if body is None:
