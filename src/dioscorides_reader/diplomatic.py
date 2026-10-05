@@ -152,7 +152,9 @@ def build(records: dict, tei_path: Path, output: Path) -> dict:
         raise ValueError(f"Sprengel diplomatic stream inventory mismatch: {counts}")
     chapter_counts = {stream: sum(len(streams.get(stream, {})) for streams in starts.values())
                       for stream in ("grc", "lat")}
-    if chapter_counts != {"grc": 921, "lat": 921}:
+    # 947 numbered chapters + the proem per stream since edition-workbench e48e49a0
+    # (SD-001: the 27 formerly folded chapters restored); 921 before.
+    if chapter_counts != {"grc": 948, "lat": 948}:
         raise ValueError(f"Sprengel diplomatic chapter-start inventory mismatch: {chapter_counts}")
     output.mkdir(parents=True, exist_ok=True)
     index_pages = []
