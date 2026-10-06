@@ -262,6 +262,8 @@ a.fnref.note-hl { border-radius: 2px; }
 .tei-label { font-variant: small-caps; letter-spacing: 0.06em; }
 /* printer's error kept as printed; the correction shows on hover */
 .sic { text-decoration: underline dotted var(--rubric); text-underline-offset: 3px; cursor: help; }
+.sic-add { color: var(--rubric); cursor: help; }
+.tr-note { color: var(--rubric); font-size: .75em; vertical-align: super; cursor: help; margin-left: .1em; }
 /* Sperrdruck (TEI hi rend="spaced"): letter-spaced as printed */
 .hi[data-rend="spaced"] { letter-spacing: 0.16em; }
 

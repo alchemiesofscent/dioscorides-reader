@@ -100,6 +100,16 @@ EDITIONS = [
         "anchored_notes": True,
     },
     {
+        "key": "berendes1902-eng",
+        "label": "Berendes 1902 (English, machine translation)",
+        "lang": "eng",
+        "tei_path": "editions/berendes/translation/tei/berendes1902_en.xml",
+        "stream": {"type": "translation", "lang": "eng"},
+        "facs": "heidelberg",
+        "label_source": "head",
+        "anchored_notes": True,
+    },
+    {
         "key": "beck2020",
         "label": "Beck 2020 (English)",
         "lang": "eng",
@@ -162,6 +172,8 @@ def element_reading_text(el: ET.Element) -> str:
                     parts[:] = [trailing_hyphen.sub("", joined)]
                 else:
                     parts.append(" ")
+            elif child.tag == f"{TEI}note" and child.get("type") == "translator":
+                pass                     # a translator's doubt is not part of the reading text
             elif child.tag == f"{TEI}fw":
                 # Running heads and printed page numbers are not reading text.
                 # Their tails are still handled below so ordinary word spacing
@@ -582,8 +594,17 @@ class ChapterRenderer:
             self.render_children(el, out)
             return
         recte = norm_space("".join(corr.itertext())) if corr is not None else ""
-        title = f' title="recte: {esc(recte)}" data-corr="{esc(recte)}"' if recte else ""
-        out.append(f'<span class="sic"{title}>')
+        # a correction the author made himself (corr/@source → his errata) is labelled as his
+        errata = corr is not None and (corr.get("source") or "").startswith("#")
+        who = "author's errata" if errata else "recte"
+        if not norm_space("".join(sic.itertext())) and corr is not None:
+            # nothing printed: an addition (e.g. from the errata) is shown, marked as added
+            out.append(f'<span class="sic-add" title="added from the {esc(who)}: {esc(recte)}">⟨')
+            self.render_children(corr, out)
+            out.append("⟩</span>")
+            return
+        title = f' title="{esc(who)}: {esc(recte)}" data-corr="{esc(recte)}"' if recte else ""
+        out.append(f'<span class="sic{" sic-errata" if errata else ""}"{title}>')
         self.render_children(sic, out)
         out.append("</span>")
 
@@ -671,6 +692,10 @@ class ChapterRenderer:
                 out.append(f'<span class="note-block" id="{esc(nid)}">{body}</span>')
         elif note_type == "siglorum":
             self._sigla(el, nid)
+        elif note_type == "translator":
+            # the machine translator's doubt: a marker, the note on hover, outside the reading text
+            text = norm_space("".join(el.itertext()))
+            out.append(f'<span class="tr-note" title="Translator: {esc(text)}">⚑</span>')
         else:
             out.append('<span class="note-inline">')
             self.render_children(el, out)
