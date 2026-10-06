@@ -111,6 +111,11 @@ class MatterRenderer(ChapterRenderer):
             renderings = []
             for rendering in entry['english_renderings']:      # "Beard grass" and "beard grass" are one
                 form = rendering['form'].replace('_', '').strip()
+                # a chapter head gives "German [English]": drop the repeated German headword
+                for head in (entry['resolved_headword'], entry['headword']):
+                    if head and form.casefold().startswith(head.casefold() + ' ') and form.casefold() != head.casefold():
+                        form = form[len(head):].strip()
+                        break
                 if form and form.casefold() not in {r.casefold() for r in renderings}:
                     renderings.append(form)
             if renderings:
