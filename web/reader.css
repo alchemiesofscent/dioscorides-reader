@@ -351,3 +351,15 @@ a.fnref.note-hl { border-radius: 2px; }
   #popover { animation: pop 0.12s ease-out; }
   @keyframes pop { from { opacity: 0; transform: translateY(-3px); } }
 }
+
+/* Printed registers retain their line structure independently of lineation. */
+.sachregister .index-entry, .sachregister .index-line { display: block; }
+.sachregister .index-entry[hidden] { display: none; }
+.sachregister .lb, .errata .lb { display: none; }
+.sachregister .index-entry .lb:not(:first-child) { display: block; }
+.errata .matter-link { display: block; }
+.index-filter { display: block; position: sticky; top: 0; background: var(--bg, #faf8f3); padding: .6rem 0; z-index: 1; }
+.index-filter input { max-width: 100%; padding: .4rem; font: inherit; }
+.index-english { font-size: .9em; color: var(--muted, #666); }
+.pane[data-lang="eng"] .index-english { font-size: 1em; color: inherit; }
+.matter-link { text-underline-offset: .15em; }

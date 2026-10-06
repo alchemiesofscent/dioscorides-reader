@@ -920,7 +920,8 @@ def chapter_entry_page_breaks(root: ET.Element) -> dict[ET.Element, ET.Element]:
     for el in root.iter():
         if el.tag == f"{TEI}pb":
             current_pb = el
-        elif el.tag == f"{TEI}div" and el.get("subtype") == "chapter":
+        elif el.tag == f"{TEI}div" and (el.get("subtype") == "chapter" or
+                                        el.get("type") in {"front_matter", "errata", "index"}):
             if current_pb is not None:
                 entry_pages[el] = current_pb
     return entry_pages
@@ -1022,6 +1023,46 @@ def build_edition(cfg: dict, table: dict, report: Report,
     chunks: list[tuple[Path, dict]] = []
     book_numbers: set[str] = set()
 
+    def add_matter(location: str) -> None:
+        from .matter import MatterRenderer
+        container = root.find(f"{TEI}text/{TEI}{location}")
+        if container is None:
+            return
+        sections = container.findall(f"{TEI}div")
+        if not sections:
+            return
+        matter_renderer = MatterRenderer(
+            renderer_cfg, tei_path, witnesses, report,
+            routes=cfg.get('matter_routes'), index=cfg.get('reader_index'),
+            errata=cfg.get('errata_lines') if cfg['lang'] == 'eng' else None,
+        )
+        chapters = {}
+        chapter_list = []
+        for number, section in enumerate(sections, 1):
+            kind = section.get('type', '')
+            key = 'matter' if kind == 'front_matter' else kind or str(number)
+            if not re.fullmatch(r'[a-zA-Z0-9_-]+', key) or key in chapters:
+                raise ValueError(f'Invalid or duplicate matter route: {location}.{key}')
+            rendered = matter_renderer.render_chapter(section, entry_pages.get(section))
+            label = {'front_matter': 'Preface / Introduction' if cfg['lang'] == 'eng' else 'Vorwort / Einleitung',
+                     'errata': 'Corrections' if cfg['lang'] == 'eng' else 'Verbesserungen',
+                     'index': 'Sachregister'}.get(kind)
+            if not label:
+                head = section.find(f'{TEI}head')
+                label = element_reading_text(head) if head is not None else key
+            rendered['label'] = label
+            chapters[key] = rendered
+            chapter_list.append({'n': key, 'label': label})
+        chunks.append((edition_out_dir / f'book-{location}.json', {
+            'edition': cfg['key'], 'book': location, 'chapters': chapters,
+            'notes': dict(matter_renderer.notes), 'apps': dict(matter_renderer.apps),
+        }))
+        books_manifest.append({'n': location, 'label': 'Front matter' if location == 'front' else 'Back matter',
+                               'chapters': chapter_list})
+
+    if cfg.get('include_matter'):
+        add_matter('front')
+
     for book in stream.findall(f"{TEI}div"):
         if book.get("subtype") != "book":
             report.add(cfg["key"], "structure",
@@ -1062,6 +1103,9 @@ def build_edition(cfg: dict, table: dict, report: Report,
         chunk_path = edition_out_dir / f"book-{book_n}.json"
         chunks.append((chunk_path, chunk))
         books_manifest.append({"n": book_n, "chapters": chapter_list})
+
+    if cfg.get('include_matter'):
+        add_matter('back')
 
     # A chapter's Notes are the notes its own marks cite, in citation order — not the notes
     # printed on its pages: a page's footnotes can belong to the chapter before or after

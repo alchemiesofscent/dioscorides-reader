@@ -116,7 +116,7 @@
       det.className = "book";
       det.open = book.n === state.book;
       const sum = document.createElement("summary");
-      sum.textContent = `Book ${book.n}`;
+      sum.textContent = book.label || `Book ${book.n}`;
       det.appendChild(sum);
       for (const ch of book.chapters) {
         const a = document.createElement("a");
@@ -228,6 +228,7 @@
       html += `<section class="endnotes"><h4>Notes</h4>${sigla}${items ? `<ol>${items}</ol>` : ""}</section>`;
     }
     body.innerHTML = html;
+    configureMatter(body, chapter, route);
     const firstCommentary = body.querySelectorAll(".chapter > .commentary")[0]
       || body.querySelectorAll(".chapter .section > .commentary")[0];
     if (firstCommentary) {
@@ -239,6 +240,49 @@
     body.scrollTop = 0;
     pane.scrollTop = 0;
     pane._chapter = chapter;
+  }
+
+  function matterHref(route, target) {
+    return `#/${route.edL}/${route.edR}/${target.route}`;
+  }
+
+  function configureMatter(body, chapter, route) {
+    for (const link of body.querySelectorAll("a.matter-link")) {
+      const targets = JSON.parse(link.dataset.targets);
+      link.href = matterHref(route, targets[0]);
+      if (targets.length > 1) {
+        link.addEventListener("click", event => {
+          event.preventDefault();
+          event.stopPropagation();
+          const list = document.createElement("div");
+          for (const target of targets) {
+            const item = document.createElement("p");
+            const anchor = document.createElement("a");
+            anchor.href = matterHref(route, target);
+            anchor.textContent = `Chapter ${target.route}`;
+            anchor.title = target.target;
+            item.appendChild(anchor);
+            list.appendChild(item);
+          }
+          showPopover(link, list.innerHTML);
+        });
+      }
+    }
+    if (chapter.kind !== "index") return;
+    const label = document.createElement("label");
+    label.className = "index-filter";
+    label.textContent = "Filter index by headword ";
+    const input = document.createElement("input");
+    input.type = "search";
+    input.placeholder = "Headword or English rendering";
+    label.appendChild(input);
+    body.prepend(label);
+    input.addEventListener("input", () => {
+      const query = input.value.trim().toLocaleLowerCase();
+      for (const entry of body.querySelectorAll(".index-entry")) {
+        entry.hidden = !entry.dataset.headword.toLocaleLowerCase().includes(query);
+      }
+    });
   }
 
   async function render() {

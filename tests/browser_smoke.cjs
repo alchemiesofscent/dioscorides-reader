@@ -138,6 +138,54 @@ async function main() {
     })()`), true);
     const screenshot = await rpc("Page.captureScreenshot", { format: "png" });
     fs.writeFileSync(path.join(output, "reader-mobile.png"), Buffer.from(screenshot.data, "base64"));
+    const hasMatter = await evaluate(`(async () => {
+      const m = await (await fetch('data/manifest.json')).json();
+      return m.editions.berendes1902?.books.some(book => book.n === 'front');
+    })()`);
+    if (hasMatter) {
+      await rpc("Emulation.setDeviceMetricsOverride", { width: 1280, height: 850, deviceScaleFactor: 1, mobile: false });
+      await navigate("/reader.html#/berendes1902/berendes1902-eng/front.matter");
+      await waitFor("document.querySelectorAll('.pane-body .chapter').length === 2");
+      assert.match(await evaluate("document.querySelector('#paneL .pane-body').textContent"), /Vorwort/);
+      assert.match(await evaluate("document.querySelector('#paneR .pane-body').textContent"), /PREFACE|Preface/);
+      assert.equal(await evaluate("document.querySelectorAll('#paneL .fnref').length"), 2);
+      await evaluate("document.querySelector('#paneR .fnref').click()");
+      await waitFor("!document.querySelector('#popover').hidden");
+      await evaluate("document.querySelector('#paneL .pb').click()");
+      assert.equal(await evaluate("document.querySelector('#facs').hidden"), false);
+      await evaluate("document.querySelector('#toggleFacs').click()");
+      const frontShot = await rpc("Page.captureScreenshot", { format: "png" });
+      fs.writeFileSync(path.join(output, "berendes-front.png"), Buffer.from(frontShot.data, "base64"));
+      await navigate("/reader.html#/berendes1902/berendes1902-eng/back.errata");
+      await waitFor("document.querySelectorAll('.errata .matter-link').length === 10");
+      assert.match(await evaluate("document.querySelector('#paneR .errata').textContent"), /read beard grass/);
+      assert.match(await evaluate("document.querySelector('#paneR .matter-link').hash"), /berendes1902\/berendes1902-eng\/1\.48$/);
+      await evaluate("document.querySelector('#paneR .matter-link').click()");
+      await waitFor("document.querySelector('#where').textContent === '1.48' && document.querySelectorAll('.pane-body .chapter').length === 2");
+      await navigate("/reader.html#/berendes1902-eng/berendes1902/back.index");
+      await waitFor("document.querySelectorAll('.index-entry').length === 4422");
+      assert.match(await evaluate("document.querySelector('#paneL .sachregister').textContent"), /beard grass/);
+      await evaluate(`(() => {
+        const input = document.querySelector('#paneL .index-filter input');
+        input.value = 'beard grass'; input.dispatchEvent(new Event('input'));
+      })()`);
+      const filtered = await evaluate("[...document.querySelectorAll('#paneL .index-entry')].filter(e => !e.hidden).length");
+      assert.ok(filtered > 0 && filtered < 2211);
+      assert.equal(await evaluate("document.querySelectorAll('#paneR .index-entry[hidden]').length"), 0);
+      await evaluate("document.querySelector('#paneL .index-entry:not([hidden]) .matter-link').click()");
+      await waitFor("!document.querySelector('#popover').hidden || !location.hash.endsWith('back.index')");
+      if (await evaluate("!document.querySelector('#popover').hidden")) {
+        assert.ok(await evaluate("document.querySelectorAll('#popover a').length > 1"));
+        await evaluate("document.querySelector('#popover a').click()");
+      }
+      await waitFor("!location.hash.endsWith('back.index') && document.querySelectorAll('.pane-body .chapter').length === 2");
+      assert.match(await evaluate("location.hash"), /^#\/berendes1902-eng\/berendes1902\/[1-5]\./);
+      await navigate("/reader.html#/berendes1902-eng/-/back.index");
+      await waitFor("document.querySelectorAll('.index-entry').length === 2211");
+      assert.equal(await evaluate("document.querySelector('#paneR').classList.contains('hidden')"), true);
+      const indexShot = await rpc("Page.captureScreenshot", { format: "png" });
+      fs.writeFileSync(path.join(output, "berendes-index.png"), Buffer.from(indexShot.data, "base64"));
+    }
     await navigate("/diplomatic.html?chapter=3.122#/sprengel1829/0499");
     await waitFor("document.querySelectorAll('.stream-block').length === 2");
     assert.equal(await evaluate("document.querySelector('#line-0499-G03').dataset.chapter"), "3.122");
@@ -150,7 +198,7 @@ async function main() {
     assert.deepEqual(exceptions, []);
     const result = { passed: true, checks: ["parallel routes", "source-bound credits", "credits keyboard and link access", "credits mobile layout", "apparatus popover", "draft label", "footnote popover",
       "lineation", "chapter-page bridge", "390px layout", "physical line identity", "stream switching",
-      "reading with unavailable remote facsimiles"], javascript_exceptions: exceptions };
+      "reading with unavailable remote facsimiles"], javascript_exceptions: exceptions, matter_checked: hasMatter };
     fs.writeFileSync(path.join(output, "browser-smoke.json"), JSON.stringify(result, null, 2) + "\n");
     console.log(JSON.stringify(result));
   } finally {

@@ -9,7 +9,7 @@ import subprocess
 import tarfile
 from pathlib import Path
 
-from . import diplomatic, render, xml_utils
+from . import diplomatic, render, xml_utils, matter
 from .bundle import Bundle, relative_path
 
 MARKER = ".dioscorides-reader-output"
@@ -76,11 +76,30 @@ def compile_bundle(bundle_path: Path, output: Path, lock: Path | None = None,
         report = render.Report()
         configs = {entry["key"]: entry for entry in render.EDITIONS}
         editions = {}
+        matter_config = {}
+        if any(item['id'].startswith('berendes1902') for item in selections):
+            german = next(item for item in bundle.manifest['editions'] if item['id'] == 'berendes1902')
+            german_root = xml_utils.parse_tei(bundle.path(german['tei_path']))
+            german_stream = render.find_stream(german_root, configs['berendes1902'], report)
+            matter_config = {'matter_routes': matter.target_routes(german_stream),
+                             'errata_lines': matter.errata_lines(german_root)}
+            for auxiliary in german.get('auxiliary', []):
+                if auxiliary['id'] != 'sachregister':
+                    continue
+                path = auxiliary['path']
+                if bundle.files.get(path, {}).get('sha256') != auxiliary['sha256']:
+                    raise ValueError('Sachregister auxiliary digest differs from manifest files')
+                index = bundle.read_json(path)
+                if auxiliary['schema'] != 'berendes-reader-index/1' or index.get('schema') != auxiliary['schema']:
+                    raise ValueError('Unsupported Sachregister auxiliary schema')
+                matter_config['reader_index'] = index
         for selection in selections:
             key = selection["id"]
             if key not in configs:
                 raise ValueError(f"No reader adapter for exported stream: {key}")
             config = {**configs[key], "tei_path": selection["tei_path"]}
+            if key.startswith('berendes1902'):
+                config.update(matter_config, include_matter=True)
             edition = render.build_edition(config, table, report, data)
             if not edition or not edition["books"] or any(not book["chapters"] for book in edition["books"]):
                 raise ValueError(f"Selected edition did not produce complete readable books: {key}")

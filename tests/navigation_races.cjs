@@ -243,3 +243,90 @@ for (const failure of [false, true]) {
     assert.equal(context.finishes.length, 1);
   });
 }
+
+test("matter links keep either language and the active pairing", () => {
+  const { api } = harness("reader.js", `globalThis.harness = { configureMatter };`);
+  const targets = [{route: "1.48", target: "berendes-erratum-target-1"}];
+  const link = {dataset: {targets: JSON.stringify(targets)}};
+  const body = {querySelectorAll: () => [link]};
+  for (const [edL, edR] of [["berendes1902", "berendes1902-eng"], ["berendes1902-eng", "berendes1902"], ["berendes1902-eng", "-"]]) {
+    api.configureMatter(body, {}, {edL, edR});
+    assert.equal(link.href, `#/${edL}/${edR}/1.48`);
+  }
+});
+
+test("index filter searches printed and expanded headwords and English, in its own pane", () => {
+  const entries = [
+    {dataset: {headword: "Bartgras Bartgras beard grass"}},
+    {dataset: {headword: "— öl Mandelöl almond oil"}},
+    {dataset: {headword: "ἀβρότονον ἀβρότονον"}},
+  ];
+  let label;
+  const body = {
+    querySelectorAll(selector) { return selector === "a.matter-link" ? [] : entries; },
+    prepend(value) { label = value; },
+  };
+  // Only the input needs event behavior in this minimal DOM harness.
+  let listener;
+  const h = harness("reader.js", `globalThis.harness = { configureMatter };`);
+  h.context.document.createElement = () => {
+    const el = node();
+    el.addEventListener = (event, fn) => { listener = fn; };
+    return el;
+  };
+  h.api.configureMatter(body, {kind: "index"}, {edL: "berendes1902-eng", edR: "-"});
+  const input = label.children[0];
+  input.value = " BEARD GRASS "; listener();
+  assert.deepEqual(entries.map(e => e.hidden), [false, true, true]);
+  input.value = "Mandelöl"; listener();
+  assert.deepEqual(entries.map(e => e.hidden), [true, false, true]);
+  input.value = "ἀβρότονον"; listener();
+  assert.deepEqual(entries.map(e => e.hidden), [true, true, false]);
+  input.value = ""; listener();
+  assert.deepEqual(entries.map(e => e.hidden), [false, false, false]);
+});
+
+test("front and back section routes round trip through the existing URL parser", () => {
+  const { context, api } = harness("reader.js", `
+    manifest = {editions: {berendes1902: {}, "berendes1902-eng": {}}};
+    globalThis.harness = { parseHash };
+  `);
+  for (const section of ["front.matter", "back.errata", "back.index"]) {
+    context.location = {hash: `#/berendes1902-eng/berendes1902/${section}`};
+    const route = api.parseHash();
+    assert.equal(route.edL, "berendes1902-eng");
+    assert.equal(route.edR, "berendes1902");
+    assert.equal(`${route.book}.${route.ch}`, section);
+  }
+});
+
+test("a page resolved to multiple chapters offers every target in the active pairing", () => {
+  const h = harness("reader.js", `
+    let menu = "";
+    showPopover = (_link, html) => { menu = html; };
+    globalThis.harness = { configureMatter, menu: () => menu };
+  `);
+  h.context.document.createElement = () => {
+    const el = node();
+    Object.defineProperty(el, "innerHTML", {get() {
+      return this.href || this.children.map(child => child.innerHTML).join("\n");
+    }});
+    return el;
+  };
+  let click;
+  const link = {
+    dataset: {targets: JSON.stringify([
+      {route: "4.23", target: "berendes-ch-4.23"},
+      {route: "4.24", target: "berendes-ch-4.24"},
+    ])},
+    addEventListener: (_event, fn) => { click = fn; },
+  };
+  h.api.configureMatter({querySelectorAll: () => [link]}, {},
+    {edL: "berendes1902-eng", edR: "berendes1902"});
+  let prevented = false;
+  let stopped = false;
+  click({preventDefault() { prevented = true; }, stopPropagation() { stopped = true; }});
+  assert.equal(stopped, true, "the document click handler must not close the target menu");
+  assert.equal(prevented, true);
+  assert.equal(h.api.menu(), "#/berendes1902-eng/berendes1902/4.23\n#/berendes1902-eng/berendes1902/4.24");
+});
