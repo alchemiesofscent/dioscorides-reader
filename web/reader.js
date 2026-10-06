@@ -282,6 +282,14 @@
       for (const entry of body.querySelectorAll(".index-entry")) {
         entry.hidden = !entry.dataset.headword.toLocaleLowerCase().includes(query);
       }
+      // while filtering, hide register/letter headings, page markers and paragraphs left without a match
+      const register = typeof body.querySelector === "function" ? body.querySelector(".sachregister") : null;
+      const container = register && (register.querySelector(".chapter") || register);
+      if (container) {
+        for (const block of container.children) {
+          block.hidden = Boolean(query) && !block.querySelector(".index-entry:not([hidden])");
+        }
+      }
     });
   }
 
