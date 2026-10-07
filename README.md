@@ -52,6 +52,41 @@ The workflow needs two repository settings: Pages with source "GitHub Actions", 
 secret `CORPUS_TOKEN`, a fine-grained token with read-only Contents access to
 `alchemiesofscent/edition-workbench` so it can download the private corpus release.
 
+## Phones and small screens
+
+Up to 900px wide the reader switches to a compact layout. The routes, the data and the
+text are the same; only the arrangement changes.
+
+- **One edition at a time.** The **1/2** button in the bottom bar swaps between the left
+  (primary) and right (comparison) edition of the current route; the menu has the same choice
+  as **Primary edition** / **Comparison edition**.
+- **Bottom bar.** ☰ opens the menu; ← and → step chapters; the chapter number opens the
+  contents; **Facsimile** lays the page image over the text, and the arrows then turn its
+  pages instead.
+- **Menu.** Both edition pickers, Pages (Sprengel page view), Lineation, Page furniture and
+  Reading settings.
+- **Contents.** A drawer with a filter for chapter numbers and titles (accents ignored).
+- **Notes and apparatus** open as a sheet above the bottom bar.
+
+**Reading settings** (text size, night theme) exist at every width. They and the last
+position (route and scroll) are saved in the browser's local storage on that device only,
+under `dioscorides-mobile-v1`; nothing is sent anywhere. Without a chosen size, the text is
+16px on desktop and 21px in the compact layout. The panel also shows the reader version and
+the corpus bundle the site was built from, which is what to quote when reporting a problem.
+
+`web/mobile.css` holds the compact layout and the desktop arrangement of the shared top-bar
+markup; `web/mobile.js` runs before `web/reader.js` and handles preferences, drawers and the
+edition toggle. The browser smoke runner checks the compact shell at 390px.
+
+## Versions
+
+The reader is versioned in `pyproject.toml` and `src/dioscorides_reader/__init__.py`
+(`0.2.0-alpha`, read by Python as `0.2.0a0`), tagged `v<version>` on `main`, and described
+in `CHANGELOG.md`. Builds write the version to `data/manifest.json` as `reader_version`, and
+the web assets are requested with `?v=<version>` so a new release is not hidden by a cached
+script or stylesheet. Change all of these together. A new corpus pin is not a reader
+version: the bundle identifier is shown beside the version instead.
+
 ## Corpus interface
 
 `manifest.json` declares `dioscorides-corpus-export/1`, the production commit, the selected

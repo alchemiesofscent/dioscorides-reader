@@ -9,7 +9,7 @@ import subprocess
 import tarfile
 from pathlib import Path
 
-from . import diplomatic, render, xml_utils, matter
+from . import __version__, diplomatic, render, xml_utils, matter
 from .bundle import Bundle, relative_path
 
 MARKER = ".dioscorides-reader-output"
@@ -116,7 +116,8 @@ def compile_bundle(bundle_path: Path, output: Path, lock: Path | None = None,
         }]
         if fatal:
             raise ValueError(f"Reader build has unresolved structural references: {fatal[:5]}")
-        manifest = {"schema": "dioscorides-reader-data/1", "bundle_id": bundle.manifest["bundle_id"],
+        manifest = {"schema": "dioscorides-reader-data/1", "reader_version": __version__,
+                    "bundle_id": bundle.manifest["bundle_id"],
                     "producer_commit": bundle.manifest["producer_commit"], "editions": editions,
                     "pairing": "provisional chapter-key pairing"}
         (data / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=1) + "\n",

@@ -9,6 +9,7 @@ from pathlib import Path
 
 import pytest
 
+from dioscorides_reader import __version__
 from dioscorides_reader.bundle import Bundle, manifest_id, sha256
 from dioscorides_reader.compiler import compile_bundle, fetch_bundle, unpack_archive
 
@@ -69,6 +70,8 @@ def test_isolated_build_preserves_routes_notes_and_apparatus(tmp_path):
     output = tmp_path / "dist"
     result = compile_bundle(bundle, output)
     assert result["editions"]["beck2020"]["status"] == "review_pending"
+    assert result["reader_version"] == __version__
+    assert (output / "mobile.js").is_file() and (output / "mobile.css").is_file()
     assert result["editions"]["beck2020"]["books"][0]["chapters"][0]["n"] == "1"
     book = json.loads((output / "data/beck2020/book-1.json").read_text())
     html = book["chapters"]["1"]["html"]

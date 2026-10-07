@@ -1,3 +1,7 @@
+/* Reading preferences and the compact (≤900px) reader shell. Runs before
+   reader.js; reader.js calls window.dioscoridesReaderRendered after each
+   render. Drawers (menu, contents) exist only in the compact layout; on wider
+   screens the contents rail and the facing panes behave as before. */
 (function () {
   'use strict';
   const toolbar = document.querySelector('.reader-toolbar');
@@ -13,19 +17,26 @@
   const paneL = document.querySelector('#paneL');
   const paneR = document.querySelector('#paneR');
   const mobile = window.matchMedia('(max-width: 900px)');
+  const compact = () => mobile.matches;
   if (!location.hash && /^#\/[^/]+\/[^/]+\/[^.]+\..+$/.test(saved.route || '')) {
     history.replaceState(null, '', saved.route);
   }
-  size.value = Math.min(30, Math.max(16, Number(saved.size) || 21));
   theme.value = saved.theme === 'night' ? 'night' : 'paper';
+  // Without a chosen size the layout default applies (16px wide, 21px compact).
+  function showSize() {
+    const chosen = Number(saved.size);
+    if (chosen) document.documentElement.style.setProperty('--reader-size', Math.min(30, Math.max(14, chosen)) + 'px');
+    else document.documentElement.style.removeProperty('--reader-size');
+    size.value = chosen || (compact() ? 21 : 16);
+  }
   function preferences() {
-    document.documentElement.style.setProperty('--reader-size', size.value + 'px');
     document.body.classList.toggle('night', theme.value === 'night');
-    saved.size = Number(size.value); saved.theme = theme.value; persist();
+    saved.theme = theme.value; persist();
   }
   function persist() { try { localStorage.setItem(key, JSON.stringify(saved)); } catch (_) {} }
-  preferences();
-  size.addEventListener('input', preferences); theme.addEventListener('change', preferences);
+  showSize(); preferences();
+  size.addEventListener('input', () => { saved.size = Number(size.value); showSize(); persist(); });
+  theme.addEventListener('change', preferences);
   document.querySelector('#toggleSettings').addEventListener('click', e => {
     const settings = document.querySelector('#readerSettings');
     settings.hidden = !settings.hidden;
@@ -35,7 +46,7 @@
   const menuButton = document.querySelector('#toggleMenu');
   const backdrop = document.querySelector('#drawerBackdrop');
   function syncDrawers() {
-    const open = !menu.hidden || !toc.classList.contains('hidden');
+    const open = compact() && (!menu.hidden || !toc.classList.contains('hidden'));
     backdrop.hidden = !open;
     document.querySelector('#where').setAttribute('aria-expanded', String(!toc.classList.contains('hidden')));
     document.querySelector('.frame .panes').inert = open;
@@ -58,6 +69,7 @@
   document.querySelector('#toggleToc').addEventListener('click', closeMenu);
   document.querySelector('#where').addEventListener('click', () => document.querySelector('#toggleToc').click());
   document.addEventListener('keydown', e => {
+    if (!compact()) return;
     const panel = !menu.hidden ? menu : !toc.classList.contains('hidden') ? toc : null;
     if (e.key !== 'Tab' || !panel) return;
     const items = [...panel.querySelectorAll('button,select,input,a,summary')].filter(el => el.getClientRects().length && !el.disabled);
@@ -72,7 +84,21 @@
     button.classList.remove('active'); button.setAttribute('aria-expanded', 'false');
     syncDrawers();
   }
-  contentsClosed();
+  function contentsOpened() {
+    toc.classList.remove('hidden');
+    const button = document.querySelector('#toggleToc');
+    button.classList.add('active'); button.setAttribute('aria-expanded', 'true');
+    syncDrawers();
+  }
+  if (compact()) contentsClosed();
+  // Crossing the breakpoint: drawers close on the way down, the rail returns on the way up.
+  mobile.addEventListener('change', () => {
+    menu.hidden = true; menuButton.setAttribute('aria-expanded', 'false');
+    if (compact()) contentsClosed(); else contentsOpened();
+    document.querySelector('#readerSettings').hidden = true;
+    document.querySelector('#toggleSettings').setAttribute('aria-expanded', 'false');
+    showSize();
+  });
   const comparisonToggle = document.querySelector('#toggleComparison');
   comparisonToggle.addEventListener('click', () => selectSide(!document.body.classList.contains('mobile-comparison')));
   function selectSide(comparison) {
@@ -96,9 +122,15 @@
     // Core reader's handler runs after this listener.
     queueMicrotask(() => document.querySelector('#toggleToc').setAttribute('aria-expanded', String(!toc.classList.contains('hidden'))));
   });
-  toc.addEventListener('click', e => { if (e.target.closest('a')) contentsClosed(); });
+  toc.addEventListener('click', e => { if (compact() && e.target.closest('a')) contentsClosed(); });
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') { contentsClosed(); closeMenu(); }
+    if (e.key !== 'Escape') return;
+    const settings = document.querySelector('#readerSettings');
+    if (!settings.hidden && !compact()) {
+      settings.hidden = true;
+      document.querySelector('#toggleSettings').setAttribute('aria-expanded', 'false');
+    }
+    if (compact()) { contentsClosed(); closeMenu(); }
   });
   window.dioscoridesReaderRendered = () => {
     const sameRoute = saved.route === location.hash;
@@ -110,7 +142,7 @@
     const comparison = document.querySelector('#pickR').value !== '-';
     document.querySelector('#showComparison').disabled = !comparison;
     selectSide(document.body.classList.contains('mobile-comparison') && comparison);
-    if (mobile.matches && toc.classList.contains('hidden')) document.querySelector('#toggleToc').classList.remove('active');
+    if (compact() && toc.classList.contains('hidden')) document.querySelector('#toggleToc').classList.remove('active');
     const search = document.createElement('div'); search.className = 'contents-search';
     const input = document.createElement('input'); input.type = 'search'; input.placeholder = 'Find a chapter…'; input.setAttribute('aria-label', 'Filter chapter titles or numbers');
     search.append(input); toc.prepend(search);

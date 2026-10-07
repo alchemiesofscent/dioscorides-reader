@@ -36,7 +36,7 @@ function harness(filename, hook) {
       },
       createElement() { return node(); },
     },
-    window: { setTimeout, clearTimeout }, URL,
+    window: { setTimeout, clearTimeout, matchMedia: () => ({ matches: false, addEventListener() {} }) }, URL,
     finishes: [],
   });
   const source = fs.readFileSync(path.join(__dirname, "../web", filename), "utf8");

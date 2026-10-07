@@ -4,35 +4,45 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dioscorides — parallel reader</title>
-<link rel="stylesheet" href="reader.css?v=20260905-sprengel-linebreak">
+<link rel="stylesheet" href="reader.css?v=0.2.0-alpha">
+<meta name="theme-color" content="#faf8f2">
+<link rel="stylesheet" href="mobile.css?v=0.2.0-alpha">
 </head>
 <body>
+<a class="skip-reader" href="#paneL">Skip to text</a>
 
 <header class="topbar">
-  <div class="brand">Dioscorides<span class="sub">De materia medica — parallel reader</span></div>
+  <div class="brand">Dioscorides<span class="sub">De materia medica</span></div>
+  <button class="btn" id="toggleToc" aria-expanded="true" aria-controls="toc" title="Show or hide the table of contents">Contents</button>
+</header>
+<button id="drawerBackdrop" aria-label="Close open menu" hidden></button>
+<section id="readerMenu" hidden role="dialog" aria-modal="true" aria-labelledby="menuTitle">
+  <div class="drawer-heading"><strong id="menuTitle">Reader menu</strong><button class="btn" id="closeMenu" aria-label="Close reader menu">×</button></div>
   <div class="pickers">
     <select id="pickL" aria-label="Left edition"></select>
     <span class="vs">⇄</span>
     <select id="pickR" aria-label="Right edition"></select>
   </div>
-  <nav class="chnav" aria-label="Chapter navigation">
-    <button class="btn" id="prev" title="Previous chapter (←)">‹</button>
-    <span class="where" id="where">–</span>
-    <button class="btn" id="next" title="Next chapter (→)">›</button>
-  </nav>
+  <button class="btn" id="toggleSettings" aria-expanded="false" aria-controls="readerSettings">Reading settings</button>
   <div class="tools">
     <a class="btn tool-link" id="pageView" href="diplomatic.html#/sprengel1829/0033" hidden>Pages</a>
-    <button class="btn" id="toggleToc" title="Show or hide the table of contents">Contents</button>
     <button class="btn" id="toggleLineation" type="button" aria-pressed="false" title="Show original printed line breaks, line numbers, and line-end hyphens">Lineation</button>
     <button class="btn" id="toggleFw" title="Show running heads, page numbers and line-end hyphens">Page furniture</button>
-    <button class="btn" id="toggleFacs" title="Show or hide the facsimile pane">Facsimile</button>
   </div>
-</header>
 
+
+<section id="readerSettings" hidden aria-label="Reading settings">
+<label>Text size <input id="textSize" type="range" min="14" max="30" value="21"></label>
+<label>Theme <select id="readerTheme"><option value="paper">Paper</option><option value="night">Night</option></select></label>
+<p>Your reading position and settings are saved on this device.</p>
+<p class="reader-version" id="readerVersion"></p>
+</section>
+<nav class="edition-tabs" aria-label="Visible edition"><button class="btn active" id="showPrimary" aria-pressed="true">Primary edition</button><button class="btn" id="showComparison" aria-pressed="false">Comparison edition</button></nav>
+</section>
 <div class="frame">
   <aside id="toc" aria-label="Table of contents"></aside>
   <main class="panes">
-    <article class="pane" id="paneL" data-side="L">
+    <article class="pane" id="paneL" tabindex="-1" data-side="L">
       <div class="pane-head"></div>
       <details class="edition-credits">
         <summary>Source and credits</summary>
@@ -55,9 +65,22 @@
   </aside>
 </div>
 
+<nav class="reader-toolbar" aria-label="Reader navigation">
+  <div class="reader-view-tools">
+  <button class="btn" id="toggleMenu" aria-label="Open reader menu" aria-expanded="false" aria-controls="readerMenu">☰</button>
+    <button class="btn" id="toggleComparison" aria-label="Show comparison text" title="Show comparison text" aria-pressed="false">1</button>
+  </div>
+  <div class="chnav" id="textNavigation">
+    <button class="btn square" id="prev" aria-label="Previous chapter" title="Previous chapter (←)">←</button>
+    <button class="btn where" id="where" aria-label="Open contents for current book and chapter" aria-expanded="false" aria-controls="toc">–</button>
+    <button class="btn square" id="next" aria-label="Next chapter" title="Next chapter (→)">→</button>
+  </div>
+  <button class="btn" id="toggleFacs" aria-label="Toggle facsimile" aria-pressed="false" aria-controls="facs" title="Show or hide the facsimile">Facsimile</button>
+</nav>
 <div id="popover" hidden role="dialog" aria-label="Note"></div>
 
 <script src="vendor/openseadragon/openseadragon.min.js"></script>
-<script src="reader.js"></script>
+<script src="mobile.js?v=0.2.0-alpha"></script>
+<script src="reader.js?v=0.2.0-alpha"></script>
 </body>
 </html>

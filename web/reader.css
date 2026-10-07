@@ -330,21 +330,9 @@ a.fnref.note-hl { border-radius: 2px; }
   font: 14px var(--ui); cursor: pointer; margin-left: 8px;
 }
 
-/* ---------- small screens ---------- */
+/* ---------- small screens: layout is in mobile.css ---------- */
 @media (max-width: 900px) {
-  .panes { flex-direction: column; }
-  .pane + .pane { border-left: 0; border-top: 1px solid var(--rule); box-shadow: none; }
-  #toc { position: absolute; z-index: 20; height: 100%; }
-  #facs { min-width: 260px; }
   body.show-lineation .pane-body { --lineation-gutter: 3.25rem; }
-}
-
-@media (max-width: 600px) {
-  .topbar { gap: 8px 10px; padding-inline: 10px; }
-  .brand { width: 100%; white-space: normal; }
-  .pickers { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); width: 100%; min-width: 0; }
-  .pickers select { width: 100%; min-width: 0; max-width: none; }
-  .tools { margin-left: 0; flex-wrap: wrap; }
 }
 
 @media (prefers-reduced-motion: no-preference) {

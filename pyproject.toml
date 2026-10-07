@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "dioscorides-reader"
-version = "0.1.0"
+version = "0.2.0-alpha"
 description = "Static parallel reading of immutable Dioscorides editions"
 requires-python = ">=3.12"
 dependencies = ["lxml>=5,<7"]
@@ -23,7 +23,7 @@ pythonpath = ["src"]
 testpaths = ["tests"]
 
 [tool.setuptools.data-files]
-"share/dioscorides-reader/web" = ["web/diplomatic.css", "web/diplomatic.html", "web/diplomatic.js", "web/reader.css", "web/reader.html", "web/reader.js"]
+"share/dioscorides-reader/web" = ["web/diplomatic.css", "web/diplomatic.html", "web/diplomatic.js", "web/mobile.css", "web/mobile.js", "web/reader.css", "web/reader.html", "web/reader.js"]
 "share/dioscorides-reader/web/vendor" = ["web/vendor/README.md"]
 "share/dioscorides-reader/web/vendor/openseadragon" = ["web/vendor/openseadragon/LICENSE.txt", "web/vendor/openseadragon/openseadragon.min.js"]
 "share/dioscorides-reader/web/vendor/openseadragon/images" = ["web/vendor/openseadragon/images/button_grouphover.png", "web/vendor/openseadragon/images/button_hover.png", "web/vendor/openseadragon/images/button_pressed.png", "web/vendor/openseadragon/images/button_rest.png", "web/vendor/openseadragon/images/flip_grouphover.png", "web/vendor/openseadragon/images/flip_hover.png", "web/vendor/openseadragon/images/flip_pressed.png", "web/vendor/openseadragon/images/flip_rest.png", "web/vendor/openseadragon/images/fullpage_grouphover.png", "web/vendor/openseadragon/images/fullpage_hover.png", "web/vendor/openseadragon/images/fullpage_pressed.png", "web/vendor/openseadragon/images/fullpage_rest.png", "web/vendor/openseadragon/images/home_grouphover.png", "web/vendor/openseadragon/images/home_hover.png", "web/vendor/openseadragon/images/home_pressed.png", "web/vendor/openseadragon/images/home_rest.png", "web/vendor/openseadragon/images/next_grouphover.png", "web/vendor/openseadragon/images/next_hover.png", "web/vendor/openseadragon/images/next_pressed.png", "web/vendor/openseadragon/images/next_rest.png", "web/vendor/openseadragon/images/previous_grouphover.png", "web/vendor/openseadragon/images/previous_hover.png", "web/vendor/openseadragon/images/previous_pressed.png", "web/vendor/openseadragon/images/previous_rest.png", "web/vendor/openseadragon/images/rotateleft_grouphover.png", "web/vendor/openseadragon/images/rotateleft_hover.png", "web/vendor/openseadragon/images/rotateleft_pressed.png", "web/vendor/openseadragon/images/rotateleft_rest.png", "web/vendor/openseadragon/images/rotateright_grouphover.png", "web/vendor/openseadragon/images/rotateright_hover.png", "web/vendor/openseadragon/images/rotateright_pressed.png", "web/vendor/openseadragon/images/rotateright_rest.png", "web/vendor/openseadragon/images/zoomin_grouphover.png", "web/vendor/openseadragon/images/zoomin_hover.png", "web/vendor/openseadragon/images/zoomin_pressed.png", "web/vendor/openseadragon/images/zoomin_rest.png", "web/vendor/openseadragon/images/zoomout_grouphover.png", "web/vendor/openseadragon/images/zoomout_hover.png", "web/vendor/openseadragon/images/zoomout_pressed.png", "web/vendor/openseadragon/images/zoomout_rest.png"]

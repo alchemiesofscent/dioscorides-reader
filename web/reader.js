@@ -14,6 +14,9 @@
   const chunkCache = new Map(); // "edition/book" -> Promise<chunk>
 
   const $ = (sel) => document.querySelector(sel);
+  // The compact layout (mobile.css) shows one pane and lays the facsimile over it.
+  const compact = window.matchMedia("(max-width: 900px)");
+  const facsCoversText = () => compact.matches && !$("#facs").hidden;
   const paneL = $("#paneL"), paneR = $("#paneR");
   const pickL = $("#pickL"), pickR = $("#pickR");
   const toc = $("#toc"), popover = $("#popover");
@@ -24,6 +27,10 @@
     const res = await fetch(`${DATA}/manifest.json`);
     if (!res.ok) throw new Error(`manifest.json: HTTP ${res.status}`);
     manifest = await res.json();
+    const version = $("#readerVersion");
+    if (version && manifest.reader_version) {
+      version.textContent = `Reader ${manifest.reader_version} · corpus ${manifest.bundle_id.slice(0, 12)}`;
+    }
   }
 
   function loadChunk(edition, book) {
@@ -303,13 +310,22 @@
     buildToc();
     await Promise.all([renderPane(paneL, route.edL, route, generation), renderPane(paneR, route.edR, route, generation)]);
     if (generation !== renderGeneration) return;
+    const facsChunk = await loadChunk(route.edL, route.book);
+    if (generation !== renderGeneration) return;
+    const seenPages = new Set();
+    facsPages = Object.values(facsChunk.chapters).flatMap(c => c.pages || []).filter(page => {
+      const key = `${page.n}/${JSON.stringify(page.facs || {})}`;
+      if (seenPages.has(key)) return false;
+      seenPages.add(key); return true;
+    });
+    facsIndex = -1;
+    syncFacsNavigation();
+    window.dioscoridesReaderRendered?.();
     updateDiplomaticLink();
-    const { flat, i } = currentIndex();
-    $("#prev").disabled = i <= 0;
-    $("#next").disabled = i < 0 || i >= flat.length - 1;
+    syncFacsNavigation();
     if (!$("#facs").hidden && paneL._chapter && paneL._chapter.pages.length) {
       openFacs(paneL._chapter.pages[0], route.edL);
-    }
+    } else if (!$("#facs").hidden) setFacsVisible(true);
   }
 
   function facsimileLeaf(page) {
@@ -342,7 +358,9 @@
 
   // ---------- popover ----------
 
+  let noteTrigger = null;
   function showPopover(target, html) {
+    noteTrigger = target;
     popover.innerHTML = `<button class="pop-close" aria-label="Close">×</button>${html}`;
     popover.hidden = false;
     const rect = target.getBoundingClientRect();
@@ -356,10 +374,13 @@
       popover.style.top = `${Math.max(8, rect.top - ph - 6)}px`;
     }
     popover.querySelector(".pop-close").addEventListener("click", hidePopover);
+    popover.querySelector(".pop-close").focus({ preventScroll: true });
   }
 
-  function hidePopover() {
+  function hidePopover(restoreFocus = true) {
+    const open = !popover.hidden;
     popover.hidden = true;
+    if (restoreFocus && open && noteTrigger && noteTrigger.isConnected) noteTrigger.focus({ preventScroll: true });
   }
 
   function highlightNote(pane, elements) {
@@ -426,6 +447,14 @@
       id: "osd",
       prefixUrl: "vendor/openseadragon/images/",
       showNavigator: false,
+      showNavigationControl: false,
+      gestureSettingsTouch: {
+        clickToZoom: false,
+        dblClickToZoom: true,
+        dblClickDragToZoom: true,
+        pinchToZoom: true,
+        dragToPan: true,
+      },
       maxZoomPixelRatio: 2.5,
       crossOriginPolicy: false,
     });
@@ -452,8 +481,48 @@
     else viewer.open({ type: "image", url: facs.url });
   }
 
+  let facsPages = [];
+  let facsIndex = -1;
+  function syncFacsNavigation() {
+    const imageMode = facsCoversText();
+    const { flat, i } = currentIndex();
+    const index = imageMode ? facsIndex : i;
+    const count = imageMode ? facsPages.length : flat.length;
+    $("#prev").disabled = index <= 0;
+    $("#next").disabled = index < 0 || index >= count - 1;
+    for (const [id, direction] of [["prev", "Previous"], ["next", "Next"]]) {
+      const label = `${direction} ${imageMode ? "facsimile page" : "chapter"}`;
+      $("#" + id).setAttribute("aria-label", label);
+      $("#" + id).title = label;
+    }
+  }
+  function navigate(delta) {
+    if (!facsCoversText()) step(delta);
+    else {
+      const page = facsPages[facsIndex + delta];
+      if (page) openFacs(page, state.edL);
+    }
+  }
+
+  function setFacsVisible(visible) {
+    $("#facs").hidden = !visible;
+    $("#toggleFacs").classList.toggle("active", visible);
+    $("#toggleFacs").setAttribute("aria-pressed", String(visible));
+    if (visible && paneL._chapter?.pages.length) openFacs(paneL._chapter.pages[0], state.edL);
+    else if (visible) {
+      osd?.close();
+      $("#facsLabel").textContent = "No facsimile is recorded for this chapter.";
+      $("#facsDirect").hidden = true;
+      facsIndex = -1;
+    }
+    syncFacsNavigation();
+  }
   function openFacs(page, edition) {
+    facsIndex = facsPages.findIndex(p => p.n === page.n);
+    syncFacsNavigation();
     if (!page.facs) {
+      if (osd) osd.close();
+      currentFacs = null;
       $("#facsLabel").textContent = `p. ${page.n} — no facsimile for this page.`;
       $("#facsDirect").hidden = true;
       return;
@@ -473,10 +542,19 @@
 
   function handleKeydown(event) {
     if (event.target.closest(".edition-credits")) return;
+    if (event.key === "Escape") hidePopover();
+    if (!popover.hidden) return;
+    // In the compact layout an open drawer keeps the arrows for itself.
+    if (compact.matches && (!toc.classList.contains("hidden") || $("#readerMenu")?.hidden === false)) return;
     if (event.target.matches("input, select, textarea")) return;
+    if (facsCoversText() && ["ArrowLeft", "ArrowRight"].includes(event.key)) {
+      event.preventDefault();
+      const page = facsPages[facsIndex + (event.key === "ArrowLeft" ? -1 : 1)];
+      if (page) openFacs(page, state.edL);
+      return;
+    }
     if (event.key === "ArrowLeft") step(-1);
     if (event.key === "ArrowRight") step(1);
-    if (event.key === "Escape") hidePopover();
   }
 
   function bind() {
@@ -500,9 +578,11 @@
       state.edR = pickR.value;
       writeHash();
     });
-    $("#prev").addEventListener("click", () => step(-1));
-    $("#next").addEventListener("click", () => step(1));
+    $("#prev").addEventListener("click", () => navigate(-1));
+    $("#next").addEventListener("click", () => navigate(1));
     document.addEventListener("keydown", handleKeydown);
+    document.addEventListener("click", e => { if (!e.target.closest("#popover, a.fnref, span.app")) hidePopover(false); });
+    compact.addEventListener("change", syncFacsNavigation);
     $("#toggleToc").addEventListener("click", (e) => {
       toc.classList.toggle("hidden");
       e.currentTarget.classList.toggle("active", !toc.classList.contains("hidden"));
@@ -516,13 +596,9 @@
       document.body.classList.toggle("show-fw");
       e.currentTarget.classList.toggle("active");
     });
-    $("#toggleFacs").addEventListener("click", (e) => {
-      const facs = $("#facs");
-      facs.hidden = !facs.hidden;
-      e.currentTarget.classList.toggle("active", !facs.hidden);
-      if (!facs.hidden && paneL._chapter && paneL._chapter.pages.length) {
-        openFacs(paneL._chapter.pages[0], state.edL);
-      }
+    $("#toggleFacs").addEventListener("click", () => {
+      setFacsVisible($("#facs").hidden);
+      $("#closeMenu")?.click();
     });
     document.addEventListener("click", handleTextClick);
   }

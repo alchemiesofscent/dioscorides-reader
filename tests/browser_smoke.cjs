@@ -138,6 +138,17 @@ async function main() {
     })()`), true);
     const screenshot = await rpc("Page.captureScreenshot", { format: "png" });
     fs.writeFileSync(path.join(output, "reader-mobile.png"), Buffer.from(screenshot.data, "base64"));
+    // Compact shell: one pane, menu and contents drawers, comparison toggle.
+    assert.equal(await evaluate("getComputedStyle(document.querySelector('#paneR')).display"), "none");
+    await evaluate("document.querySelector('#toggleMenu').click()");
+    assert.equal(await evaluate("!document.querySelector('#readerMenu').hidden && !document.querySelector('#drawerBackdrop').hidden"), true);
+    await evaluate("document.querySelector('#closeMenu').click()");
+    await evaluate("document.querySelector('#where').click()");
+    assert.equal(await evaluate("!document.querySelector('#toc').classList.contains('hidden') && !!document.querySelector('.contents-search input')"), true);
+    await evaluate("document.querySelector('#drawerBackdrop').click()");
+    await evaluate("document.querySelector('#toggleComparison').click()");
+    assert.equal(await evaluate("getComputedStyle(document.querySelector('#paneL')).display === 'none' && getComputedStyle(document.querySelector('#paneR')).display !== 'none'"), true);
+    await evaluate("document.querySelector('#toggleComparison').click()");
     const hasMatter = await evaluate(`(async () => {
       const m = await (await fetch('data/manifest.json')).json();
       return m.editions.berendes1902?.books.some(book => book.n === 'front');
@@ -197,7 +208,7 @@ async function main() {
     fs.writeFileSync(path.join(output, "diplomatic-mobile.png"), Buffer.from(pagesScreenshot.data, "base64"));
     assert.deepEqual(exceptions, []);
     const result = { passed: true, checks: ["parallel routes", "source-bound credits", "credits keyboard and link access", "credits mobile layout", "apparatus popover", "draft label", "footnote popover",
-      "lineation", "chapter-page bridge", "390px layout", "physical line identity", "stream switching",
+      "lineation", "chapter-page bridge", "390px layout", "compact reading shell", "physical line identity", "stream switching",
       "reading with unavailable remote facsimiles"], javascript_exceptions: exceptions, matter_checked: hasMatter };
     fs.writeFileSync(path.join(output, "browser-smoke.json"), JSON.stringify(result, null, 2) + "\n");
     console.log(JSON.stringify(result));

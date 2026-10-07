@@ -34,6 +34,8 @@ the Dioscorides editions part, with witness pages, in the September design
 - Beck 2020 is in copyright: it may appear in private builds only, and never
   in anything published.
 - Deployment is Sean's decision.
+- The reader is versioned (`CHANGELOG.md`, tags `v<version>`; see README "Versions"),
+  at Sean's request in October 2026. A change people will notice gets a changelog entry.
 
 ## Checks (run before committing)
 
