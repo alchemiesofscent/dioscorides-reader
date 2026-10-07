@@ -279,3 +279,16 @@ def test_excluded_stream_leaves_no_text_or_facsimile_records(tmp_path):
         == ["berendes-0001.png"]
     with pytest.raises(ValueError, match="absent from the bundle"):
         compile_bundle(bundle, tmp_path / "other", exclude=("beck2021",))
+
+
+def test_chapter_opening_with_a_page_break_does_not_inherit_the_previous_page():
+    from dioscorides_reader.render import chapter_entry_page_breaks
+    root = ET.fromstring("""<TEI xmlns="http://www.tei-c.org/ns/1.0"><text><body><div type="edition">
+    <pb n="XXVIII"/><p>Front.</p>
+    <div subtype="chapter" n="praef"> <pb n="1"/><head>Prooimion</head><p>Text.</p></div>
+    <div subtype="chapter" n="1"><head>Peri Iridos</head><p>Text.</p></div>
+    </div></body></text></TEI>""")
+    chapters = {div.get("n"): div for div in root.iter("{http://www.tei-c.org/ns/1.0}div")}
+    entries = chapter_entry_page_breaks(root)
+    assert chapters["praef"] not in entries
+    assert entries[chapters["1"]].get("n") == "1"

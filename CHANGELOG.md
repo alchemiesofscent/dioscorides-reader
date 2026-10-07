@@ -8,6 +8,13 @@ shows it beside the reader version under **Reading settings**. Release tags are
 While the reader is in alpha, a minor version (0.x.0) adds or reorganises how people read;
 a patch version (0.x.y) fixes behaviour without changing the layout.
 
+## 0.2.1-alpha — 2026-10-07
+
+- A chapter that opens with its own page break no longer also lists the page before it, so
+  the facsimile opens on the right page. Affected: the Sprengel 1829 praefatio (Greek and
+  Latin; it opened one leaf early), Berendes English 1.46, 5.5, 5.28, 5.41, 5.64 and 5.80,
+  and the Berendes Sachregister. Text is unchanged.
+
 ## 0.2.0-alpha — 2026-10-07
 
 Reading on phones and small tablets (up to 900px wide).

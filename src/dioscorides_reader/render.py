@@ -913,8 +913,29 @@ def find_stream(root: ET.Element, cfg: dict, report: Report) -> ET.Element | Non
     return None
 
 
+def opens_with_page_break(div: ET.Element) -> bool:
+    """True when a page milestone comes before any text of the division."""
+    def first(el: ET.Element) -> bool | None:
+        if el.tag == f"{TEI}pb":
+            return True
+        if isinstance(el.tag, str) and el.text and el.text.strip():
+            return False
+        for child in el:
+            found = first(child)
+            if found is not None:
+                return found
+            if child.tail and child.tail.strip():
+                return False
+        return None
+    return first(div) is True
+
+
 def chapter_entry_page_breaks(root: ET.Element) -> dict[ET.Element, ET.Element]:
-    """Map each chapter to the page milestone active at chapter entry."""
+    """Map each chapter to the page milestone active at chapter entry.
+
+    A chapter that opens with its own page break starts on that page, so the
+    page before it is not inherited (Sprengel 1829 praefatio starts on leaf 0033,
+    not on the preceding page XXVIII)."""
     current_pb: ET.Element | None = None
     entry_pages: dict[ET.Element, ET.Element] = {}
     for el in root.iter():
@@ -922,7 +943,7 @@ def chapter_entry_page_breaks(root: ET.Element) -> dict[ET.Element, ET.Element]:
             current_pb = el
         elif el.tag == f"{TEI}div" and (el.get("subtype") == "chapter" or
                                         el.get("type") in {"front_matter", "errata", "index"}):
-            if current_pb is not None:
+            if current_pb is not None and not opens_with_page_break(el):
                 entry_pages[el] = current_pb
     return entry_pages
 

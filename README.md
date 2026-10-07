@@ -81,7 +81,7 @@ edition toggle. The browser smoke runner checks the compact shell at 390px.
 ## Versions
 
 The reader is versioned in `pyproject.toml` and `src/dioscorides_reader/__init__.py`
-(`0.2.0-alpha`, read by Python as `0.2.0a0`), tagged `v<version>` on `main`, and described
+(for example `0.2.1-alpha`, which Python reads as `0.2.1a0`), tagged `v<version>` on `main`, and described
 in `CHANGELOG.md`. Builds write the version to `data/manifest.json` as `reader_version`, and
 the web assets are requested with `?v=<version>` so a new release is not hidden by a cached
 script or stylesheet. Change all of these together. A new corpus pin is not a reader
