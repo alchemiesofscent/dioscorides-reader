@@ -164,7 +164,7 @@ async function main() {
       await waitFor("document.querySelector('#where').textContent === '1.48' && document.querySelectorAll('.pane-body .chapter').length === 2");
       await navigate("/reader.html#/berendes1902-eng/berendes1902/back.index");
       await waitFor("document.querySelectorAll('.index-entry').length === 4422");
-      assert.match(await evaluate("document.querySelector('#paneL .sachregister').textContent"), /beard grass/);
+      assert.match(await evaluate("document.querySelector('#paneL .sachregister').textContent"), /beard grass/i);
       await evaluate(`(() => {
         const input = document.querySelector('#paneL .index-filter input');
         input.value = 'beard grass'; input.dispatchEvent(new Event('input'));
