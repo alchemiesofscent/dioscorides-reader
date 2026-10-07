@@ -2,8 +2,8 @@
 
 Versions of the reader software. The corpus it displays is versioned separately:
 each build records its pinned edition-workbench bundle in `corpus.lock.json` and
-shows it beside the reader version under **Reading settings**. Release tags are
-`v<version>` on `main`; Python packaging reads `0.2.0-alpha` as `0.2.0a0`.
+shows it beside the reader version under **Reading settings**. Release tags
+`v<version>` are created automatically after deployment (see README, "Versions").
 
 While the reader is in alpha, a minor version (0.x.0) adds or reorganises how people read;
 a patch version (0.x.y) fixes behaviour without changing the layout.

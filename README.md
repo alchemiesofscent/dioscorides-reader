@@ -80,12 +80,24 @@ edition toggle. The browser smoke runner checks the compact shell at 390px.
 
 ## Versions
 
-The reader is versioned in `pyproject.toml` and `src/dioscorides_reader/__init__.py`
-(for example `0.2.1-alpha`, which Python reads as `0.2.1a0`), tagged `v<version>` on `main`, and described
-in `CHANGELOG.md`. Builds write the version to `data/manifest.json` as `reader_version`, and
-the web assets are requested with `?v=<version>` so a new release is not hidden by a cached
-script or stylesheet. Change all of these together. A new corpus pin is not a reader
-version: the bundle identifier is shown beside the version instead.
+There is no release schedule: every push to `main` deploys, and a change people will notice
+ships as a new version as soon as it is ready.
+
+- A fix that does not change the layout is a patch version (0.2.1 → 0.2.2); a new way of
+  reading is a minor version (0.2 → 0.3). Several fixes made in one sitting can share one.
+- Refactors, tests and documentation need no version. A new corpus pin is not a reader
+  version either: the bundle identifier is shown beside the version.
+
+To release, in the commit that makes the change: set the version in `pyproject.toml`,
+`src/dioscorides_reader/__init__.py` and the `?v=` asset queries in `web/reader.html` (which
+stop browsers serving a cached script or stylesheet), and add a `CHANGELOG.md` entry headed
+`## <version> — <date>`. `tests/test_version.py` fails if these disagree. Versions use the
+`-alpha` suffix while the reader is in alpha; Python reads `0.2.1-alpha` as `0.2.1a0`.
+
+After a successful deployment, the Pages workflow's `tag` job runs `.github/release_tags.py`.
+It tags every version that has a changelog entry as `v<version>`, on the commit that first
+set that version in `pyproject.toml`, with the changelog entry as the tag message. Existing
+tags are never moved. `python .github/release_tags.py --dry-run` shows what it would do.
 
 ## Corpus interface
 
