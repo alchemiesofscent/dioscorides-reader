@@ -8,6 +8,14 @@ shows it beside the reader version under **Reading settings**. Release tags
 While the reader is in alpha, a minor version (0.x.0) adds or reorganises how people read;
 a patch version (0.x.y) fixes behaviour without changing the layout.
 
+## 0.3.1-alpha — 2026-10-08
+
+- Mattioli's commentary is set upright. It is still marked off by its **Commentarius** label,
+  smaller size and side rule.
+- Mattioli's sections carry the usual names: each book opens with its **Praefatio**, and the
+  front matter lists Titulus, Dedicatio, Praefatio, Privilegia, Typographus lectori, Errata and
+  Index.
+
 ## 0.3.0-alpha — 2026-10-08
 
 Mattioli 1554 (Latin, with commentary), review pending, not accepted.

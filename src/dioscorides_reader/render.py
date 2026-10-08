@@ -171,16 +171,20 @@ def normalize_reading_label(value: str) -> str:
     return re.sub(rf"(?<=\w)[{hyphens}]\s+(?=\w)", "", label)
 
 
-SECTION_LABELS = {"titlepage": "Title page", "dedication": "Dedication", "explicit": "Finis",
-                  "section": "Preface", "preface": "Preface"}
+SECTION_LABELS = {"praef": "Praefatio", "titulus": "Titulus", "dedicatio": "Dedicatio",
+                  "praefatio": "Praefatio", "privilegia": "Privilegia",
+                  "typographus": "Typographus lectori", "errata": "Errata", "index": "Index",
+                  "matter": "Front matter"}
 
 
 def section_label(cfg: dict, book_n: str, n: str, div: ET.Element, table: dict, report: Report) -> str:
-    """A non-chapter section: its head, else its kind (titlepage-1 → "Title page")."""
+    """A named non-chapter section (praef, titulus, index …): its conventional label, else its head."""
+    if n.split("-")[0] in SECTION_LABELS:
+        return SECTION_LABELS[n.split("-")[0]]
     head = div.find(f"{TEI}head")
     if head is not None and element_reading_text(head):
         return element_reading_text(head)
-    return SECTION_LABELS.get(n.split("-")[0], n)
+    return n
 
 
 def element_reading_text(el: ET.Element) -> str:

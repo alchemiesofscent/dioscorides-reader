@@ -46,9 +46,10 @@ class TextAndCommentaryTest(unittest.TestCase):
         head = ET.fromstring(CHAPTER).find(f"{TEI}head")
         self.assertEqual(element_reading_text(head), "Ἐλάτινον. ELATINVM. CAP. XLIII.")
 
-    def test_sections_without_heads_are_named_by_kind(self) -> None:
-        div = ET.fromstring(f'<div xmlns="{NS}" n="explicit-39"><ab><lb/>LIBRI PRIMI FINIS.</ab></div>')
-        self.assertEqual(section_label(CFG, "1", "explicit-39", div, {}, Report()), "Finis")
+    def test_named_sections_take_their_conventional_labels(self) -> None:
+        div = ET.fromstring(f'<div xmlns="{NS}" n="praef"><div n="translation"><ab><lb/>QVANQVAM</ab></div></div>')
+        self.assertEqual(section_label(CFG, "1", "praef", div, {}, Report()), "Praefatio")
+        self.assertEqual(section_label(CFG, "front", "privilegia", div, {}, Report()), "Privilegia")
 
     def test_iiif_image_requests_resolve_to_their_service(self) -> None:
         facs = "https://iiif.wellcomecollection.org/image/b33551200_0002_0117.jp2/full/max/0/default.jpg"

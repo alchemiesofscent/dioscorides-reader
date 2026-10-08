@@ -149,15 +149,13 @@ select:hover, .btn:hover { border-color: var(--leaf); }
 }
 
 /* an edition whose chapters hold the author's text and a commentary on it (Mattioli 1554):
-   the commentary is printed in italic, with roman words inside it */
+   the commentary is set apart by its label, size and rule, in upright type (Sean, 2026-10-08) */
 .dioscorides-text, .author-commentary { display: block; }
 .chapter > .author-commentary {
-  font-style: italic;
   font-size: 0.95em;
   border-left: 3px solid var(--rubric-soft);
   padding-left: 0.8em;
 }
-.author-commentary .hi[data-rend="roman"] { font-style: normal; }
 .block-label {
   display: block; font: 11px var(--ui); font-style: normal;
   letter-spacing: 0.12em; text-transform: uppercase; color: var(--dim);
