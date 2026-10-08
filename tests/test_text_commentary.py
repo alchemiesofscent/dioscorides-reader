@@ -72,5 +72,14 @@ class EnglishMattioliTest(unittest.TestCase):
         self.assertEqual(section_label(cfg, "front", "typographus", div, {}, Report()), "The printer to the reader")
 
 
+class GuntherSectionsTest(unittest.TestCase):
+    def test_back_matter_sections_take_english_labels(self) -> None:
+        cfg = {**CFG, "key": "gunther1934", "lang": "eng"}
+        div = ET.fromstring(f'<div xmlns="{NS}" n="appendix"/>')
+        self.assertEqual(section_label(cfg, "back", "appendix", div, {}, Report()), "Appendix")
+        self.assertEqual(section_label(cfg, "back", "index-saracen", div, {}, Report()), "Saracen's Latin index")
+        self.assertEqual(section_label(cfg, "front", "matter", div, {}, Report()), "Front matter")
+
+
 if __name__ == "__main__":
     unittest.main()

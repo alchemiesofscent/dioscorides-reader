@@ -8,6 +8,17 @@ shows it beside the reader version under **Reading settings**. Release tags
 While the reader is in alpha, a minor version (0.x.0) adds or reorganises how people read;
 a patch version (0.x.y) fixes behaviour without changing the layout.
 
+## 0.6.0-alpha — 2026-10-08
+
+- New edition: **Gunther 1934 (Goodyer's English, 1655)**, *The Greek Herbal of Dioscorides*.
+  It has John Goodyer's English with Gunther's identifications in the chapter heads and his
+  footnotes. The front matter, each book's preface, Daubeny's appendix and the two indexes are
+  sections. It is paired with every other edition through Wellmann. The text is read from the
+  scans and is not yet reviewed; there is no facsimile.
+- Sections after the last book (the back matter) get routes of their own, as the front matter
+  already does.
+- The Mattioli corpus update gives each chapter one commentary section (no split commentary).
+
 ## 0.5.1-alpha — 2026-10-08
 
 - If a section exists in only one of the two editions (Mattioli's dedication, Berendes' index,

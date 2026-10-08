@@ -161,6 +161,19 @@ EDITIONS = [
         "concordance": "mattioli1554",
     },
     {
+        "key": "gunther1934",
+        "label": "Gunther 1934 (Goodyer's English, 1655)",
+        "lang": "eng",
+        "tei_path": "editions/gunther1934/tei/gunther1934.xml",
+        "stream": {"type": "translation", "lang": "eng"},
+        "facs": "none",
+        "label_source": "head",
+        "anchored_notes": True,
+        # front matter, each book's preface, Daubeny's appendix and the indexes are sections
+        "section_routes": True,
+        "concordance": "gunther1934",
+    },
+    {
         "key": "wellmann1906",
         "label": "Wellmann 1906 (Greek, critical)",
         "lang": "grc",
@@ -203,12 +216,15 @@ SECTION_LABELS = {"praef": "Praefatio", "titulus": "Titulus", "dedicatio": "Dedi
 SECTION_LABELS_ENG = {"praef": "Preface", "titulus": "Title page", "dedicatio": "Dedication",
                       "praefatio": "Preface", "privilegia": "Privileges",
                       "typographus": "The printer to the reader", "errata": "Errata", "index": "Index",
-                      "matter": "Front matter"}
+                      "matter": "Front matter", "appendix": "Appendix", "index-saracen": "Saracen's Latin index",
+                      "index-supplemental": "Supplemental index"}
 
 
 def section_label(cfg: dict, book_n: str, n: str, div: ET.Element, table: dict, report: Report) -> str:
     """A named non-chapter section (praef, titulus, index …): its conventional label, else its head."""
     labels = SECTION_LABELS_ENG if cfg["lang"] == "eng" else SECTION_LABELS
+    if n in labels:
+        return labels[n]
     if n.split("-")[0] in labels:
         return labels[n.split("-")[0]]
     head = div.find(f"{TEI}head")
@@ -1199,23 +1215,25 @@ def build_edition(cfg: dict, table: dict, report: Report,
 
     for book in stream.findall(f"{TEI}div"):
         if book.get("subtype") != "book":
-            if cfg.get("section_routes") and book.get("subtype") == "section" and book.get("n") == "front":
-                # leaves before Book 1: one route per section, shown as the front matter
+            if cfg.get("section_routes") and book.get("subtype") == "section" and book.get("n") in ("front", "back"):
+                # the leaves before Book 1 (front) or after the last book (back): one route per section
+                location = book.get("n")
                 chapters, chapter_list = {}, []
                 for section in book.findall(f"{TEI}div"):
                     sec_n = section.get("n", "")
                     if not re.fullmatch(r"[a-zA-Z0-9_-]+", sec_n) or sec_n in chapters:
-                        raise ValueError(f"Invalid or duplicate front route in {cfg['key']}: {sec_n}")
+                        raise ValueError(f"Invalid or duplicate {location} route in {cfg['key']}: {sec_n}")
                     rendered = renderer.render_chapter(section, entry_pages.get(section))
-                    rendered["label"] = section_label(cfg, "front", sec_n, section, table, report)
+                    rendered["label"] = section_label(cfg, location, sec_n, section, table, report)
                     chapters[sec_n] = rendered
                     chapter_list.append({"n": sec_n, "label": rendered["label"]})
-                chunks.append((edition_out_dir / "book-front.json", {
-                    "edition": cfg["key"], "book": "front", "chapters": chapters,
+                chunks.append((edition_out_dir / f"book-{location}.json", {
+                    "edition": cfg["key"], "book": location, "chapters": chapters,
                     "notes": dict(renderer.notes), "apps": dict(renderer.apps)}))
                 renderer.notes.clear()
                 renderer.apps.clear()
-                books_manifest.append({"n": "front", "label": "Front matter", "chapters": chapter_list})
+                books_manifest.append({"n": location, "label": "Front matter" if location == "front" else "Back matter",
+                                       "chapters": chapter_list})
                 continue
             report.add(cfg["key"], "structure",
                        f"non-book div under stream: {book.attrib}")
