@@ -148,6 +148,30 @@ select:hover, .btn:hover { border-color: var(--leaf); }
   padding-top: 0.9em;
 }
 
+/* an edition whose chapters hold the author's text and a commentary on it (Mattioli 1554):
+   the commentary is printed in italic, with roman words inside it */
+.dioscorides-text, .author-commentary { display: block; }
+.chapter > .author-commentary {
+  font-style: italic;
+  font-size: 0.95em;
+  border-left: 3px solid var(--rubric-soft);
+  padding-left: 0.8em;
+}
+.author-commentary .hi[data-rend="roman"] { font-style: normal; }
+.block-label {
+  display: block; font: 11px var(--ui); font-style: normal;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--dim);
+  margin: 0.2em 0 0.3em;
+}
+.note-lemma { margin-right: 0.5em; }
+.note-marginal { font: 0.78em var(--ui); font-style: normal; color: var(--rubric); }
+.note-marginal::before { content: "["; }
+.note-marginal::after { content: "] "; }
+.figure { display: block; font: 12px var(--ui); font-style: normal; color: var(--leaf); margin: 0.3em 0; }
+.ex { color: var(--dim); }
+.unclear { text-decoration: underline dotted var(--dim); }
+.gap { color: var(--dim); font-style: normal; }
+
 /* diplomatic apparatus of the page: hidden unless toggled */
 .fw { display: none; }
 body.show-fw .fw {

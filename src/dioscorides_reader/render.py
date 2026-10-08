@@ -120,6 +120,22 @@ EDITIONS = [
         "anchored_notes": True,
     },
     {
+        "key": "mattioli1554",
+        "label": "Mattioli 1554 (Latin, with commentary)",
+        "lang": "lat",
+        "tei_path": "editions/mattioli1554/tei/mattioli1554.xml",
+        "stream": {"type": "edition"},
+        "facs": "iiif-image",
+        "label_source": "head",
+        "anchored_notes": True,
+        # Each chapter holds Dioscorides' text (section n="translation", Mattioli's Latin)
+        # and Mattioli's commentary (section n="commentary"): shown as distinct blocks.
+        "text_and_commentary": True,
+        # The leaves before Book 1 and each book's prefaces and closing lines are sections,
+        # not chapters: they get their own routes instead of being reported as structure errors.
+        "section_routes": True,
+    },
+    {
         "key": "wellmann1906",
         "label": "Wellmann 1906 (Greek, critical)",
         "lang": "grc",
@@ -155,6 +171,18 @@ def normalize_reading_label(value: str) -> str:
     return re.sub(rf"(?<=\w)[{hyphens}]\s+(?=\w)", "", label)
 
 
+SECTION_LABELS = {"titlepage": "Title page", "dedication": "Dedication", "explicit": "Finis",
+                  "section": "Preface", "preface": "Preface"}
+
+
+def section_label(cfg: dict, book_n: str, n: str, div: ET.Element, table: dict, report: Report) -> str:
+    """A non-chapter section: its head, else its kind (titlepage-1 → "Title page")."""
+    head = div.find(f"{TEI}head")
+    if head is not None and element_reading_text(head):
+        return element_reading_text(head)
+    return SECTION_LABELS.get(n.split("-")[0], n)
+
+
 def element_reading_text(el: ET.Element) -> str:
     """Extract reading text while respecting TEI ``lb/@break`` semantics."""
     parts: list[str] = []
@@ -174,6 +202,8 @@ def element_reading_text(el: ET.Element) -> str:
                     parts.append(" ")
             elif child.tag == f"{TEI}note" and child.get("type") == "translator":
                 pass                     # a translator's doubt is not part of the reading text
+            elif child.tag == f"{TEI}figure":
+                pass                     # a woodcut's caption is not part of a heading's reading text
             elif child.tag == f"{TEI}fw":
                 # Running heads and printed page numbers are not reading text.
                 # Their tails are still handled below so ordinary word spacing
@@ -296,6 +326,13 @@ def resolve_facs(cfg: dict, facs: str, tei_path: Path, report: Report) -> dict |
                 "url": f"https://digilib.bbaw.de/digilib/Scaler?fn={fn}&pn={pn}&dw=1800"}
     if mode == "local":
         return resolve_local_facs(facs, tei_path, report, cfg["key"])
+    if mode == "iiif-image":
+        # @facs is an IIIF Image API request (…/IDENTIFIER/full/max/0/default.jpg)
+        m = re.match(r"(https://[^?#]+?)/full/[^/]+/0/default\.(?:jpg|png)$", facs)
+        if not m:
+            report.add(cfg["key"], "unrecognized facs", facs)
+            return None
+        return {"kind": "iiif", "info": f"{m.group(1)}/info.json", "direct": facs}
     report.add(cfg["key"], "unknown facs mode", mode)
     return None
 
@@ -512,7 +549,16 @@ class ChapterRenderer:
         out.append("</span>")
 
     def el_div(self, el: ET.Element, out: list[str]) -> None:
-        if el.get("type") == "commentary":
+        if self.cfg.get("text_and_commentary") and el.get("n") in ("translation", "commentary"):
+            if el.get("n") == "commentary":
+                out.append('<section class="commentary author-commentary">'
+                           '<span class="block-label">Commentarius</span>')
+            else:
+                out.append('<section class="dioscorides-text">'
+                           '<span class="block-label">Dioscorides</span>')
+            self.render_children(el, out)
+            out.append("</section>")
+        elif el.get("type") == "commentary":
             out.append('<section class="commentary">')
             self.render_children(el, out)
             out.append("</section>")
@@ -624,6 +670,34 @@ class ChapterRenderer:
         self.render_children(el, out)
         out.append("</span>")
 
+    def el_expan(self, el: ET.Element, out: list[str]) -> None:
+        out.append('<span class="expan">')
+        self.render_children(el, out)
+        out.append("</span>")
+
+    def el_ex(self, el: ET.Element, out: list[str]) -> None:
+        # letters supplied in expanding an abbreviation
+        out.append('<span class="ex">')
+        self.render_children(el, out)
+        out.append("</span>")
+
+    def el_unclear(self, el: ET.Element, out: list[str]) -> None:
+        out.append('<span class="unclear" title="uncertain reading">')
+        self.render_children(el, out)
+        out.append("</span>")
+
+    def el_gap(self, el: ET.Element, out: list[str]) -> None:
+        out.append('<span class="gap" title="illegible">[…]</span>')
+
+    def el_cb(self, el: ET.Element, out: list[str]) -> None:
+        out.append('<span class="cb"></span>')
+
+    def el_figure(self, el: ET.Element, out: list[str]) -> None:
+        head = el.find(f"{TEI}head")
+        caption = element_reading_text(head) if head is not None else ""
+        out.append(f'<span class="figure" title="woodcut">❦ {esc(caption)}</span>' if caption
+                   else '<span class="figure" title="woodcut">❦</span>')
+
     def el_lb(self, el: ET.Element, out: list[str]) -> None:
         n = el.get("n", "")
         broken = el.get("break") == "no"
@@ -692,6 +766,10 @@ class ChapterRenderer:
                 out.append(f'<span class="note-block" id="{esc(nid)}">{body}</span>')
         elif note_type == "siglorum":
             self._sigla(el, nid)
+        elif note_type in ("marginal", "lemma") and self.cfg.get("text_and_commentary"):
+            out.append(f'<span class="note-{note_type}">')
+            self._render_children_untracked(el, out)
+            out.append("</span>")
         elif note_type == "translator":
             # the machine translator's doubt: a marker, the note on hover, outside the reading text
             text = norm_space("".join(el.itertext()))
@@ -1086,6 +1164,24 @@ def build_edition(cfg: dict, table: dict, report: Report,
 
     for book in stream.findall(f"{TEI}div"):
         if book.get("subtype") != "book":
+            if cfg.get("section_routes") and book.get("subtype") == "section" and book.get("n") == "front":
+                # leaves before Book 1: one route per section, shown as the front matter
+                chapters, chapter_list = {}, []
+                for section in book.findall(f"{TEI}div"):
+                    sec_n = section.get("n", "")
+                    if not re.fullmatch(r"[a-zA-Z0-9_-]+", sec_n) or sec_n in chapters:
+                        raise ValueError(f"Invalid or duplicate front route in {cfg['key']}: {sec_n}")
+                    rendered = renderer.render_chapter(section, entry_pages.get(section))
+                    rendered["label"] = section_label(cfg, "front", sec_n, section, table, report)
+                    chapters[sec_n] = rendered
+                    chapter_list.append({"n": sec_n, "label": rendered["label"]})
+                chunks.append((edition_out_dir / "book-front.json", {
+                    "edition": cfg["key"], "book": "front", "chapters": chapters,
+                    "notes": dict(renderer.notes), "apps": dict(renderer.apps)}))
+                renderer.notes.clear()
+                renderer.apps.clear()
+                books_manifest.append({"n": "front", "label": "Front matter", "chapters": chapter_list})
+                continue
             report.add(cfg["key"], "structure",
                        f"non-book div under stream: {book.attrib}")
             continue
@@ -1098,7 +1194,9 @@ def build_edition(cfg: dict, table: dict, report: Report,
         chapters: dict[str, dict] = {}
         chapter_list: list[dict] = []
         for chapter in book.findall(f"{TEI}div"):
-            if chapter.get("subtype") != "chapter":
+            if chapter.get("subtype") == "section" and cfg.get("section_routes"):
+                pass                    # a book's preface or closing lines: routed by its own @n
+            elif chapter.get("subtype") != "chapter":
                 report.add(cfg["key"], "structure",
                            f"non-chapter div under book {book_n}: {chapter.attrib}")
                 continue
@@ -1108,7 +1206,10 @@ def build_edition(cfg: dict, table: dict, report: Report,
             if not ch_n or "/" in ch_n or any(character.isspace() for character in ch_n):
                 raise ValueError(f"Invalid chapter route in {cfg['key']}: {book_n}.{ch_n}")
             rendered = renderer.render_chapter(chapter, entry_pages.get(chapter))
-            label = chapter_label(cfg, book_n, ch_n, chapter, table, report)
+            if chapter.get("subtype") == "section":
+                label = section_label(cfg, book_n, ch_n, chapter, table, report)
+            else:
+                label = chapter_label(cfg, book_n, ch_n, chapter, table, report)
             rendered["label"] = label
             chapters[ch_n] = rendered
             chapter_list.append({"n": ch_n, "label": label})
