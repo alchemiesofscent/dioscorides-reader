@@ -330,3 +330,36 @@ test("a page resolved to multiple chapters offers every target in the active pai
   assert.equal(prevented, true);
   assert.equal(h.api.menu(), "#/berendes1902-eng/berendes1902/4.23\n#/berendes1902-eng/berendes1902/4.24");
 });
+
+test("chapters pair through Wellmann where an edition has concordance rows", () => {
+  const { api } = harness("reader.js", `
+    globalThis.harness = {
+      pairedTargets,
+      setup(m) { manifest = m; }
+    };
+  `);
+  const books = (keys) => [{ n: "1", chapters: keys.map(n => ({ n, label: n })) }];
+  api.setup({ editions: {
+    wellmann1906: { label: "Wellmann", books: books(["praef", "42", "43", "68"]) },
+    berendes1902: { label: "Berendes", books: books(["praef", "42", "43", "68"]) },
+    mattioli1554: { label: "Mattioli", books: [...books(["praef", "41", "42", "70", "71"]),
+      { n: "2", chapters: [{ n: "praef", label: "praef" }] }], pairing: {
+      status: "proposed", to_wellmann: { "1.42": ["1.43"], "1.70": ["1.68"], "1.71": ["1.68"], "2.praef": ["2.arg"] } } },
+  } });
+  const keys = r => Array.from(r.targets, t => `${t.book}.${t.ch}`).join(" ");
+  // Mattioli 1.42 (Rosaceum) is Wellmann 1.43
+  assert.equal(keys(api.pairedTargets("wellmann1906", "mattioli1554", { book: "1", ch: "43" })), "1.42");
+  assert.equal(keys(api.pairedTargets("mattioli1554", "wellmann1906", { book: "1", ch: "42" })), "1.43");
+  // two Mattioli chapters in one Wellmann chapter, also through an edition without rows
+  assert.equal(keys(api.pairedTargets("berendes1902", "mattioli1554", { book: "1", ch: "68" })), "1.70 1.71");
+  const none = api.pairedTargets("mattioli1554", "wellmann1906", { book: "1", ch: "41" });
+  assert.equal(keys(none), "");
+  assert.match(none.note, /no Wellmann counterpart/);
+  // sections (praef) and editions without rows pair by key; the note says the pairing is proposed
+  assert.equal(keys(api.pairedTargets("mattioli1554", "wellmann1906", { book: "1", ch: "praef" })), "1.praef");
+  assert.equal(keys(api.pairedTargets("wellmann1906", "berendes1902", { book: "1", ch: "42" })), "1.42");
+  assert.match(api.pairedTargets("wellmann1906", "mattioli1554", { book: "1", ch: "68" }).note, /proposed concordance/);
+  // a book preface linked to Wellmann's argumentum, both ways
+  assert.equal(keys(api.pairedTargets("mattioli1554", "wellmann1906", { book: "2", ch: "praef" })), "2.arg");
+  assert.equal(keys(api.pairedTargets("wellmann1906", "mattioli1554", { book: "2", ch: "arg" })), "2.praef");
+});

@@ -8,6 +8,25 @@ shows it beside the reader version under **Reading settings**. Release tags
 While the reader is in alpha, a minor version (0.x.0) adds or reorganises how people read;
 a patch version (0.x.y) fixes behaviour without changing the layout.
 
+## 0.5.0-alpha — 2026-10-08
+
+- **Chapters pair through Wellmann.** Before this, the second pane showed whatever chapter had
+  the same number. Now each edition maps its chapters to Wellmann's, using the concordance's
+  `edition_of` links: Mattioli, Sprengel 1829 (Greek and Latin), the Sprengel 1830 commentary
+  and Berendes (German and English). The other pane shows the chapter or chapters that render
+  the same Dioscorides text. For example:
+  - Wellmann 1.43 (ῥόδινον) is Berendes 1.53 and Mattioli 1.42.
+  - Wellmann 1.68 (λίβανος) is Mattioli 1.70–1.73.
+
+  A line above the paired text says which chapters are shown, or that there is no
+  counterpart. The pairing is proposed, not yet checked.
+- **Wellmann's table of contents has the right titles.** It used to take Sprengel's chapter
+  titles by number. Now each Wellmann chapter takes the title of the Sprengel chapter that
+  corresponds to it.
+- **Where the rows come from.** `concordance/edition_of.tsv`, pinned by `concordance.lock.json`,
+  holds only chapter keys and status, without evidence or notes, and leaves out Beck, which is in
+  copyright. Beck pairs by its own numbering, which is Wellmann's.
+
 ## 0.4.0-alpha — 2026-10-08
 
 - New edition: **Mattioli 1554 (English, machine translation)**. It is an English translation of

@@ -9,7 +9,7 @@ import subprocess
 import tarfile
 from pathlib import Path
 
-from . import __version__, diplomatic, render, xml_utils, matter
+from . import __version__, concordance, diplomatic, render, xml_utils, matter
 from .bundle import Bundle, relative_path
 
 MARKER = ".dioscorides-reader-output"
@@ -75,6 +75,10 @@ def compile_bundle(bundle_path: Path, output: Path, lock: Path | None = None,
         table = render.load_chapter_table()
         report = render.Report()
         configs = {entry["key"]: entry for entry in render.EDITIONS}
+        pairings = concordance.load()
+        # Wellmann's chapters carry no titles; the Sprengel table's titles are Sprengel's numbering.
+        # Through the concordance each Wellmann chapter takes the title of its first Sprengel chapter.
+        wellmann_labels = concordance.relabel(table, pairings, "sprengel1829")
         editions = {}
         matter_config = {}
         if any(item['id'].startswith('berendes1902') for item in selections):
@@ -100,11 +104,15 @@ def compile_bundle(bundle_path: Path, output: Path, lock: Path | None = None,
             config = {**configs[key], "tei_path": selection["tei_path"]}
             if key.startswith('berendes1902'):
                 config.update(matter_config, include_matter=True)
-            edition = render.build_edition(config, table, report, data)
+            edition = render.build_edition(config, wellmann_labels if key == "wellmann1906" else table,
+                                           report, data)
             if not edition or not edition["books"] or any(not book["chapters"] for book in edition["books"]):
                 raise ValueError(f"Selected edition did not produce complete readable books: {key}")
             edition.update(status=selection["status"], source_sha256=selection["source_sha256"],
                            edition_id=selection.get("edition_id", key))
+            pairing = concordance.pairing_for(config, pairings)
+            if pairing:
+                edition["pairing"] = pairing
             editions[key] = edition
         if any(key.startswith("sprengel1829-") for key in editions):
             selection = next(item for item in selections if item["id"].startswith("sprengel1829-"))
@@ -119,7 +127,8 @@ def compile_bundle(bundle_path: Path, output: Path, lock: Path | None = None,
         manifest = {"schema": "dioscorides-reader-data/1", "reader_version": __version__,
                     "bundle_id": bundle.manifest["bundle_id"],
                     "producer_commit": bundle.manifest["producer_commit"], "editions": editions,
-                    "pairing": "provisional chapter-key pairing"}
+                    "pairing": "through Wellmann where an edition has concordance rows (edition_of), "
+                               "else by identical chapter key"}
         (data / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=1) + "\n",
                                             encoding="utf-8")
         report.write(data / "REPORT.md")

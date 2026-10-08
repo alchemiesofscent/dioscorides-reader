@@ -373,3 +373,7 @@ a.fnref.note-hl { border-radius: 2px; }
 .index-english { font-size: .9em; color: var(--muted, #666); }
 .pane[data-lang="eng"] .index-english { font-size: 1em; color: inherit; }
 .matter-link { text-underline-offset: .15em; }
+
+/* The other pane's chapters chosen through the Wellmann concordance (proposed until checked). */
+.pairing-note { font-size: 0.85em; color: var(--dim); border-left: 3px solid var(--rubric);
+  padding: 0.2em 0.6em; margin: 0 0 0.8em; }

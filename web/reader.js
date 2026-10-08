@@ -96,6 +96,64 @@
     writeHash();
   }
 
+  // ---------- pairing through Wellmann ----------
+  // An edition with concordance rows (manifest pairing.to_wellmann) maps its chapters to
+  // Wellmann's; the other pane shows the chapters of its own edition that render the same
+  // Wellmann chapter(s). Editions without rows pair by identical key, as before.
+
+  const CHAPTER_KEY = /^\d+[A-Za-z]*$/;
+  const inverseCache = new Map();
+
+  function toWellmann(edition, book, ch) {
+    const pairing = manifest.editions[edition].pairing;
+    const key = `${book}.${ch}`;
+    if (!pairing) return [key];
+    if (key in pairing.to_wellmann) return pairing.to_wellmann[key];
+    return CHAPTER_KEY.test(ch) ? [] : [key];   // a chapter without rows has no counterpart; sections pair by key
+  }
+
+  function fromWellmann(edition, wkeys) {
+    const pairing = manifest.editions[edition].pairing;
+    if (!pairing) return wkeys;
+    if (!inverseCache.has(edition)) {
+      const inverse = new Map();
+      for (const c of flatChapters(edition)) {
+        for (const w of pairing.to_wellmann[`${c.book}.${c.ch}`] || []) {
+          if (!inverse.has(w)) inverse.set(w, []);
+          inverse.get(w).push(`${c.book}.${c.ch}`);
+        }
+      }
+      inverseCache.set(edition, inverse);
+    }
+    const inverse = inverseCache.get(edition);
+    const out = [];
+    for (const w of wkeys) {
+      const own = inverse.get(w) || (CHAPTER_KEY.test(w.slice(w.indexOf(".") + 1)) ? [] : [w]);
+      for (const k of own) if (!out.includes(k)) out.push(k);
+    }
+    return out;
+  }
+
+  // The chapters of `edition` that answer the route's chapter in `from` (the left edition).
+  function pairedTargets(from, edition, route) {
+    const plain = [{ book: route.book, ch: route.ch }];
+    if (from === edition) return { targets: plain, note: "" };
+    const pf = manifest.editions[from].pairing, pe = manifest.editions[edition].pairing;
+    if (!pf && !pe) return { targets: plain, note: "" };
+    const wkeys = toWellmann(from, route.book, route.ch);
+    const keys = fromWellmann(edition, wkeys);
+    const targets = keys.map((k) => { const i = k.indexOf("."); return { book: k.slice(0, i), ch: k.slice(i + 1) }; });
+    const status = [pf, pe].some((p) => p && p.status !== "checked") ? "proposed concordance" : "concordance";
+    const same = targets.length === 1 && targets[0].book === route.book && targets[0].ch === route.ch;
+    const via = pf && wkeys.length && !(wkeys.length === 1 && wkeys[0] === `${route.book}.${route.ch}`)
+      ? ` = Wellmann ${wkeys.join(", ")}` : "";
+    const note = same ? "" : `${manifest.editions[from].label} ${route.book}.${route.ch}`
+      + (wkeys.length ? `${via} = ${manifest.editions[edition].label} ${keys.length ? keys.join(", ") : "(none)"}`
+        : " has no Wellmann counterpart")
+      + ` · ${status}`;
+    return { targets, note };
+  }
+
   // ---------- rendering ----------
 
   function editionOptions(select, value, allowNone) {
@@ -193,7 +251,7 @@
     }
   }
 
-  async function renderPane(pane, edition, route, generation) {
+  async function renderPane(pane, edition, route, generation, paired = null) {
     const head = pane.querySelector(".pane-head");
     const body = pane.querySelector(".pane-body");
     pane._chapter = null;
@@ -207,34 +265,52 @@
     renderCredits(pane, edition, ed);
     pane.dataset.lang = ed.lang;
     const status = typeof ed.status === "string" ? ed.status.replaceAll("_", " ") : "";
-    head.textContent = `${ed.label} · ${route.book}.${route.ch}${status ? ` · ${status}` : ""}`;
+    const targets = paired ? paired.targets : [{ book: route.book, ch: route.ch }];
+    const shown = targets.map((t) => `${t.book}.${t.ch}`).join(", ") || "—";
+    head.textContent = `${ed.label} · ${shown}${status ? ` · ${status}` : ""}`;
     body.textContent = "Loading…";
-    let chunk;
-    try {
-      chunk = await loadChunk(edition, route.book);
-    } catch (err) {
+    const banner = paired && paired.note
+      ? `<p class="pairing-note">${paired.note.replace(/&/g, "&amp;").replace(/</g, "&lt;")}</p>` : "";
+    if (!targets.length) {
+      body.innerHTML = banner || `<p>No counterpart in ${ed.label}.</p>`;
+      return;
+    }
+    const parts = [];
+    let chunk = null, chapter = null;
+    for (const target of targets) {
+      let part;
+      try {
+        part = await loadChunk(edition, target.book);
+      } catch (err) {
+        if (generation !== renderGeneration) return;
+        body.textContent = `Book ${target.book} is not available in this edition (${err.message}).`;
+        pane._chunk = null;
+        return;
+      }
       if (generation !== renderGeneration) return;
-      body.textContent = `Book ${route.book} is not available in this edition (${err.message}).`;
-      pane._chunk = null;
-      return;
+      const found = part.chapters[target.ch];
+      if (!found) {
+        parts.push(`<p>Chapter ${target.book}.${target.ch} is not in ${ed.label}.</p>`);
+        continue;
+      }
+      if (!chapter) { chunk = part; chapter = found; }
+      let html = found.html;
+      const sigla = (found.sigla || []).join("");
+      const noteIds = found.noteIds || [];
+      if (sigla || noteIds.length) {
+        const items = noteIds
+          .map((id) => `<li id="en-${id}">${part.notes[id] || ""}</li>`)
+          .join("");
+        html += `<section class="endnotes"><h4>Notes</h4>${sigla}${items ? `<ol>${items}</ol>` : ""}</section>`;
+      }
+      parts.push(html);
     }
-    if (generation !== renderGeneration) return;
     pane._chunk = chunk;
-    const chapter = chunk.chapters[route.ch];
     if (!chapter) {
-      body.textContent = `Chapter ${route.book}.${route.ch} is not in ${ed.label}.`;
+      body.innerHTML = banner + parts.join("");
       return;
     }
-    let html = chapter.html;
-    const sigla = (chapter.sigla || []).join("");
-    const noteIds = chapter.noteIds || [];
-    if (sigla || noteIds.length) {
-      const items = noteIds
-        .map((id) => `<li id="en-${id}">${chunk.notes[id] || ""}</li>`)
-        .join("");
-      html += `<section class="endnotes"><h4>Notes</h4>${sigla}${items ? `<ol>${items}</ol>` : ""}</section>`;
-    }
-    body.innerHTML = html;
+    body.innerHTML = banner + parts.join("");
     configureMatter(body, chapter, route);
     const firstCommentary = body.querySelectorAll(".chapter > .commentary")[0]
       || body.querySelectorAll(".chapter .section > .commentary")[0];
@@ -308,7 +384,9 @@
     pickL.value = route.edL;
     pickR.value = route.edR;
     buildToc();
-    await Promise.all([renderPane(paneL, route.edL, route, generation), renderPane(paneR, route.edR, route, generation)]);
+    const paired = route.edR === NONE ? null : pairedTargets(route.edL, route.edR, route);
+    await Promise.all([renderPane(paneL, route.edL, route, generation),
+      renderPane(paneR, route.edR, route, generation, paired)]);
     if (generation !== renderGeneration) return;
     const facsChunk = await loadChunk(route.edL, route.book);
     if (generation !== renderGeneration) return;

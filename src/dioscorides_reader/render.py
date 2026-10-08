@@ -56,6 +56,7 @@ EDITIONS = [
         "facs": "sprengel1829",
         "label_source": "table:grc",
         "anchored_notes": "auto",
+        "concordance": "sprengel1829",
     },
     {
         "key": "sprengel1829-lat",
@@ -66,6 +67,7 @@ EDITIONS = [
         "facs": "sprengel1829",
         "label_source": "table:la",
         "anchored_notes": True,
+        "concordance": "sprengel1829",
     },
     {
         "key": "sprengel1830-comm",
@@ -76,6 +78,7 @@ EDITIONS = [
         "facs": "archive-download",
         "label_source": "table:la",
         "anchored_notes": True,
+        "concordance": "sprengel1830",
     },
     {
         "key": "sprengel1830-comm-eng",
@@ -86,6 +89,7 @@ EDITIONS = [
         "facs": "none",
         "label_source": "head",
         "anchored_notes": True,
+        "concordance": "sprengel1830",
     },
     {
         "key": "berendes1902",
@@ -98,6 +102,7 @@ EDITIONS = [
         # label from his heads, not from the Sprengel table.
         "label_source": "head",
         "anchored_notes": True,
+        "concordance": "berendes1902",
     },
     {
         "key": "berendes1902-eng",
@@ -108,6 +113,7 @@ EDITIONS = [
         "facs": "heidelberg",
         "label_source": "head",
         "anchored_notes": True,
+        "concordance": "berendes1902",
     },
     {
         "key": "beck2020",
@@ -118,6 +124,8 @@ EDITIONS = [
         "facs": "local",
         "label_source": "head",
         "anchored_notes": True,
+        # Beck's concordance rows stay private (in copyright): Beck pairs by its own numbering,
+        # which is Wellmann's.
     },
     {
         "key": "mattioli1554",
@@ -134,6 +142,8 @@ EDITIONS = [
         # The leaves before Book 1 and each book's prefaces and closing lines are sections,
         # not chapters: they get their own routes instead of being reported as structure errors.
         "section_routes": True,
+        # Paired with the other editions through Wellmann (concordance edition_of rows).
+        "concordance": "mattioli1554",
     },
     {
         "key": "mattioli1554-eng",
@@ -147,6 +157,8 @@ EDITIONS = [
         # The Latin's structure block for block (corresp): the same chapters, sections and zones.
         "text_and_commentary": True,
         "section_routes": True,
+        # Paired with the other editions through Wellmann (concordance edition_of rows).
+        "concordance": "mattioli1554",
     },
     {
         "key": "wellmann1906",
