@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "repository": "alchemiesofscent/edition-workbench",
-  "tag": "corpus-430db3fb85305639",
+  "tag": "corpus-8669334a8578563a",
   "asset": "dioscorides-corpus.tar.gz",
-  "bundle_id": "430db3fb8530563930a6aaafd2d315bcfb8629fc61d870947eb09353f714b1b8",
-  "producer_commit": "a061de9d7ebdc3cecd2819610ffaf0a49c0d5d46",
-  "archive_sha256": "8d41732b05b23ed23a0377557c7f21c41061303e303eca6d9720fa93bde49e78"
+  "bundle_id": "8669334a8578563ad55ccb5543e65718797d7c3492943a7f182a315f554df8b0",
+  "producer_commit": "c5935bb22fef057faf8509ac465ef43b8cac9613",
+  "archive_sha256": "e9f8c62162e7ff4be8867c0f34703873ccbf260f829500866743f0982de048dc"
 }

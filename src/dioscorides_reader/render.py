@@ -136,6 +136,19 @@ EDITIONS = [
         "section_routes": True,
     },
     {
+        "key": "mattioli1554-eng",
+        "label": "Mattioli 1554 (English, machine translation)",
+        "lang": "eng",
+        "tei_path": "editions/mattioli1554/tei/mattioli1554-eng.xml",
+        "stream": {"type": "translation", "lang": "eng"},
+        "facs": "iiif-image",
+        "label_source": "head",
+        "anchored_notes": True,
+        # The Latin's structure block for block (corresp): the same chapters, sections and zones.
+        "text_and_commentary": True,
+        "section_routes": True,
+    },
+    {
         "key": "wellmann1906",
         "label": "Wellmann 1906 (Greek, critical)",
         "lang": "grc",
@@ -175,12 +188,17 @@ SECTION_LABELS = {"praef": "Praefatio", "titulus": "Titulus", "dedicatio": "Dedi
                   "praefatio": "Praefatio", "privilegia": "Privilegia",
                   "typographus": "Typographus lectori", "errata": "Errata", "index": "Index",
                   "matter": "Front matter"}
+SECTION_LABELS_ENG = {"praef": "Preface", "titulus": "Title page", "dedicatio": "Dedication",
+                      "praefatio": "Preface", "privilegia": "Privileges",
+                      "typographus": "The printer to the reader", "errata": "Errata", "index": "Index",
+                      "matter": "Front matter"}
 
 
 def section_label(cfg: dict, book_n: str, n: str, div: ET.Element, table: dict, report: Report) -> str:
     """A named non-chapter section (praef, titulus, index …): its conventional label, else its head."""
-    if n.split("-")[0] in SECTION_LABELS:
-        return SECTION_LABELS[n.split("-")[0]]
+    labels = SECTION_LABELS_ENG if cfg["lang"] == "eng" else SECTION_LABELS
+    if n.split("-")[0] in labels:
+        return labels[n.split("-")[0]]
     head = div.find(f"{TEI}head")
     if head is not None and element_reading_text(head):
         return element_reading_text(head)
@@ -556,7 +574,8 @@ class ChapterRenderer:
         if self.cfg.get("text_and_commentary") and el.get("n") in ("translation", "commentary"):
             if el.get("n") == "commentary":
                 out.append('<section class="commentary author-commentary">'
-                           '<span class="block-label">Commentarius</span>')
+                           '<span class="block-label">'
+                           + ("Commentary" if self.cfg["lang"] == "eng" else "Commentarius") + '</span>')
             else:
                 out.append('<section class="dioscorides-text">'
                            '<span class="block-label">Dioscorides</span>')

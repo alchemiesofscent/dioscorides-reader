@@ -8,6 +8,15 @@ shows it beside the reader version under **Reading settings**. Release tags
 While the reader is in alpha, a minor version (0.x.0) adds or reorganises how people read;
 a patch version (0.x.y) fixes behaviour without changing the layout.
 
+## 0.4.0-alpha — 2026-10-08
+
+- New edition: **Mattioli 1554 (English, machine translation)**. It is an English translation of
+  the whole Latin text except the Index and Errata, built block for block on the Latin, with
+  the same chapters, prefaces and front-matter sections. It can be read side by side with
+  the Latin. Its blocks are labelled **Dioscorides** and **Commentary**, and its sections are
+  named in English: Preface, Title page, Dedication, Privileges, The printer to the reader.
+  The page links are approximate. The translation is unreviewed and not accepted.
+
 ## 0.3.1-alpha — 2026-10-08
 
 - Mattioli's commentary is set upright. It is still marked off by its **Commentarius** label,

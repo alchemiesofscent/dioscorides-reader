@@ -60,5 +60,17 @@ class TextAndCommentaryTest(unittest.TestCase):
         self.assertIsNone(resolve_facs(CFG, "https://example.org/page.png", Path("x.xml"), report))
 
 
+
+class EnglishMattioliTest(unittest.TestCase):
+    def test_english_stream_labels_its_blocks_in_english(self) -> None:
+        cfg = {**CFG, "key": "mattioli1554-eng", "lang": "eng"}
+        html = ChapterRenderer(cfg, Path("mattioli1554-eng.xml"), {}, Report()).render_chapter(
+            ET.fromstring(CHAPTER))["html"]
+        self.assertIn('<span class="block-label">Commentary</span>', html)
+        div = ET.fromstring(f'<div xmlns="{NS}" n="praef"/>')
+        self.assertEqual(section_label(cfg, "1", "praef", div, {}, Report()), "Preface")
+        self.assertEqual(section_label(cfg, "front", "typographus", div, {}, Report()), "The printer to the reader")
+
+
 if __name__ == "__main__":
     unittest.main()
