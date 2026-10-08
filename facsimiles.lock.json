@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "sets": [
+    {
+      "edition": "gunther1934",
+      "repository": "alchemiesofscent/dioscorides-reader",
+      "tag": "facsimiles-gunther1934-fc4da3d683f82c4a",
+      "asset": "gunther1934-pages.tar",
+      "sha256": "fc4da3d683f82c4a5acafe0442c7614ee2ea96fc62ed693dfb960294bd8ffeeb",
+      "directory": "facsimiles/gunther1934",
+      "pages": 728
+    }
+  ]
+}

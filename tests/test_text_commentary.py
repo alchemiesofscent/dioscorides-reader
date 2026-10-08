@@ -59,6 +59,14 @@ class TextAndCommentaryTest(unittest.TestCase):
         report = Report()
         self.assertIsNone(resolve_facs(CFG, "https://example.org/page.png", Path("x.xml"), report))
 
+    def test_scan_references_resolve_to_site_images(self) -> None:
+        cfg = {"key": "gunther1934", "facs": "site", "facs_dir": "facsimiles/gunther1934"}
+        self.assertEqual(resolve_facs(cfg, "#scan-0060", Path("x.xml"), Report()),
+                         {"kind": "image", "url": "facsimiles/gunther1934/0060.jpg"})
+        report = Report()
+        self.assertIsNone(resolve_facs(cfg, "../0060.jpg", Path("x.xml"), report))
+        self.assertEqual(report.items[0][1], "unrecognized facs")
+
 
 
 class EnglishMattioliTest(unittest.TestCase):

@@ -8,6 +8,14 @@ shows it beside the reader version under **Reading settings**. Release tags
 While the reader is in alpha, a minor version (0.x.0) adds or reorganises how people read;
 a patch version (0.x.y) fixes behaviour without changing the layout.
 
+## 0.7.0-alpha — 2026-10-09
+
+- **Gunther 1934 has its facsimile.** Every chapter opens on its printed page, and the
+  arrows turn the 728 pages of the scan. The images are published with the site, pinned in
+  `facsimiles.lock.json` (a release asset of this repository, checked against its sha256 when
+  the site is built). They are a second input beside `corpus.lock.json`, because no public image
+  service holds this scan. Copyright: see README, "Facsimiles".
+
 ## 0.6.0-alpha — 2026-10-08
 
 - New edition: **Gunther 1934 (Goodyer's English, 1655)**, *The Greek Herbal of Dioscorides*.

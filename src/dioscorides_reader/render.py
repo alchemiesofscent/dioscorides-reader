@@ -166,7 +166,9 @@ EDITIONS = [
         "lang": "eng",
         "tei_path": "editions/gunther1934/tei/gunther1934.xml",
         "stream": {"type": "translation", "lang": "eng"},
-        "facs": "none",
+        # Page images hosted with the site (facsimiles.lock.json): @facs="#scan-0060" → 0060.jpg
+        "facs": "site",
+        "facs_dir": "facsimiles/gunther1934",
         "label_source": "head",
         "anchored_notes": True,
         # front matter, each book's preface, Daubeny's appendix and the indexes are sections
@@ -383,6 +385,13 @@ def resolve_facs(cfg: dict, facs: str, tei_path: Path, report: Report) -> dict |
             report.add(cfg["key"], "unrecognized facs", facs)
             return None
         return {"kind": "iiif", "info": f"{m.group(1)}/info.json", "direct": facs}
+    if mode == "site":
+        # @facs is a scan reference (#scan-NNNN); the image is published with the site
+        m = re.fullmatch(r"#scan-(\d{4})", facs)
+        if not m:
+            report.add(cfg["key"], "unrecognized facs", facs)
+            return None
+        return {"kind": "image", "url": f"{cfg['facs_dir']}/{m.group(1)}.jpg"}
     report.add(cfg["key"], "unknown facs mode", mode)
     return None
 

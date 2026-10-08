@@ -127,7 +127,39 @@ in the reading pane. Mattioli and Hájek can remain production work in progress 
 exports have supported reading structures; the reader never invents chapter alignment.
 
 Remote facsimiles use the existing Archive.org, Heidelberg and BBAW adapters. Beck images
-and two recovered Sprengel pages need their recorded optional image source. When an image
+and two recovered Sprengel pages need their recorded optional image source.
+
+## Facsimiles
+
+Gunther 1934 has no public image service: its pages are published with the site.
+`facsimiles.lock.json` pins one tar of JPEG pages per edition (a release asset of this
+repository: tag, asset, sha256, page count). After the build, `scripts/fetch_facsimiles.py dist`
+downloads it, checks it and writes the pages to `dist/facsimiles/<edition>/`. The TEI's
+`@facs="#scan-NNNN"` resolves to `NNNN.jpg` there (facs mode `site`).
+
+The Gunther pages are the 728 pages of the Internet Archive scan
+(`greekherbalofdio0000dios`, the Hafner reprint of 1968), rendered at 360 dpi and
+saved as greyscale JPEGs. Sean Coughlin decided to publish them on 2026-10-09, with this
+justification:
+
+> The 396 botanical illustrations in Robert T. Gunther's The Greek Herbal of Dioscorides
+> (1934; Hafner facsimile, 1968) are copies made by F. A. Boustead of illustrations in the
+> sixth-century Vienna Dioscorides (Codex Vindobonensis medicus graecus 1), as explicitly
+> acknowledged by Gunther in his preface.
+>
+> The underlying illustrations are in the public domain. Under U.S. copyright law, faithful
+> reproductions of two-dimensional public-domain artworks generally do not attract independent
+> copyright protection (Bridgeman Art Library v. Corel Corp., 1999). Similarly, Article 14 of
+> EU Directive 2019/790 excludes new copyright or related-right protection for reproductions of
+> public-domain works of visual art unless they constitute original intellectual creations.
+>
+> Accordingly, insofar as Boustead's drawings are faithful reproductions rather than original
+> artistic reinterpretations, there are strong grounds for treating them as public-domain
+> material. Neither Gunther's editorial copyright nor the 1968 facsimile publication would, by
+> itself, establish new copyright in the underlying illustrations.
+>
+> This assessment is subject to verification that the drawings do not contain independently
+> protectable creative contributions. When an image
 is unavailable, reading remains usable; its retrieval record remains in the built data.
 No build fetches, retains or commits scans. Image restoration is a separate local operation.
 

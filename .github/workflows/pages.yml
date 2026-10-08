@@ -43,6 +43,12 @@ jobs:
         run: |
           test ! -e dist/data/beck2020
           ! grep -rl -e beck2020 -e 'beck-0' -e 'Beck 2020' dist/data
+      # Page images no public image service holds (Gunther 1934) are release assets of this
+      # repository, pinned in facsimiles.lock.json; they go into the site after the build.
+      - name: Add pinned page images
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python scripts/fetch_facsimiles.py dist --cache .cache/facsimiles
       - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d
       - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9
         with:
