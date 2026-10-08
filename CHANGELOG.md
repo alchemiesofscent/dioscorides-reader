@@ -8,6 +8,12 @@ shows it beside the reader version under **Reading settings**. Release tags
 While the reader is in alpha, a minor version (0.x.0) adds or reorganises how people read;
 a patch version (0.x.y) fixes behaviour without changing the layout.
 
+## 0.5.1-alpha — 2026-10-08
+
+- If a section exists in only one of the two editions (Mattioli's dedication, Berendes' index,
+  a book preface the Sprengel commentary lacks), the other pane now says there is no
+  counterpart instead of "not in this edition".
+
 ## 0.5.0-alpha — 2026-10-08
 
 - **Chapters pair through Wellmann.** Before this, the second pane showed whatever chapter had

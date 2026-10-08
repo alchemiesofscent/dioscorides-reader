@@ -142,13 +142,16 @@
     if (!pf && !pe) return { targets: plain, note: "" };
     const wkeys = toWellmann(from, route.book, route.ch);
     const keys = fromWellmann(edition, wkeys);
-    const targets = keys.map((k) => { const i = k.indexOf("."); return { book: k.slice(0, i), ch: k.slice(i + 1) }; });
+    // a section key the other edition does not have (front matter, a preface it lacks) is no counterpart
+    const present = new Set(flatChapters(edition).map((c) => `${c.book}.${c.ch}`));
+    const kept = keys.filter((k) => present.has(k));
+    const targets = kept.map((k) => { const i = k.indexOf("."); return { book: k.slice(0, i), ch: k.slice(i + 1) }; });
     const status = [pf, pe].some((p) => p && p.status !== "checked") ? "proposed concordance" : "concordance";
     const same = targets.length === 1 && targets[0].book === route.book && targets[0].ch === route.ch;
     const via = pf && wkeys.length && !(wkeys.length === 1 && wkeys[0] === `${route.book}.${route.ch}`)
       ? ` = Wellmann ${wkeys.join(", ")}` : "";
     const note = same ? "" : `${manifest.editions[from].label} ${route.book}.${route.ch}`
-      + (wkeys.length ? `${via} = ${manifest.editions[edition].label} ${keys.length ? keys.join(", ") : "(none)"}`
+      + (wkeys.length ? `${via} = ${manifest.editions[edition].label} ${kept.length ? kept.join(", ") : "(none)"}`
         : " has no Wellmann counterpart")
       + ` · ${status}`;
     return { targets, note };

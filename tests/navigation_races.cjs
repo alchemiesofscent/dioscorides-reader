@@ -340,7 +340,7 @@ test("chapters pair through Wellmann where an edition has concordance rows", () 
   `);
   const books = (keys) => [{ n: "1", chapters: keys.map(n => ({ n, label: n })) }];
   api.setup({ editions: {
-    wellmann1906: { label: "Wellmann", books: books(["praef", "42", "43", "68"]) },
+    wellmann1906: { label: "Wellmann", books: [...books(["praef", "42", "43", "68"]), { n: "2", chapters: [{ n: "arg", label: "arg" }] }] },
     berendes1902: { label: "Berendes", books: books(["praef", "42", "43", "68"]) },
     mattioli1554: { label: "Mattioli", books: [...books(["praef", "41", "42", "70", "71"]),
       { n: "2", chapters: [{ n: "praef", label: "praef" }] }], pairing: {
@@ -362,4 +362,8 @@ test("chapters pair through Wellmann where an edition has concordance rows", () 
   // a book preface linked to Wellmann's argumentum, both ways
   assert.equal(keys(api.pairedTargets("mattioli1554", "wellmann1906", { book: "2", ch: "praef" })), "2.arg");
   assert.equal(keys(api.pairedTargets("wellmann1906", "mattioli1554", { book: "2", ch: "arg" })), "2.praef");
+  // a section the other edition lacks is no counterpart, not a missing chapter
+  const front = api.pairedTargets("mattioli1554", "berendes1902", { book: "2", ch: "praef" });
+  assert.equal(keys(front), "");
+  assert.match(front.note, /\(none\)/);
 });
