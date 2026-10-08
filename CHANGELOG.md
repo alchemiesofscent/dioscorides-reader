@@ -8,6 +8,22 @@ shows it beside the reader version under **Reading settings**. Release tags
 While the reader is in alpha, a minor version (0.x.0) adds or reorganises how people read;
 a patch version (0.x.y) fixes behaviour without changing the layout.
 
+## 0.3.0-alpha — 2026-10-08
+
+Mattioli 1554 (Latin, with commentary), review pending, not accepted.
+
+- Each chapter shows Dioscorides' text and Mattioli's commentary as two labelled blocks:
+  **Dioscorides** in upright type, then **Commentarius** in italic as printed, with a rule
+  beside it. Words printed upright inside the commentary stay upright.
+- The leaves before Book 1 (title page, dedication, preface, privileges, index) are listed as
+  **Front matter**. Each book's prefaces and closing lines are entries in the contents, in
+  reading order.
+- Expansions show the supplied letters dimmed. Marginal notes appear in small brackets where
+  they stand, woodcuts as ❦ with their caption, and illegible letters as […].
+- Facsimiles open the Wellcome Collection page images.
+- Side-by-side pairing goes by chapter number. Mattioli's numbering is his own, so his
+  chapters do not line up with Wellmann's or Sprengel's.
+
 ## 0.2.1-alpha — 2026-10-07
 
 - A chapter that opens with its own page break no longer also lists the page before it, so
