@@ -8,6 +8,13 @@ shows it beside the reader version under **Reading settings**. Release tags
 While the reader is in alpha, a minor version (0.x.0) adds or reorganises how people read;
 a patch version (0.x.y) fixes behaviour without changing the layout.
 
+## 0.8.1-alpha — 2026-10-09
+
+- Corpus 91dd9bab (Gunther 1934 corrections). Every printed footnote mark in Gunther is a link
+  to its note. The 396 woodcuts carry their printed captions. The garbled OCR (bookplate, stamps,
+  the handwritten plate, noise) is gone. Daubeny's appendix and Saracen's index are re-read from
+  the scans, with the Greek in Greek letters.
+
 ## 0.8.0-alpha — 2026-10-09
 
 - **Wellmann shows its printed structure.** Editorial additions appear in angle brackets
