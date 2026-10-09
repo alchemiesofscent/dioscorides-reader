@@ -51,6 +51,22 @@ def wellmann_label(passage: str) -> str:
     return head + (" (part)" if at else "")
 
 
+def selector(passage: str, chapter: str) -> dict | None:
+    """What part of a chapter a passage names, for the reader to show only that part: {"from", "to"} section
+    labels (1.42.2, 1.105.1-1.105.5), {"section", "sub"} (1.30.6@a[2]-b[2]), {"sub"} (1.30@a[1]-b[1]), or
+    {"unit", "sub"} for a named block of an edition's chapter (Mattioli's 1.4.translation@...); None: whole."""
+    head, _, sub = passage.partition("@")
+    if sub:
+        if head == chapter:
+            return {"sub": sub}
+        rest = head[len(chapter) + 1:]
+        return {"unit": rest, "sub": sub} if not rest[:1].isdigit() else {"section": rest, "sub": sub}
+    if head == chapter:
+        return None
+    a, _, b = head.partition("-")
+    return {"from": a[len(chapter) + 1:], "to": (b or a)[len(chapter) + 1:]}
+
+
 def load(lock_path: Path = LOCK) -> dict | None:
     """{version: {"to_wellmann": {key: [wellmann keys]}, "status": ...}} from the pinned rows;
     None when no concordance is pinned (every edition then pairs by identical key)."""
@@ -67,25 +83,31 @@ def load(lock_path: Path = LOCK) -> dict | None:
         if row["relation"] != "edition_of":
             raise ValueError(f"Unexpected relation in vendored concordance rows: {row['relation']}")
         version, key = split(row["urn_a"])
+        part = None
         if "@" in key:          # part of the edition's chapter (Mattioli's 1.4.translation@...): the chapter pairs
-            key = wellmann_chapter(key)
+            part, key = key, wellmann_chapter(key)
         target, passage = split(row["urn_b"])
         if target != WELLMANN:
             raise ValueError(f"edition_of must point into Wellmann: {row['urn_b']}")
         wkey = wellmann_chapter(passage)
-        entry = out.setdefault(version, {"to_wellmann": {}, "spans": {}, "statuses": set()})
+        entry = out.setdefault(version, {"to_wellmann": {}, "spans": {}, "parts": {}, "statuses": set()})
+        if part:
+            entry["parts"].setdefault(key, {})[wkey] = selector(part, key)
         targets = entry["to_wellmann"].setdefault(key, [])
         if wkey not in targets:
             targets.append(wkey)
         start, end = row.get("w_from") or None, row.get("w_to") or None
         entry["spans"].setdefault(key, []).append(
-            [wkey, int(start) if start else None, int(end) if end else None, wellmann_label(passage)])
+            [wkey, int(start) if start else None, int(end) if end else None, wellmann_label(passage),
+             selector(passage, wkey)])
         entry["statuses"].add(row["status"])
     if len(rows) != lock["rows"]:
         raise ValueError("Vendored concordance row count differs from concordance.lock.json")
     for version, entry in out.items():
         # only chapters linked to part of a Wellmann chapter need their spans (a whole chapter overlaps all)
         entry["spans"] = {k: v for k, v in entry["spans"].items() if any(x[1] is not None for x in v)}
+        if not entry["parts"]:
+            del entry["parts"]
         statuses = entry.pop("statuses")
         entry["status"] = "checked" if statuses == {"checked"} else "proposed"
         entry["source"] = {"repository": lock["repository"], "commit": lock["commit"]}

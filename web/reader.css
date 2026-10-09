@@ -387,3 +387,7 @@ body.hide-chapter-numerals .chapter-head .tei-num-chapter { display: inline; }
 /* The other pane's chapters chosen through the Wellmann concordance (proposed until checked). */
 .pairing-note { font-size: 0.85em; color: var(--dim); border-left: 3px solid var(--rubric);
   padding: 0.2em 0.6em; margin: 0 0 0.8em; }
+
+/* part of a chapter shown alone (the section or span the other pane's chapter renders) */
+.part-bar { font-size: 0.85em; color: var(--muted, #666); margin: 0 0 0.6em; }
+.part-gap { text-align: center; color: var(--muted, #666); }

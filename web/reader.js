@@ -149,6 +149,27 @@
     return a[1] < b[2] && b[1] < a[2];
   }
 
+  // What part of a target chapter to show (Sean, 2026-10-09: "can the view simply display that portion"):
+  // Wellmann's chapter when the left chapter renders only some of its sections or words (Gunther 1.52 =
+  // Wellmann 1.42.2), or an edition's chapter that renders more Wellmann chapters than the left one (Gunther 1.4
+  // is Wellmann 1.4 and 1.5; beside Wellmann 1.5 only its part). null: the whole chapter.
+  function selectionFor(edition, mine, key) {
+    const pe = manifest.editions[edition].pairing;
+    if (!pe) {
+      const sels = mine.filter((m) => m[0] === key);
+      if (!sels.length || sels.some((m) => !m[4])) return null;
+      return { sels: sels.map((m) => m[4]), label: `Wellmann ${sels.map((m) => m[3]).join(", ")}` };
+    }
+    const parts = pe.parts && pe.parts[key];
+    if (!parts) return null;
+    const mineW = new Set(mine.map((m) => m[0]));
+    const theirs = pe.to_wellmann[key] || [];
+    const shared = theirs.filter((w) => mineW.has(w));
+    if (shared.length === theirs.length || !shared.every((w) => parts[w])) return null;
+    const siblings = theirs.filter((w) => !mineW.has(w) && parts[w] && parts[w].sub).map((w) => parts[w].sub);
+    return { sels: shared.map((w) => parts[w]), siblings, label: `the part rendering Wellmann ${shared.join(", ")}` };
+  }
+
   // The chapters of `edition` that answer the route's chapter in `from` (the left edition).
   function pairedTargets(from, edition, route) {
     const plain = [{ book: route.book, ch: route.ch }];
@@ -164,7 +185,10 @@
     const overlapping = inChapter.filter((k) => spansOf(edition, k).some((t) => mine.some((m) => overlaps(m, t))));
     const kept = overlapping.length ? overlapping : inChapter;
     const labels = [...new Set(mine.map((m) => m[3]))];
-    const targets = kept.map((k) => { const i = k.indexOf("."); return { book: k.slice(0, i), ch: k.slice(i + 1) }; });
+    const targets = kept.map((k) => {
+      const i = k.indexOf(".");
+      return { book: k.slice(0, i), ch: k.slice(i + 1), select: selectionFor(edition, mine, k) };
+    });
     const status = [pf, pe].some((p) => p && p.status !== "checked") ? "proposed concordance" : "concordance";
     const same = targets.length === 1 && targets[0].book === route.book && targets[0].ch === route.ch;
     const via = pf && wkeys.length && !(wkeys.length === 1 && wkeys[0] === `${route.book}.${route.ch}`)
@@ -273,6 +297,81 @@
     }
   }
 
+  // ---------- showing part of a chapter ----------
+  // A selector names sections ({from, to}), or words ({sub: "first[n]-last[m]"}, in a section or a named block
+  // of the chapter). Words are found as the concordance counts them (tools/tokens.py): runs of letters and
+  // digits in the chapter's running text, headings, labels, note marks and figures left out, a word broken
+  // at a line end joined; form[n] is the n-th word of that form. Not found: the whole chapter is shown.
+  const SKIP = "h3, .chapter-head, .eol-hyphen, .block-label, .figure, a.fnref, sup, .note-inline, .tr-note, .fw, .milestone, .commentary, .endnotes";
+  const UNITS = { translation: ".dioscorides-text" };
+  const formKey = (f) => f.normalize("NFC").replace(/[-‐᾿’ʼ'·\u00B2\u00B3\u00B9\u2070-\u209F]/g, "");
+
+  function wordsOf(scope) {
+    const doc = scope.ownerDocument;
+    const walker = doc.createTreeWalker(scope, 4, {
+      acceptNode: (n) => (n.parentElement && n.parentElement.closest(SKIP) && scope.contains(n.parentElement.closest(SKIP))) ? 2 : 1 });
+    let text = "";
+    const at = [];
+    for (let n = walker.nextNode(); n; n = walker.nextNode()) {
+      for (let i = 0; i < n.data.length; i++) at.push([n, i]);
+      text += n.data;
+    }
+    const words = [];
+    for (const m of text.matchAll(/[\p{L}\p{M}\p{N}]+/gu)) words.push({ start: m.index, end: m.index + m[0].length, form: formKey(m[0]) });
+    return { words, at };
+  }
+
+  function findForm(words, spec) {
+    const m = spec.match(/^(.+?)(?:\[(\d+)\])?$/);
+    const want = formKey(m[1]);
+    let n = Number(m[2] || 1);
+    for (let i = 0; i < words.length; i++) if (words[i].form === want && --n === 0) return i;
+    return -1;
+  }
+
+  // a part ends at its last word, or where the next part of the chapter begins (the texts the concordance and
+  // the page cut into words may differ a little; the first words are enough)
+  function cutWords(scope, sub, siblings = []) {
+    const [a, b] = sub.split("-");
+    const { words, at } = wordsOf(scope);
+    const i = findForm(words, a);
+    if (i < 0) return null;
+    const next = siblings.map((x) => findForm(words, x.split("-")[0])).filter((k) => k > i);
+    let j = next.length ? Math.min(...next) - 1 : findForm(words, b || a);
+    if (j < i) j = next.length ? Math.min(...next) - 1 : words.length - 1;
+    const range = scope.ownerDocument.createRange();
+    const s = at[words[i].start], e = at[words[j].end - 1];
+    range.setStart(s[0], s[1]);
+    range.setEnd(e[0], e[1] + 1);
+    const div = scope.ownerDocument.createElement("div");
+    div.appendChild(range.cloneContents());
+    return div.innerHTML;
+  }
+
+  function selectPart(html, select) {
+    const tpl = document.createElement("template");
+    tpl.innerHTML = html;
+    const root = tpl.content.querySelector(".chapter");
+    if (!root) return null;
+    const out = [];
+    for (const sel of select.sels) {
+      if (sel.from !== undefined) {
+        const sections = [...root.querySelectorAll(":scope > section.section")];
+        const i = sections.findIndex((x) => x.dataset.n === sel.from), j = sections.findIndex((x) => x.dataset.n === sel.to);
+        if (i < 0 || j < i) return null;
+        out.push(sections.slice(i, j + 1).map((x) => x.outerHTML).join(""));
+        continue;
+      }
+      const scope = sel.section ? root.querySelector(`:scope > section.section[data-n="${sel.section}"]`)
+        : sel.unit ? root.querySelector(UNITS[sel.unit] || `[data-n="${sel.unit}"]`) : root;
+      const part = scope && cutWords(scope, sel.sub, select.siblings || []);
+      if (!part) return null;
+      out.push(`<p class="part-words">${part}</p>`);
+    }
+    const head = root.querySelector(":scope > h3");
+    return `<div class="chapter part" data-n="${root.dataset.n}">${head ? head.outerHTML : ""}${out.join('<p class="part-gap">…</p>')}</div>`;
+  }
+
   async function renderPane(pane, edition, route, generation, paired = null) {
     const head = pane.querySelector(".pane-head");
     const body = pane.querySelector(".pane-body");
@@ -317,6 +416,11 @@
       }
       if (!chapter) { chunk = part; chapter = found; }
       let html = found.html;
+      const shownPart = target.select && !pane._whole ? selectPart(found.html, target.select) : null;
+      if (shownPart) {
+        html = `<p class="part-bar">Showing ${target.select.label.replace(/&/g, "&amp;").replace(/</g, "&lt;")} only · `
+          + `<a href="#" class="show-whole">show the whole chapter</a></p>${shownPart}`;
+      }
       const sigla = (found.sigla || []).join("");
       const noteIds = found.noteIds || [];
       if (sigla || noteIds.length) {
@@ -333,6 +437,13 @@
       return;
     }
     body.innerHTML = banner + parts.join("");
+    for (const link of body.querySelectorAll("a.show-whole")) {
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        pane._whole = true;
+        renderPane(pane, edition, route, renderGeneration, paired).finally(() => { pane._whole = false; });
+      });
+    }
     configureMatter(body, chapter, route);
     const firstCommentary = body.querySelectorAll(".chapter > .commentary")[0]
       || body.querySelectorAll(".chapter .section > .commentary")[0];

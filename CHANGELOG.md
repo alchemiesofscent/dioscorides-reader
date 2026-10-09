@@ -8,6 +8,16 @@ shows it beside the reader version under **Reading settings**. Release tags
 While the reader is in alpha, a minor version (0.x.0) adds or reorganises how people read;
 a patch version (0.x.y) fixes behaviour without changing the layout.
 
+## 0.10.0-alpha — 2026-10-09
+
+- **Only the matching part is shown.** When the chapter on the left renders part of a chapter on the right,
+  the right pane shows just that part, with "show the whole chapter" above it.
+  - Gunther 1.52 is Wellmann 1.42.2, so Wellmann shows §2.
+  - Beside Wellmann 1.5, Gunther, Berendes, Mattioli and Sprengel show only the end of their chapter 1.4.
+  - Word spans inside a section work too: Sprengel 1.35 beside Wellmann 1.30.6.
+  - The part is found by its first words in the page. Where they can't be found (about 3%, and in
+    Sprengel's Latin stream, which has no word spans of its own), the whole chapter is shown, as before.
+
 ## 0.9.1-alpha — 2026-10-09
 
 - **No Wellmann chapter is skipped where an edition joins two.** Wellmann 1.4 and 1.5 are one chapter in

@@ -70,8 +70,10 @@ def test_links_to_part_of_a_wellmann_chapter_keep_their_span(tmp_path):
     (tmp_path / "concordance.lock.json").write_text(json.dumps(lock))
     entry = concordance.load(tmp_path / "concordance.lock.json")["mattioli1554"]
     assert entry["to_wellmann"] == {"1.40": ["1.42"], "1.41": ["1.42"], "1.30": ["1.30"], "1.43": ["1.44"]}
-    assert entry["spans"] == {"1.40": [["1.42", 0, 48, "1.42.1"]], "1.41": [["1.42", 48, 122, "1.42.2"]],
-                              "1.30": [["1.30", 475, 501, "1.30.6 (part)"]]}
+    assert entry["spans"] == {
+        "1.40": [["1.42", 0, 48, "1.42.1", {"from": "1", "to": "1"}]],
+        "1.41": [["1.42", 48, 122, "1.42.2", {"from": "2", "to": "2"}]],
+        "1.30": [["1.30", 475, 501, "1.30.6 (part)", {"section": "6", "sub": "ὁ[2]-ἐπιτιθέμενος[2]"}]]}
     assert concordance.wellmann_label("1.105.1-1.105.5") == "1.105.1-5"
 
 
@@ -86,3 +88,8 @@ def test_a_span_of_the_editions_chapter_pairs_as_its_chapter(tmp_path):
     (tmp_path / "concordance.lock.json").write_text(json.dumps(lock))
     entry = concordance.load(tmp_path / "concordance.lock.json")["mattioli1554"]
     assert entry["to_wellmann"] == {"1.4": ["1.4", "1.5"]}
+    # the reader can show only the part: Mattioli's Dioscorides text, from Aliud to exhibet, for Wellmann 1.5
+    assert entry["parts"]["1.4"]["1.5"] == {"unit": "translation", "sub": "Aliud[1]-exhibet[1]"}
+    assert concordance.selector("1.105.1-1.105.5", "1.105") == {"from": "1", "to": "5"}
+    assert concordance.selector("1.30@a[1]-b[1]", "1.30") == {"sub": "a[1]-b[1]"}
+    assert concordance.selector("1.42", "1.42") is None

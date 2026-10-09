@@ -376,7 +376,7 @@ test("chapters pair through Wellmann where an edition has concordance rows", () 
       spans: { "1.40": [["1.42", 0, 48, "1.42.1"]], "1.41": [["1.42", 48, 122, "1.42.2"]] } } },
     guntherB: { label: "Gunther", books: books(["51", "52"]), pairing: { status: "proposed",
       to_wellmann: { "1.51": ["1.42"], "1.52": ["1.42"] },
-      spans: { "1.51": [["1.42", 0, 48, "1.42.1"]], "1.52": [["1.42", 48, 122, "1.42.2"]] } } },
+      spans: { "1.51": [["1.42", 0, 48, "1.42.1", { from: "1", to: "1" }]], "1.52": [["1.42", 48, 122, "1.42.2", { from: "2", to: "2" }]] } } },
   } });
   const part = api.pairedTargets("mattioliB", "guntherB", { book: "1", ch: "41" });
   assert.equal(keys(part), "1.52");
@@ -385,4 +385,8 @@ test("chapters pair through Wellmann where an edition has concordance rows", () 
   // Wellmann's whole chapter answers both parts, and each part answers the whole chapter
   assert.equal(keys(api.pairedTargets("wellmann1906b", "guntherB", { book: "1", ch: "42" })), "1.51 1.52");
   assert.equal(keys(api.pairedTargets("guntherB", "wellmann1906b", { book: "1", ch: "52" })), "1.42");
+  // and Wellmann shows only the section it renders; the whole chapter beside Wellmann shows all of it
+  assert.deepEqual(JSON.parse(JSON.stringify(api.pairedTargets("guntherB", "wellmann1906b", { book: "1", ch: "52" }).targets[0].select)),
+    { sels: [{ from: "2", to: "2" }], label: "Wellmann 1.42.2" });
+  assert.equal(api.pairedTargets("wellmann1906b", "guntherB", { book: "1", ch: "42" }).targets[0].select, null);
 });
