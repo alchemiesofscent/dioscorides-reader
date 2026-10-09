@@ -166,7 +166,7 @@
     const theirs = pe.to_wellmann[key] || [];
     const shared = theirs.filter((w) => mineW.has(w));
     if (shared.length === theirs.length || !shared.every((w) => parts[w])) return null;
-    const siblings = theirs.filter((w) => !mineW.has(w) && parts[w] && parts[w].sub).map((w) => parts[w].sub);
+    const siblings = theirs.filter((w) => !mineW.has(w) && parts[w] && parts[w].sub).map((w) => parts[w]);
     return { sels: shared.map((w) => parts[w]), siblings, label: `the part rendering Wellmann ${shared.join(", ")}` };
   }
 
@@ -331,12 +331,33 @@
 
   // a part ends at its last word, or where the next part of the chapter begins (the texts the concordance and
   // the page cut into words may differ a little; the first words are enough)
-  function cutWords(scope, sub, siblings = []) {
+  // A part's first words (lead, from the concordance): found together they place it; not found, no part
+  // is shown (a single word and its count can land on the wrong occurrence when the texts cut words
+  // differently).
+  function findSeq(words, want) {
+    for (let i = 0; i + want.length <= words.length; i++) {
+      if (want.every((w, k) => words[i + k].form === w)) return i;
+    }
+    return -1;
+  }
+  function findLead(words, lead) {
+    const want = lead.map(formKey).filter(Boolean);   // a footnote number is no word on the page
+    let i = findSeq(words, want);
+    if (i >= 0 || want.length < 3) return i;
+    // a word of the three cut differently on the page: two of them in sequence
+    i = findSeq(words, want.slice(0, 2));
+    if (i >= 0) return i;
+    i = findSeq(words, want.slice(1));
+    return i > 0 ? i - 1 : -1;
+  }
+
+  function cutWords(scope, sub, siblings = [], lead = null) {
     const [a, b] = sub.split("-");
     const { words, at } = wordsOf(scope);
-    const i = findForm(words, a);
+    const i = lead && lead.length ? findLead(words, lead) : findForm(words, a);
     if (i < 0) return null;
-    const next = siblings.map((x) => findForm(words, x.split("-")[0])).filter((k) => k > i);
+    const next = siblings.map((x) => (x.lead && x.lead.length ? findLead(words, x.lead)
+      : findForm(words, x.sub.split("-")[0]))).filter((k) => k > i);
     let j = next.length ? Math.min(...next) - 1 : findForm(words, b || a);
     if (j < i) j = next.length ? Math.min(...next) - 1 : words.length - 1;
     const range = scope.ownerDocument.createRange();
@@ -364,7 +385,7 @@
       }
       const scope = sel.section ? root.querySelector(`:scope > section.section[data-n="${sel.section}"]`)
         : sel.unit ? root.querySelector(UNITS[sel.unit] || `[data-n="${sel.unit}"]`) : root;
-      const part = scope && cutWords(scope, sel.sub, select.siblings || []);
+      const part = scope && cutWords(scope, sel.sub, select.siblings || [], sel.lead);
       if (!part) return null;
       out.push(`<p class="part-words">${part}</p>`);
     }

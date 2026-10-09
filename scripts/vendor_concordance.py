@@ -6,7 +6,8 @@ Reads links.tsv at COMMIT (git show) and keeps the rows with relation edition_of
 urn_a, relation, urn_b, status only: this repository is public and the concordance is private, so
 its evidence and notes stay there, and the rows of in-copyright editions (PRIVATE) are left out.
 A link to part of a Wellmann chapter (a section, a run of sections, a span of words: Sean,
-2026-10-09) also gets w_from and w_to, the words of the chapter it covers (0-based, end exclusive,
+2026-10-09) also gets w_from and w_to, the words of the chapter it covers, and a span (on either side) its
+first three words (a_lead, w_lead), by which the reader finds it on the page (0-based, end exclusive,
 as the concordance's tools/tokens.py cuts the pinned text; empty for a whole chapter), so that the
 reader pairs two parts only where they overlap. These are computed with the concordance's own
 tools/editions/sections.py, so the checkout must be at COMMIT with its local sources configured.
@@ -22,7 +23,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PRIVATE = ("beck2020",)
 COLUMNS = ("urn_a", "relation", "urn_b", "status")
-SPAN = ("w_from", "w_to")
+SPAN = ("w_from", "w_to", "a_lead", "w_lead")
+LEAD = 3
 
 
 def offsets(S, T, passage):
@@ -39,6 +41,18 @@ def offsets(S, T, passage):
         i, j = T.span(words, sub)
         return str(base + i), str(base + j + 1)
     return str(unit[a][0]), str(unit[b or a][1])
+
+
+def lead(S, T, urn):
+    """The first words of a subreference's span (the reader finds a part by them), or ""."""
+    head, _, sub = urn.rsplit(":", 1)[1].partition("@")
+    if not sub:
+        return ""
+    version = urn.split(":")[3].split(".")[2]
+    mid = S.version_ids()[version]
+    words = T.tokens(S.U.reading(S.index(mid)[head]))
+    i, _ = T.span(words, sub)
+    return " ".join(f for _, _, f in words[i:i + LEAD])
 
 
 def main(checkout, commit):
@@ -62,7 +76,8 @@ def main(checkout, commit):
         if cells[1] != "edition_of" or any(f".{v}:" in cells[0] for v in PRIVATE):
             continue
         span = offsets(S, T, cells[idx[2]].rsplit(":", 1)[1])
-        rows.append("\t".join([*(cells[i] for i in idx), *span]) + "\n")
+        leads = (lead(S, T, cells[idx[0]]), lead(S, T, cells[idx[2]]))
+        rows.append("\t".join([*(cells[i] for i in idx), *span, *leads]) + "\n")
     data = ("\t".join(COLUMNS + SPAN) + "\n" + "".join(rows)).encode("utf-8")
     out = ROOT / "concordance" / "edition_of.tsv"
     out.parent.mkdir(exist_ok=True)

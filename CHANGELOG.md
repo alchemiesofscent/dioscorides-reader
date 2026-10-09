@@ -8,6 +8,13 @@ shows it beside the reader version under **Reading settings**. Release tags
 While the reader is in alpha, a minor version (0.x.0) adds or reorganises how people read;
 a patch version (0.x.y) fixes behaviour without changing the layout.
 
+## 0.10.1-alpha — 2026-10-09
+
+- A part of a chapter is found by its first words together, not by one word and its count. 0.10.0 could
+  land on the wrong occurrence where the texts cut words differently: beside Wellmann 1.5, Gunther
+  showed the whole of 1.4 instead of its last part. If a part's first words can't be found, the whole
+  chapter is shown, never a wrong part. 1,130 of 1,165 partial links are now shown as parts.
+
 ## 0.10.0-alpha — 2026-10-09
 
 - **Only the matching part is shown.** When the chapter on the left renders part of a chapter on the right,

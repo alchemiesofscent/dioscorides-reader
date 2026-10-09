@@ -11,10 +11,12 @@
     "urn_b",
     "status",
     "w_from",
-    "w_to"
+    "w_to",
+    "a_lead",
+    "w_lead"
   ],
   "excluded_versions": [
     "beck2020"
   ],
-  "edition_of_sha256": "8835c9b9ffd026ec3274b1b59db3b1d1cb6999fd34efcda61c1aa357f63b89bb"
+  "edition_of_sha256": "d66c544357be2ca67a35b75f0c9a498cfa17eec3a0f137cbd4fd7962ab957676"
 }
