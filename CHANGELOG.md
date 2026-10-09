@@ -13,6 +13,9 @@ a patch version (0.x.y) fixes behaviour without changing the layout.
 - "Only the matching part" is now an on/off switch, above the part and in Reading settings. It is
   remembered for all panes and later chapters.
 - A part shown alone keeps the punctuation after its last word (the final full stop was lost).
+- Corpus 38085b0b: Sean's Gunther corrections (footnote Greek in 1.38; 5·76 pints in the 1.32 note;
+  Gunther's comment after 1.51 as a note; Iasmelaion as chapter 1.76a; the section heading "Dakrua. Tears or
+  gums of trees"), and the Sprengel 1830 commentary's restored chapter boundaries.
 
 ## 0.10.1-alpha — 2026-10-09
 
