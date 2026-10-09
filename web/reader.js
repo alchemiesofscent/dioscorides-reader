@@ -134,6 +134,21 @@
     return out;
   }
 
+  // What part of Wellmann's chapters a chapter renders: [Wellmann chapter, from word, to word, label];
+  // from/to null for a whole chapter. pairing.spans holds only the chapters linked to a part
+  // (a section or a span of words: 1.42.1); two parts of one Wellmann chapter pair where they overlap.
+  function spansOf(edition, key) {
+    const pairing = manifest.editions[edition].pairing;
+    const spans = pairing && pairing.spans && pairing.spans[key];
+    if (spans) return spans;
+    return (pairing ? pairing.to_wellmann[key] || [] : [key]).map((w) => [w, null, null, w]);
+  }
+  function overlaps(a, b) {
+    if (a[0] !== b[0]) return false;
+    if (a[1] === null || b[1] === null) return true;
+    return a[1] < b[2] && b[1] < a[2];
+  }
+
   // The chapters of `edition` that answer the route's chapter in `from` (the left edition).
   function pairedTargets(from, edition, route) {
     const plain = [{ book: route.book, ch: route.ch }];
@@ -144,12 +159,16 @@
     const keys = fromWellmann(edition, wkeys);
     // a section key the other edition does not have (front matter, a preface it lacks) is no counterpart
     const present = new Set(flatChapters(edition).map((c) => `${c.book}.${c.ch}`));
-    const kept = keys.filter((k) => present.has(k));
+    const mine = spansOf(from, `${route.book}.${route.ch}`);
+    const inChapter = keys.filter((k) => present.has(k));
+    const overlapping = inChapter.filter((k) => spansOf(edition, k).some((t) => mine.some((m) => overlaps(m, t))));
+    const kept = overlapping.length ? overlapping : inChapter;
+    const labels = [...new Set(mine.map((m) => m[3]))];
     const targets = kept.map((k) => { const i = k.indexOf("."); return { book: k.slice(0, i), ch: k.slice(i + 1) }; });
     const status = [pf, pe].some((p) => p && p.status !== "checked") ? "proposed concordance" : "concordance";
     const same = targets.length === 1 && targets[0].book === route.book && targets[0].ch === route.ch;
     const via = pf && wkeys.length && !(wkeys.length === 1 && wkeys[0] === `${route.book}.${route.ch}`)
-      ? ` = Wellmann ${wkeys.join(", ")}` : "";
+      ? ` = Wellmann ${labels.join(", ")}` : "";
     const note = same ? "" : `${manifest.editions[from].label} ${route.book}.${route.ch}`
       + (wkeys.length ? `${via} = ${manifest.editions[edition].label} ${kept.length ? kept.join(", ") : "(none)"}`
         : " has no Wellmann counterpart")

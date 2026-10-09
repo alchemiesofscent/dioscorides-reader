@@ -8,6 +8,16 @@ shows it beside the reader version under **Reading settings**. Release tags
 While the reader is in alpha, a minor version (0.x.0) adds or reorganises how people read;
 a patch version (0.x.y) fixes behaviour without changing the layout.
 
+## 0.9.0-alpha — 2026-10-09
+
+- **Chapters pair by Wellmann's sections.** Where an edition divides a Wellmann chapter into several
+  chapters, each part is now linked to the sections it renders, or to a span of words. It pairs
+  only with the parts of other editions that render the same text. Example: Mattioli 1.40 =
+  Wellmann 1.42.1 = Gunther 1.51 (mastic oil), and Mattioli 1.41 = Wellmann 1.42.2 = Gunther 1.52.
+  Before, both were shown against both. The note above the pane names the section. 92 Wellmann
+  chapters are affected (concordance d8c6767, which also corrects 18 links). The vendored rows
+  carry each link's word range in Wellmann (`w_from`, `w_to`), and nothing else new.
+
 ## 0.8.1-alpha — 2026-10-09
 
 - Corpus 91dd9bab (Gunther 1934 corrections). Every printed footnote mark in Gunther is a link

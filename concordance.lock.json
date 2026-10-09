@@ -1,18 +1,20 @@
 {
   "schema_version": 1,
   "repository": "alchemiesofscent/concordance",
-  "commit": "0fed1a3d754402e4436af4289eae1e78b8dd97a6",
-  "links_sha256": "440f0c74849e025277e5f32c6cec4a4f007296b58b71e14934e28801ec925f98",
+  "commit": "d8c676720fe4ea433a5b1ac83b674d7022ebdbb0",
+  "links_sha256": "27c29a3c4b299def8beadf5047bc3842d0ab657d8b27d1fa791c41bf6905f5d7",
   "vendored": "concordance/edition_of.tsv",
-  "rows": 4452,
+  "rows": 4445,
   "columns": [
     "urn_a",
     "relation",
     "urn_b",
-    "status"
+    "status",
+    "w_from",
+    "w_to"
   ],
   "excluded_versions": [
     "beck2020"
   ],
-  "edition_of_sha256": "a267611e9afd06f877d4961afc5dee9500c636fef27c96de29c4eb67a210453f"
+  "edition_of_sha256": "c0e3f4197d50a7dc52d33bdf93c46cf9246e29cb82b9e5c79a03fbe394cc91e7"
 }

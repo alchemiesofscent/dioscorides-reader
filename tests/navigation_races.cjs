@@ -366,4 +366,23 @@ test("chapters pair through Wellmann where an edition has concordance rows", () 
   const front = api.pairedTargets("mattioli1554", "berendes1902", { book: "2", ch: "praef" });
   assert.equal(keys(front), "");
   assert.match(front.note, /\(none\)/);
+  // (fresh edition names: the chapter lists are cached per edition)
+  // parts of one Wellmann chapter pair by the sections they render (Sean's example: Wellmann
+  // 1.42.1 = Mattioli 1.40 = Gunther 1.51; 1.42.2 = Mattioli 1.41 = Gunther 1.52)
+  api.setup({ editions: {
+    wellmann1906b: { label: "Wellmann", books: books(["42"]) },
+    mattioliB: { label: "Mattioli", books: books(["40", "41"]), pairing: { status: "proposed",
+      to_wellmann: { "1.40": ["1.42"], "1.41": ["1.42"] },
+      spans: { "1.40": [["1.42", 0, 48, "1.42.1"]], "1.41": [["1.42", 48, 122, "1.42.2"]] } } },
+    guntherB: { label: "Gunther", books: books(["51", "52"]), pairing: { status: "proposed",
+      to_wellmann: { "1.51": ["1.42"], "1.52": ["1.42"] },
+      spans: { "1.51": [["1.42", 0, 48, "1.42.1"]], "1.52": [["1.42", 48, 122, "1.42.2"]] } } },
+  } });
+  const part = api.pairedTargets("mattioliB", "guntherB", { book: "1", ch: "41" });
+  assert.equal(keys(part), "1.52");
+  assert.match(part.note, /= Wellmann 1\.42\.2 = Gunther 1\.52/);
+  assert.equal(keys(api.pairedTargets("guntherB", "mattioliB", { book: "1", ch: "51" })), "1.40");
+  // Wellmann's whole chapter answers both parts, and each part answers the whole chapter
+  assert.equal(keys(api.pairedTargets("wellmann1906b", "guntherB", { book: "1", ch: "42" })), "1.51 1.52");
+  assert.equal(keys(api.pairedTargets("guntherB", "wellmann1906b", { book: "1", ch: "52" })), "1.42");
 });
