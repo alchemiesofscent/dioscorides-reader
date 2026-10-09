@@ -390,4 +390,6 @@ body.hide-chapter-numerals .chapter-head .tei-num-chapter { display: inline; }
 
 /* part of a chapter shown alone (the section or span the other pane's chapter renders) */
 .part-bar { font-size: 0.85em; color: var(--muted, #666); margin: 0 0 0.6em; }
+.part-bar .part-toggle { font-size: inherit; }
+#onlyMatchingPart { margin-bottom: 10px; }
 .part-gap { text-align: center; color: var(--muted, #666); }

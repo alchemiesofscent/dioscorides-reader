@@ -305,6 +305,32 @@
   const SKIP = "h3, .chapter-head, .eol-hyphen, .block-label, .figure, a.fnref, sup, .note-inline, .tr-note, .fw, .milestone, .commentary, .endnotes";
   const UNITS = { translation: ".dioscorides-text" };
   const formKey = (f) => f.normalize("NFC").replace(/[-‐᾿’ʼ'·\u00B2\u00B3\u00B9\u2070-\u209F]/g, "");
+  const partSettingKey = "dioscorides-part-only-v1";
+  let onlyMatchingPart = true;
+  try { onlyMatchingPart = localStorage.getItem(partSettingKey) !== "false"; } catch (_) {}
+
+  function syncPartSetting(button) {
+    button.textContent = `Only the matching part: ${onlyMatchingPart ? "on" : "off"}`;
+    button.classList.toggle("active", onlyMatchingPart);
+    button.setAttribute("aria-pressed", String(onlyMatchingPart));
+  }
+
+  function toggleMatchingPart() {
+    onlyMatchingPart = !onlyMatchingPart;
+    try { localStorage.setItem(partSettingKey, String(onlyMatchingPart)); } catch (_) {}
+    syncPartSetting($("#onlyMatchingPart"));
+    return render();
+  }
+
+  function bindPartSetting() {
+    const button = document.createElement("button");
+    button.id = "onlyMatchingPart";
+    button.type = "button";
+    button.className = "btn";
+    syncPartSetting(button);
+    button.addEventListener("click", toggleMatchingPart);
+    $("#readerSettings").prepend(button);
+  }
 
   function wordsOf(scope) {
     const doc = scope.ownerDocument;
@@ -318,7 +344,7 @@
     }
     const words = [];
     for (const m of text.matchAll(/[\p{L}\p{M}\p{N}]+/gu)) words.push({ start: m.index, end: m.index + m[0].length, form: formKey(m[0]) });
-    return { words, at };
+    return { words, at, text };
   }
 
   function findForm(words, spec) {
@@ -353,15 +379,18 @@
 
   function cutWords(scope, sub, siblings = [], lead = null) {
     const [a, b] = sub.split("-");
-    const { words, at } = wordsOf(scope);
+    const { words, at, text } = wordsOf(scope);
     const i = lead && lead.length ? findLead(words, lead) : findForm(words, a);
     if (i < 0) return null;
     const next = siblings.map((x) => (x.lead && x.lead.length ? findLead(words, x.lead)
       : findForm(words, x.sub.split("-")[0]))).filter((k) => k > i);
     let j = next.length ? Math.min(...next) - 1 : findForm(words, b || a);
     if (j < i) j = next.length ? Math.min(...next) - 1 : words.length - 1;
+    // Keep closing punctuation, including spaces before it, but leave the next word alone.
+    const punctuation = text.slice(words[j].end).match(/^(?:\s*[.,··;:?!\p{Pe}\p{Pf}"'])+/u);
+    const end = words[j].end + (punctuation ? punctuation[0].length : 0);
     const range = scope.ownerDocument.createRange();
-    const s = at[words[i].start], e = at[words[j].end - 1];
+    const s = at[words[i].start], e = at[end - 1];
     range.setStart(s[0], s[1]);
     range.setEnd(e[0], e[1] + 1);
     const div = scope.ownerDocument.createElement("div");
@@ -437,10 +466,11 @@
       }
       if (!chapter) { chunk = part; chapter = found; }
       let html = found.html;
-      const shownPart = target.select && !pane._whole ? selectPart(found.html, target.select) : null;
+      const shownPart = target.select ? selectPart(found.html, target.select) : null;
       if (shownPart) {
-        html = `<p class="part-bar">Showing ${target.select.label.replace(/&/g, "&amp;").replace(/</g, "&lt;")} only · `
-          + `<a href="#" class="show-whole">show the whole chapter</a></p>${shownPart}`;
+        html = `<p class="part-bar">Matching part: ${target.select.label.replace(/&/g, "&amp;").replace(/</g, "&lt;")} · `
+          + `<button type="button" class="btn part-toggle" aria-pressed="${onlyMatchingPart}">`
+          + `Only the matching part: ${onlyMatchingPart ? "on" : "off"}</button></p>${onlyMatchingPart ? shownPart : html}`;
       }
       const sigla = (found.sigla || []).join("");
       const noteIds = found.noteIds || [];
@@ -458,12 +488,8 @@
       return;
     }
     body.innerHTML = banner + parts.join("");
-    for (const link of body.querySelectorAll("a.show-whole")) {
-      link.addEventListener("click", (event) => {
-        event.preventDefault();
-        pane._whole = true;
-        renderPane(pane, edition, route, renderGeneration, paired).finally(() => { pane._whole = false; });
-      });
+    for (const button of body.querySelectorAll("button.part-toggle")) {
+      button.addEventListener("click", toggleMatchingPart);
     }
     configureMatter(body, chapter, route);
     const firstCommentary = body.querySelectorAll(".chapter > .commentary")[0]
@@ -790,6 +816,7 @@
   }
 
   function bind() {
+    bindPartSetting();
     window.addEventListener("hashchange", () => {
       const route = parseHash();
       if (route) {

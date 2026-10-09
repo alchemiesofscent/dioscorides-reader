@@ -8,6 +8,7 @@ const vm = require("node:vm");
 function node() {
   let content = "";
   const selectors = new Map();
+  const listeners = new Map();
   return {
     children: [], attributes: {},
     hidden: true, dataset: {}, classList: { add() {}, remove() {}, toggle() {} },
@@ -22,11 +23,14 @@ function node() {
     querySelectorAll() { return []; },
     setAttribute(name, value) { this.attributes[name] = value; },
     appendChild(child) { this.children.push(child); return child; },
+    prepend(child) { this.children.unshift(child); },
     replaceChildren(...values) { content = ""; this.children = values; },
+    addEventListener(type, listener) { listeners.set(type, listener); },
+    dispatch(type) { return listeners.get(type)({ currentTarget: this }); },
   };
 }
 
-function harness(filename, hook) {
+function harness(filename, hook, storage) {
   const nodes = new Map();
   const context = vm.createContext({
     document: {
@@ -37,6 +41,7 @@ function harness(filename, hook) {
       createElement() { return node(); },
     },
     window: { setTimeout, clearTimeout, matchMedia: () => ({ matches: false, addEventListener() {} }) }, URL,
+    localStorage: storage,
     finishes: [],
   });
   const source = fs.readFileSync(path.join(__dirname, "../web", filename), "utf8");
@@ -390,3 +395,123 @@ test("chapters pair through Wellmann where an edition has concordance rows", () 
     { sels: [{ from: "2", to: "2" }], label: "Wellmann 1.42.2" });
   assert.equal(api.pairedTargets("wellmann1906b", "guntherB", { book: "1", ch: "42" }).targets[0].select, null);
 });
+
+test("word cuts keep trailing punctuation across text nodes without taking the next word", () => {
+  const { api } = harness("reader.js", `globalThis.harness = { cutWords };`);
+  // A minimal text tree and Range exercise the real word offsets and range endpoints.
+  const scope = pieces => {
+    const texts = pieces.map(data => ({ data, parentElement: { closest: () => null } }));
+    return { ownerDocument: {
+      createTreeWalker() {
+        let i = 0;
+        return { nextNode: () => texts[i++] || null };
+      },
+      createRange() {
+        let start, end;
+        return {
+          setStart(n, offset) { start = [texts.indexOf(n), offset]; },
+          setEnd(n, offset) { end = [texts.indexOf(n), offset]; },
+          cloneContents() {
+            return texts.slice(start[0], end[0] + 1).map((n, i) => n.data.slice(
+              i === 0 ? start[1] : 0, start[0] + i === end[0] ? end[1] : n.data.length
+            )).join("");
+          },
+        };
+      },
+      createElement() { return { innerHTML: "", appendChild(html) { this.innerHTML += html; } }; },
+    } };
+  };
+  for (const punctuation of [".", ",", "·", "·", ";", ":", "?", "!", "]", ")", "»", "’", '"', "'", "”", " . ) »", "…"]) {
+    const kept = punctuation === "…" ? "" : punctuation;
+    assert.equal(api.cutWords(scope(["πρῶτον ἐφεκτικόν", punctuation, " ἑπόμενον."]), "πρῶτον-ἐφεκτικόν"),
+      `πρῶτον ἐφεκτικόν${kept}`);
+  }
+  assert.equal(api.cutWords(scope(["πρῶτον ἐφεκτικόν", "   ἑπόμενον."]), "πρῶτον-ἐφεκτικόν"), "πρῶτον ἐφεκτικόν");
+  assert.equal(api.cutWords(scope(["πρῶτον ἐφεκτικόν ", ".", "  » ἑπόμενον."]), "πρῶτον-ἐφεκτικόν"), "πρῶτον ἐφεκτικόν .  »");
+  assert.equal(api.cutWords(scope(["πρῶτον ἐφεκτικόν: ἑπόμενον τέλος."]), "πρῶτον-τέλος", [{ sub: "ἑπόμενον-τέλος" }]),
+    "πρῶτον ἐφεκτικόν:", "a sibling's first word also bounds the punctuation extension");
+});
+
+for (const unavailable of [false, true]) {
+  test(`matching-part controls share a persistent setting${unavailable ? " even without storage" : ""}`, async () => {
+    const saved = new Map();
+    const storage = {
+      getItem(key) { if (unavailable) throw new Error("blocked"); return saved.get(key) || null; },
+      setItem(key, value) { if (unavailable) throw new Error("blocked"); saved.set(key, value); },
+    };
+    const hook = `
+      globalThis.harness = {
+        render, bindPartSetting,
+        setup(loader) {
+          manifest = { editions: { primary: {label: "Primary"}, comparison: {label: "Comparison"} } };
+          loadChunk = loader;
+          buildToc = () => {};
+          currentIndex = () => ({flat: [{}], i: 0});
+          updateDiplomaticLink = () => {};
+          pairedTargets = (from, edition, route) => ({ note: "", targets: [route.ch, "3"].map(ch => ({
+            book: route.book, ch, select: { label: "Wellmann 1.42.2", sels: [] }
+          })) });
+          selectPart = html => "PART " + html;
+        },
+        route(route) { Object.assign(state, route); }
+      };
+    `;
+    const { nodes, api } = harness("reader.js", hook, storage);
+    api.bindPartSetting();
+    const setting = nodes.get("#readerSettings").children[0];
+    nodes.set("#onlyMatchingPart", setting);
+    const body = nodes.get("#paneR").querySelector(".pane-body");
+    let buttons = [];
+    body.querySelectorAll = selector => {
+      if (selector !== "button.part-toggle") return [];
+      buttons = [...body.innerHTML.matchAll(/<button[^>]*aria-pressed="(true|false)"[^>]*>([^<]+)<\/button>/g)].map(m => {
+        const button = node();
+        button.setAttribute("aria-pressed", m[1]);
+        button.textContent = m[2];
+        return button;
+      });
+      return buttons;
+    };
+    const old = deferred();
+    const chunk = book => ({ chapters: Object.fromEntries(["1", "2", "3"].map(ch => [ch, {
+      html: `WHOLE ${book}.${ch}`, pages: [], noteIds: [],
+    }])), notes: {}, apps: {} });
+    api.setup((_edition, book) => book === "2" ? old.promise : Promise.resolve(chunk(book)));
+    api.route({ edL: "primary", edR: "comparison", book: "1", ch: "1" });
+    await api.render();
+    assert.equal(setting.attributes["aria-pressed"], "true");
+    assert.equal(buttons.length, 2);
+    assert.match(body.innerHTML, /PART WHOLE 1\.1/);
+    await buttons[1].dispatch("click");
+    assert.equal(setting.attributes["aria-pressed"], "false");
+    assert.ok(buttons.every(button => button.attributes["aria-pressed"] === "false"));
+    assert.doesNotMatch(body.innerHTML, /PART/);
+    assert.match(body.innerHTML, /Matching part: Wellmann 1\.42\.2/);
+    assert.match(nodes.get("#paneL").querySelector(".pane-body").innerHTML, /^WHOLE 1\.1$/);
+    if (!unavailable) assert.equal(saved.get("dioscorides-part-only-v1"), "false");
+
+    api.route({ ch: "2" });
+    await api.render();
+    assert.match(body.innerHTML, /WHOLE 1\.2/);
+    assert.doesNotMatch(body.innerHTML, /PART/);
+    assert.ok(buttons.every(button => button.attributes["aria-pressed"] === "false"));
+    await setting.dispatch("click");
+    assert.match(body.innerHTML, /PART WHOLE 1\.2/);
+    assert.ok(buttons.every(button => button.attributes["aria-pressed"] === "true"));
+
+    // Toggling during a delayed navigation must use its current route and discard the old render.
+    api.route({ book: "2" });
+    const pending = api.render();
+    const toggled = setting.dispatch("click");
+    old.resolve(chunk("2"));
+    await Promise.all([pending, toggled]);
+    assert.match(body.innerHTML, /WHOLE 2\.2/);
+    assert.doesNotMatch(body.innerHTML, /PART|WHOLE 1\./);
+    assert.ok(buttons.every(button => button.attributes["aria-pressed"] === "false"));
+
+    const reloaded = harness("reader.js", hook, storage);
+    reloaded.api.bindPartSetting();
+    assert.equal(reloaded.nodes.get("#readerSettings").children[0].attributes["aria-pressed"], String(unavailable),
+      "a new reader restores the choice, or uses the default when storage is blocked");
+  });
+}
