@@ -10,7 +10,9 @@ repository. An edition without rows pairs by identical chapter key, as before.
 
 A link may go to part of a Wellmann chapter (a section 1.42.1, a run 1.105.1-1.105.5, a span of
 words 1.30.6@first[n]-last[n]: Sean, 2026-10-09); its row then carries w_from and w_to, the words
-of the chapter it covers. to_wellmann keeps the chapter keys; spans adds, per chapter of the
+of the chapter it covers. An edition's chapter that renders several Wellmann chapters is linked to
+each by a span of its own words (urn_a ...:1.4@first[n]-last[m]); it pairs as the chapter 1.4.
+to_wellmann keeps the chapter keys; spans adds, per chapter of the
 edition, [Wellmann chapter, from, to, label] (from and to None for a whole chapter), so that two
 parts of one Wellmann chapter pair only where they overlap.
 """
@@ -65,6 +67,8 @@ def load(lock_path: Path = LOCK) -> dict | None:
         if row["relation"] != "edition_of":
             raise ValueError(f"Unexpected relation in vendored concordance rows: {row['relation']}")
         version, key = split(row["urn_a"])
+        if "@" in key:          # part of the edition's chapter (Mattioli's 1.4.translation@...): the chapter pairs
+            key = wellmann_chapter(key)
         target, passage = split(row["urn_b"])
         if target != WELLMANN:
             raise ValueError(f"edition_of must point into Wellmann: {row['urn_b']}")

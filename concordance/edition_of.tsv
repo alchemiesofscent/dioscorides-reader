@@ -3,8 +3,8 @@ urn:cts:greekLit:tlg0656.tlg001.sprengel1829:1.praef	edition_of	urn:cts:greekLit
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:1.1	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.1	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:1.2	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.2	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:1.3	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.3	proposed		
-urn:cts:greekLit:tlg0656.tlg001.sprengel1829:1.4	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.4	proposed		
-urn:cts:greekLit:tlg0656.tlg001.sprengel1829:1.4	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.5	proposed		
+urn:cts:greekLit:tlg0656.tlg001.sprengel1829:1.4@Κύπειρος[1]-μύρωνεὐθετεῖ²⁹[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.4	proposed		
+urn:cts:greekLit:tlg0656.tlg001.sprengel1829:1.4@Ἱστορεῖται[1]-τρίχας[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.5	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:1.5	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.6	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:1.6	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.7	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:1.7	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.8	proposed		
@@ -119,8 +119,8 @@ urn:cts:greekLit:tlg0656.tlg001.sprengel1829:1.115	edition_of	urn:cts:greekLit:t
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:1.116	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.87	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:1.117	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.88	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:1.118	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.89	proposed		
-urn:cts:greekLit:tlg0656.tlg001.sprengel1829:1.119	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.90	proposed		
-urn:cts:greekLit:tlg0656.tlg001.sprengel1829:1.119	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.90a	proposed		
+urn:cts:greekLit:tlg0656.tlg001.sprengel1829:1.119@περὶ[1]-κακουργίας[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.90	proposed		
+urn:cts:greekLit:tlg0656.tlg001.sprengel1829:1.119@Ῥάμνος[1]-ἐστὶ⁷⁰[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.90a	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:1.120	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.91	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:1.121	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.92	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:1.122	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.93	proposed		
@@ -193,13 +193,12 @@ urn:cts:greekLit:tlg0656.tlg001.sprengel1829:2.praef	edition_of	urn:cts:greekLit
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:2.1	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.1	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:2.2	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.2	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:2.3	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.3	proposed		
-urn:cts:greekLit:tlg0656.tlg001.sprengel1829:2.4	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.4.1@4[1]-ἀπουλωτικήν[1]	proposed	0	15
+urn:cts:greekLit:tlg0656.tlg001.sprengel1829:2.4@Πορφύρα[1]-ἀπουλωτικήν[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.4.1@4[1]-ἀπουλωτικήν[1]	proposed	0	15
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:2.5	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.4@τὰ[1]-132[1]	proposed	15	71
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:2.6	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.4.2@κιόνια[1]-μαλάσσουσιν[1]	proposed	71	117
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:2.7	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.5	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:2.8	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.6@τελλῖναι[1]-φυῆναι[1]	proposed	0	29
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:2.9	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.6@καὶ[3]-οἴνου[1]	proposed	29	51
-urn:cts:greekLit:tlg0656.tlg001.sprengel1829:2.10	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.7	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:2.10	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.8	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:2.11	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.9	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:2.12	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.10	proposed		
@@ -397,8 +396,8 @@ urn:cts:greekLit:tlg0656.tlg001.sprengel1829:2.204	edition_of	urn:cts:greekLit:t
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:2.205	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.174	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:2.206	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.175	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:2.207	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.176	proposed		
-urn:cts:greekLit:tlg0656.tlg001.sprengel1829:2.208	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.177	proposed		
-urn:cts:greekLit:tlg0656.tlg001.sprengel1829:2.208	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.178RV	proposed		
+urn:cts:greekLit:tlg0656.tlg001.sprengel1829:2.208@Ἀργεμώνη[1]-καταπλασσόμενα[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.177	proposed		
+urn:cts:greekLit:tlg0656.tlg001.sprengel1829:2.208@¹⁶[1]-πινομένη[2]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.178RV	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:2.209	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.178	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:2.210	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.179	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:2.211	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.180	proposed		
@@ -471,8 +470,8 @@ urn:cts:greekLit:tlg0656.tlg001.sprengel1829:3.58	edition_of	urn:cts:greekLit:tl
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:3.59	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.57	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:3.60	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.58	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:3.61	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.59	proposed		
-urn:cts:greekLit:tlg0656.tlg001.sprengel1829:3.62	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.60	proposed		
-urn:cts:greekLit:tlg0656.tlg001.sprengel1829:3.62	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.61	proposed		
+urn:cts:greekLit:tlg0656.tlg001.sprengel1829:3.62@Κύμινονἄγριον[1]-καταπλασσόμενον[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.60	proposed		
+urn:cts:greekLit:tlg0656.tlg001.sprengel1829:3.62@Ἔστι[1]-ἀποξεσθέν[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.61	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:3.63	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.62	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:3.64	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.63	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:3.65	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.64RV@RV[1]-ἀρήγει[1]	proposed	0	63
@@ -489,8 +488,8 @@ urn:cts:greekLit:tlg0656.tlg001.sprengel1829:3.75	edition_of	urn:cts:greekLit:tl
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:3.76	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.72	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:3.77	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.73a	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:3.78	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.73b	proposed		
-urn:cts:greekLit:tlg0656.tlg001.sprengel1829:3.79	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.74	proposed		
-urn:cts:greekLit:tlg0656.tlg001.sprengel1829:3.79	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.75	proposed		
+urn:cts:greekLit:tlg0656.tlg001.sprengel1829:3.79@Λιβανωτὶςδισσή[1]-τρεῖς[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.74	proposed		
+urn:cts:greekLit:tlg0656.tlg001.sprengel1829:3.79@Κεφ[2]-γλευκίνῳ²⁷χρίσματι[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.75	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:3.80	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.76	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:3.81	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.77	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:3.82	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.78	proposed		
@@ -584,7 +583,7 @@ urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.3	edition_of	urn:cts:greekLit:tlg
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.4	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.4	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.5	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.5	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.6	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.6	proposed		
-urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.7	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.7	proposed		
+urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.7@Κληματὶς[1]-ἐνχέρσοις[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.7	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.8	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.8	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.9	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.9	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.10	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.10	proposed		
@@ -609,8 +608,8 @@ urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.28	edition_of	urn:cts:greekLit:tl
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.29	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.141	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.30	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.29	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.31	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.30	proposed		
-urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.32	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.31	proposed		
-urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.32	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.32	proposed		
+urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.32@Ἡδὲ[1]-σταλτικόν[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.31	proposed		
+urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.32@Ἡ[1]-βόας[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.32	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.33	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.33	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.34	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.34	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.35	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.35	proposed		
@@ -667,8 +666,8 @@ urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.85	edition_of	urn:cts:greekLit:tl
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.86	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.85	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.87	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.87	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.88	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.88	proposed		
-urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.89	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.89	proposed		
-urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.89	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.90	proposed		
+urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.89@Ἀείζωον[1]-προειρημένῳ[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.89	proposed		
+urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.89@Κεφ[1]-καταπλασθέν[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.90	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.90	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.91	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.91	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.92	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.92	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.93	proposed		
@@ -678,7 +677,7 @@ urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.95	edition_of	urn:cts:greekLit:tl
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.96	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.97	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.97	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.98	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.98	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.99	proposed		
-urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.99	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.100	proposed		
+urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.99@Ποταμογείτων[1]-φύεσθαι[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.100	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.100	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.101	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.101	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.102	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.102	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.103	proposed		
@@ -725,8 +724,8 @@ urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.143	edition_of	urn:cts:greekLit:t
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.144	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.144	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.145	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.145	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.146	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.146	proposed		
-urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.147	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.147	proposed		
-urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.147	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.147a	proposed		
+urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.147@Χαμαιδάφνη[1]-οὐσουβίμ[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.147	proposed		
+urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.147@οἱ[4]-ποιεῖ[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.147a	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.148	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.148	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.149	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.162	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.150	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.149	proposed		
@@ -801,8 +800,8 @@ urn:cts:greekLit:tlg0656.tlg001.sprengel1829:5.24	edition_of	urn:cts:greekLit:tl
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:5.25	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.17	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:5.26	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.18	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:5.27	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.19.1-5.19.2	proposed	0	86
-urn:cts:greekLit:tlg0656.tlg001.sprengel1829:5.28	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.19.3	proposed	86	145
-urn:cts:greekLit:tlg0656.tlg001.sprengel1829:5.28	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.20	proposed		
+urn:cts:greekLit:tlg0656.tlg001.sprengel1829:5.28@Οὐκἄχρηστον[1]-σκευαζόμενος³²[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.19.3	proposed	86	145
+urn:cts:greekLit:tlg0656.tlg001.sprengel1829:5.28@Ὁ[1]-δυσουροῦσι[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.20	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:5.29	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.21	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:5.30	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.22	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1829:5.31	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.23	proposed		
@@ -961,8 +960,8 @@ urn:cts:greekLit:tlg0656.tlg001.sprengel1830:1.praef	edition_of	urn:cts:greekLit
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:1.1	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.1	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:1.2	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.2	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:1.3	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.3	proposed		
-urn:cts:greekLit:tlg0656.tlg001.sprengel1830:1.4	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.4	proposed		
-urn:cts:greekLit:tlg0656.tlg001.sprengel1830:1.4	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.5	proposed		
+urn:cts:greekLit:tlg0656.tlg001.sprengel1830:1.4@Cyperi[1]-flexiles[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.4	proposed		
+urn:cts:greekLit:tlg0656.tlg001.sprengel1830:1.4@Cyperi[2]-Dioscoridis[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.5	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:1.5	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.6	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:1.6	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.7	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:1.7	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.8	proposed		
@@ -1036,8 +1035,8 @@ urn:cts:greekLit:tlg0656.tlg001.sprengel1830:1.115	edition_of	urn:cts:greekLit:t
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:1.116	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.87	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:1.117	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.88	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:1.118	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.89	proposed		
-urn:cts:greekLit:tlg0656.tlg001.sprengel1830:1.119	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.90	proposed		
-urn:cts:greekLit:tlg0656.tlg001.sprengel1830:1.119	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.90a	proposed		
+urn:cts:greekLit:tlg0656.tlg001.sprengel1830:1.119@Ῥάμνος[1]-sacra86[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.90	proposed		
+urn:cts:greekLit:tlg0656.tlg001.sprengel1830:1.119@Περσεφόνιον[1]-distinguitur[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.90a	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:1.120	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.91	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:1.121	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.92	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:1.122	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.93	proposed		
@@ -1089,7 +1088,6 @@ urn:cts:greekLit:tlg0656.tlg001.sprengel1830:2.3	edition_of	urn:cts:greekLit:tlg
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:2.4	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.4.1@4[1]-ἀπουλωτικήν[1]	proposed	0	15
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:2.5	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.4@τὰ[1]-132[1]	proposed	15	71
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:2.7	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.5	proposed		
-urn:cts:greekLit:tlg0656.tlg001.sprengel1830:2.10	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.7	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:2.10	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.8	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:2.11	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.9	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:2.12	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.10	proposed		
@@ -1214,8 +1212,8 @@ urn:cts:greekLit:tlg0656.tlg001.sprengel1830:2.204	edition_of	urn:cts:greekLit:t
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:2.205	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.174	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:2.206	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.175	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:2.207	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.176	proposed		
-urn:cts:greekLit:tlg0656.tlg001.sprengel1830:2.208	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.177	proposed		
-urn:cts:greekLit:tlg0656.tlg001.sprengel1830:2.208	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.178RV	proposed		
+urn:cts:greekLit:tlg0656.tlg001.sprengel1830:2.208@Ἀργεμώνη[1]-linearilanceolatis[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.177	proposed		
+urn:cts:greekLit:tlg0656.tlg001.sprengel1830:2.208@Adulterinum[1]-48[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.178RV	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:2.209	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.178	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:2.210	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.179	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:2.211	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.180	proposed		
@@ -1284,8 +1282,8 @@ urn:cts:greekLit:tlg0656.tlg001.sprengel1830:3.58	edition_of	urn:cts:greekLit:tl
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:3.59	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.57	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:3.60	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.58	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:3.61	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.59	proposed		
-urn:cts:greekLit:tlg0656.tlg001.sprengel1830:3.62	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.60	proposed		
-urn:cts:greekLit:tlg0656.tlg001.sprengel1830:3.62	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.61	proposed		
+urn:cts:greekLit:tlg0656.tlg001.sprengel1830:3.62@Cymini[1]-declaratur[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.60	proposed		
+urn:cts:greekLit:tlg0656.tlg001.sprengel1830:3.62@Alterum[1]-amplectemur[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.61	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:3.63	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.62	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:3.64	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.63	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:3.65	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.64RV@RV[1]-ἀρήγει[1]	proposed	0	63
@@ -1302,8 +1300,8 @@ urn:cts:greekLit:tlg0656.tlg001.sprengel1830:3.75	edition_of	urn:cts:greekLit:tl
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:3.76	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.72	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:3.77	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.73a	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:3.78	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.73b	proposed		
-urn:cts:greekLit:tlg0656.tlg001.sprengel1830:3.79	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.74	proposed		
-urn:cts:greekLit:tlg0656.tlg001.sprengel1830:3.79	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.75	proposed		
+urn:cts:greekLit:tlg0656.tlg001.sprengel1830:3.79@Λιβανωτὶς[1]-⁷⁰[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.74	proposed		
+urn:cts:greekLit:tlg0656.tlg001.sprengel1830:3.79@De[1]-valet[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.75	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:3.80	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.76	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:3.81	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.77	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:3.82	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.78	proposed		
@@ -1393,7 +1391,7 @@ urn:cts:greekLit:tlg0656.tlg001.sprengel1830:4.3	edition_of	urn:cts:greekLit:tlg
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:4.4	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.4	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:4.5	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.5	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:4.6	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.6	proposed		
-urn:cts:greekLit:tlg0656.tlg001.sprengel1830:4.7	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.7	proposed		
+urn:cts:greekLit:tlg0656.tlg001.sprengel1830:4.7@Κληματίς[1]-maior[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.7	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:4.8	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.8	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:4.9	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.9	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:4.10	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.10	proposed		
@@ -1473,8 +1471,8 @@ urn:cts:greekLit:tlg0656.tlg001.sprengel1830:4.85	edition_of	urn:cts:greekLit:tl
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:4.86	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.85	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:4.87	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.87	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:4.88	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.88	proposed		
-urn:cts:greekLit:tlg0656.tlg001.sprengel1830:4.89	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.89	proposed		
-urn:cts:greekLit:tlg0656.tlg001.sprengel1830:4.89	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.90	proposed		
+urn:cts:greekLit:tlg0656.tlg001.sprengel1830:4.89@Ἀείζωον[1]-vulgare[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.89	proposed		
+urn:cts:greekLit:tlg0656.tlg001.sprengel1830:4.89@Sempervivum[1]-obvium[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.90	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:4.90	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.91	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:4.91	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.92	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:4.92	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.93	proposed		
@@ -1484,7 +1482,7 @@ urn:cts:greekLit:tlg0656.tlg001.sprengel1830:4.95	edition_of	urn:cts:greekLit:tl
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:4.96	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.97	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:4.97	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.98	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:4.98	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.99	proposed		
-urn:cts:greekLit:tlg0656.tlg001.sprengel1830:4.99	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.100	proposed		
+urn:cts:greekLit:tlg0656.tlg001.sprengel1830:4.99@Potamogeton[1]-meliorem[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.100	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:4.100	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.101	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:4.101	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.102	proposed		
 urn:cts:greekLit:tlg0656.tlg001.sprengel1830:4.102	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.103	proposed		
@@ -1639,8 +1637,8 @@ urn:cts:greekLit:tlg0656.tlg001.berendes1902:1.praef	edition_of	urn:cts:greekLit
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:1.1	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.1	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:1.2	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.2	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:1.3	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.3	proposed		
-urn:cts:greekLit:tlg0656.tlg001.berendes1902:1.4	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.4	proposed		
-urn:cts:greekLit:tlg0656.tlg001.berendes1902:1.4	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.5	proposed		
+urn:cts:greekLit:tlg0656.tlg001.berendes1902:1.4@Der[1]-Salben[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.4	proposed		
+urn:cts:greekLit:tlg0656.tlg001.berendes1902:1.4@Es[1]-Haare[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.5	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:1.5	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.6	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:1.6	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.7	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:1.7	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.8	proposed		
@@ -1755,8 +1753,8 @@ urn:cts:greekLit:tlg0656.tlg001.berendes1902:1.115	edition_of	urn:cts:greekLit:t
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:1.116	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.87	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:1.117	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.88	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:1.118	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.89	proposed		
-urn:cts:greekLit:tlg0656.tlg001.berendes1902:1.119	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.90	proposed		
-urn:cts:greekLit:tlg0656.tlg001.berendes1902:1.119	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.90a	proposed		
+urn:cts:greekLit:tlg0656.tlg001.berendes1902:1.119@Der[1]-Wirtel[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.90	proposed		
+urn:cts:greekLit:tlg0656.tlg001.berendes1902:1.119@Die[1]-abhalten[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.90a	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:1.120	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.91	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:1.121	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.92	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:1.122	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.93	proposed		
@@ -1829,13 +1827,12 @@ urn:cts:greekLit:tlg0656.tlg001.berendes1902:2.praef	edition_of	urn:cts:greekLit
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:2.1	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.1	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:2.2	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.2	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:2.3	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.3	proposed		
-urn:cts:greekLit:tlg0656.tlg001.berendes1902:2.4	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.4.1@4[1]-ἀπουλωτικήν[1]	proposed	0	15
+urn:cts:greekLit:tlg0656.tlg001.berendes1902:2.4@Die[1]-bewirken[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.4.1@4[1]-ἀπουλωτικήν[1]	proposed	0	15
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:2.5	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.4@τὰ[1]-132[1]	proposed	15	71
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:2.6	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.4.2@κιόνια[1]-μαλάσσουσιν[1]	proposed	71	117
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:2.7	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.5	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:2.8	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.6@τελλῖναι[1]-φυῆναι[1]	proposed	0	29
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:2.9	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.6@καὶ[3]-οἴνου[1]	proposed	29	51
-urn:cts:greekLit:tlg0656.tlg001.berendes1902:2.10	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.7	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:2.10	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.8	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:2.11	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.9	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:2.12	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.10	proposed		
@@ -2033,8 +2030,8 @@ urn:cts:greekLit:tlg0656.tlg001.berendes1902:2.204	edition_of	urn:cts:greekLit:t
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:2.205	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.174	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:2.206	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.175	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:2.207	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.176	proposed		
-urn:cts:greekLit:tlg0656.tlg001.berendes1902:2.208	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.177	proposed		
-urn:cts:greekLit:tlg0656.tlg001.berendes1902:2.208	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.178RV	proposed		
+urn:cts:greekLit:tlg0656.tlg001.berendes1902:2.208@Die[1]-wirksam[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.177	proposed		
+urn:cts:greekLit:tlg0656.tlg001.berendes1902:2.208@Die[3]-Gebissenen[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.178RV	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:2.209	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.178	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:2.210	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.179	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:2.211	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.180	proposed		
@@ -2107,8 +2104,8 @@ urn:cts:greekLit:tlg0656.tlg001.berendes1902:3.58	edition_of	urn:cts:greekLit:tl
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:3.59	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.57	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:3.60	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.58	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:3.61	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.59	proposed		
-urn:cts:greekLit:tlg0656.tlg001.berendes1902:3.62	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.60	proposed		
-urn:cts:greekLit:tlg0656.tlg001.berendes1902:3.62	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.61	proposed		
+urn:cts:greekLit:tlg0656.tlg001.berendes1902:3.62@Daswilde[1]-auchHodenanschwellungen[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.60	proposed		
+urn:cts:greekLit:tlg0656.tlg001.berendes1902:3.62@Es[3]-nachtrinken[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.61	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:3.63	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.62	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:3.64	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.63	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:3.65	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.64RV@RV[1]-ἀρήγει[1]	proposed	0	63
@@ -2125,8 +2122,8 @@ urn:cts:greekLit:tlg0656.tlg001.berendes1902:3.75	edition_of	urn:cts:greekLit:tl
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:3.76	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.72	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:3.77	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.73a	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:3.78	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.73b	proposed		
-urn:cts:greekLit:tlg0656.tlg001.berendes1902:3.79	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.74	proposed		
-urn:cts:greekLit:tlg0656.tlg001.berendes1902:3.79	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.75	proposed		
+urn:cts:greekLit:tlg0656.tlg001.berendes1902:3.79@Es[1]-berichtet[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.74	proposed		
+urn:cts:greekLit:tlg0656.tlg001.berendes1902:3.79@eine[4]-sechsblätterig[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.75	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:3.80	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.76	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:3.81	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.77	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:3.82	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.78	proposed		
@@ -2220,7 +2217,7 @@ urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.3	edition_of	urn:cts:greekLit:tlg
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.4	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.4	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.5	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.5	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.6	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.6	proposed		
-urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.7	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.7	proposed		
+urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.7@Die[1]-Oedland[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.7	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.8	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.8	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.9	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.9	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.10	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.10	proposed		
@@ -2245,8 +2242,8 @@ urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.28	edition_of	urn:cts:greekLit:tl
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.29	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.141	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.30	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.29	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.31	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.30	proposed		
-urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.32	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.31	proposed		
-urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.32	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.32	proposed		
+urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.32@Die[1]-denBauchfluss[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.31	proposed		
+urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.32@Die[3]-Entzündung[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.32	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.33	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.33	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.34	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.34	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.35	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.35	proposed		
@@ -2303,8 +2300,8 @@ urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.85	edition_of	urn:cts:greekLit:tl
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.86	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.85	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.87	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.87	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.88	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.88	proposed		
-urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.89	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.89	proposed		
-urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.89	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.90	proposed		
+urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.89@Daskleine[1]-Pflanze[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.89	proposed		
+urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.89@Esscheint[1]-Geschwüre[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.90	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.90	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.91	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.91	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.92	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.92	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.93	proposed		
@@ -2314,7 +2311,7 @@ urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.95	edition_of	urn:cts:greekLit:tl
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.96	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.97	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.97	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.98	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.98	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.99	proposed		
-urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.99	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.100	proposed		
+urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.99@Das[1]-wächst[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.100	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.100	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.101	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.101	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.102	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.102	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.103	proposed		
@@ -2361,8 +2358,8 @@ urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.143	edition_of	urn:cts:greekLit:t
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.144	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.144	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.145	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.145	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.146	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.146	proposed		
-urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.147	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.147	proposed		
-urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.147	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.147a	proposed		
+urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.147@DieChamaidaphne[1]-sieLeibschneiden[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.147	proposed		
+urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.147@Der[1]-dasselbe[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.147a	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.148	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.148	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.149	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.162	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.150	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.149	proposed		
@@ -2436,8 +2433,8 @@ urn:cts:greekLit:tlg0656.tlg001.berendes1902:5.24	edition_of	urn:cts:greekLit:tl
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:5.25	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.17	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:5.26	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.18	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:5.27	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.19.1-5.19.2	proposed	0	86
-urn:cts:greekLit:tlg0656.tlg001.berendes1902:5.28	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.19.3	proposed	86	145
-urn:cts:greekLit:tlg0656.tlg001.berendes1902:5.28	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.20	proposed		
+urn:cts:greekLit:tlg0656.tlg001.berendes1902:5.28@Wir[1]-Wein[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.19.3	proposed	86	145
+urn:cts:greekLit:tlg0656.tlg001.berendes1902:5.28@DerQuittenwein[1]-gegenHarnverhaltung[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.20	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:5.29	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.21	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:5.30	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.22	proposed		
 urn:cts:greekLit:tlg0656.tlg001.berendes1902:5.31	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.23	proposed		
@@ -2595,8 +2592,8 @@ urn:cts:greekLit:tlg0656.tlg001.berendes1902:5.182	edition_of	urn:cts:greekLit:t
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.1	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.1	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.2	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.2	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.3	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.3	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.4	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.4	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.4	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.5	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.4.translation@CYPERVS[1]-adijcisolet[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.4	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.4.translation@Aliud[1]-exhibet[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.5	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.5	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.6	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.6	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.7	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.7	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.8	proposed		
@@ -2619,8 +2616,8 @@ urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.23	edition_of	urn:cts:greekLit:tl
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.24	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.25	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.25	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.26	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.26	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.27	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.27	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.28	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.27	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.29	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.27.translation@HELENIVM[1]-est[3]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.28	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.27.translation@Alterum[1]-auxiliatur[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.29	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.28	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.30.1-1.30.2	proposed	0	183
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.29	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.30.3-1.30.4	proposed	183	373
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.30	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.30.5	proposed	373	457
@@ -2629,10 +2626,10 @@ urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.32	edition_of	urn:cts:greekLit:tl
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.33	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.32	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.34	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.33	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.35	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.34	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.36	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.35	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.36	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.36	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.36	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.37	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.36	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.38	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.36.translation@HYOSCYAMINVM[1]-utile[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.35	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.36.translation@Fit[1]-inualidior[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.36	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.36.translation@Rhaphaninumè[1]-paratur[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.37	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.36.translation@Tritum[1]-concreuerunt[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.38	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.37	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.39	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.38	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.40	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.39	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.41	proposed		
@@ -2662,8 +2659,8 @@ urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.62	edition_of	urn:cts:greekLit:tl
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.63	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.61	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.64	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.62	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.65	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.63	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.67	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.64	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.67	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.65	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.67.translation@MYRRHA[1]-conueniens[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.64	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.67.translation@Bœotica[1]-inseritur[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.65	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.68	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.66	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.69	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.67	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.70	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.68.1-1.68.4	proposed	0	368
@@ -2683,15 +2680,15 @@ urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.83	edition_of	urn:cts:greekLit:tl
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.84	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.73.1@καλεῖται[1]-ἀσφάλτῳ[1]	proposed	72	104
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.85	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.73.2-1.73.3	proposed	104	253
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.86	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.74	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.87	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.75	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.87	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.80@ἧς[1]-ἀφίστησι[1]	proposed	4	28
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.87.translation@IVNIPERI[1]-subueniunt[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.75	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.87.translation@Folia[1]-lepraseximit[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.80@ἧς[1]-ἀφίστησι[1]	proposed	4	28
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.88	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.76	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.89	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.77	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.90	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.78	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.91	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.79	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.92	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.80@μελία[1]-εἶναι[1]	proposed	0	37
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.93	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.81	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.93	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.83	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.93.translation@POTVS[1]-proferre[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.81	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.93.translation@Populi[1]-sistit[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.83	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.94	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.82	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.95	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.84@84[1]-προσοψήματα[1]	proposed	0	95
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.96	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.84.2@ἡ[1]-καταπασσομένη[2]	proposed	95	128
@@ -2700,8 +2697,8 @@ urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.98	edition_of	urn:cts:greekLit:tl
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.99	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.87	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.100	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.88	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.101	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.89	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.102	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.90	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.102	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.90a	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.102.translation@RHAMNVS[1]-similem[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.90	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.102.translation@Omniumfolia[1]-depellere[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.90a	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.103	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.91	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.104	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.92	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.105	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.93	proposed		
@@ -2726,8 +2723,8 @@ urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.123	edition_of	urn:cts:greekLit:t
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.124	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.108	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.125	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.109.1-1.109.3	proposed	0	213
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.126	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.109.4-1.109.5	proposed	213	367
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.127	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.110	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.127	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.111	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.127.translation@MALVM[1]-euocat[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.110	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.127.translation@Balaustium[1]-cytinus[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.111	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.128	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.112	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.129	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.113	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:1.130	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.114	proposed		
@@ -2764,8 +2761,8 @@ urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.14	edition_of	urn:cts:greekLit:tl
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.15	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.15	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.16	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.16	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.17	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.17	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.18	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.18	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.18	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.19	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.18.translation@LEPVS[1]-euellit[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.18	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.18.translation@Terrestris[1]-sanat[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.19	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.19	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.20	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.20	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.21	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.21	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.22	proposed		
@@ -2784,15 +2781,15 @@ urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.33	edition_of	urn:cts:greekLit:tl
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.34	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.35	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.35	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.36	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.36	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.37	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.37	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.38	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.37	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.39	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.38	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.40	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.38	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.45	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.38	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.46	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.38	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.47	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.37.translation@SVILLVS[1]-tuetur[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.38	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.37.translation@Vulpinus[1]-finit[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.39	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.38.translation@ASINI[1]-præcipitur[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.40	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.38.translation@Capræ[1]-deprehendi[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.45	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.38.translation@Aprinum[1]-est[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.46	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.38.translation@Iecur[1]-pellit[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.47	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.39	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.41	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.40	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.42	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.40	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.44	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.40.translation@VNGVLARVM[1]-medentur[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.42	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.40.translation@Caprinarum[1]-sanantur[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.44	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.41	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.43	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.42	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.48	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.43	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.49	proposed		
@@ -2819,8 +2816,8 @@ urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.63	edition_of	urn:cts:greekLit:tl
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.64	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.70	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.65	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.71	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.66	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.72	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.67	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.73	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.67	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.74	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.67.translation@SVCCIDAE[1]-mordeat[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.73	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.67.translation@Oesypumvocant[1]-solet[2]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.74	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.68	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.75	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.69	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.76	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.70	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.77	proposed		
@@ -2860,8 +2857,8 @@ urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.104	edition_of	urn:cts:greekLit:t
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.105	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.111	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.106	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.112	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.107	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.113	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.108	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.114	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.108	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.115	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.108.translation@EX[1]-ictibusauxiliantur[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.114	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.108.translation@Hippolapathon[1]-genera[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.115	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.109	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.116	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.110	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.117	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.111	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.118	proposed		
@@ -2933,8 +2930,8 @@ urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.176	edition_of	urn:cts:greekLit:t
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.177	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.181	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.178	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.182	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.179	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.183	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.180	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.184	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.180	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.185	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.180.translation@SATIVVM[1]-sanant[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.184	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.180.translation@Syluestre[1]-auxiliatur[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.185	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:2.181	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.186	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.1	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.1.1-3.1.5	proposed	0	272
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.2	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.2	proposed		
@@ -2963,9 +2960,9 @@ urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.24	edition_of	urn:cts:greekLit:tl
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.25	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.24	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.26	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.25	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.27	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.26	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.28	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.27	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.28	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.28	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.28	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.29	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.28.translation@ORIGANVM[1]-fugantur[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.27	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.28.translation@Quæ[1]-inefficacior[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.28	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.28.translation@Syluestre[1]-potiauxiliantur[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.29	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.29	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.30	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.30	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.31	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.31	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.32.1	proposed	0	73
@@ -2997,15 +2994,15 @@ urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.56	edition_of	urn:cts:greekLit:tl
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.57	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.57	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.58	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.58	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.59	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.59	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.60	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.60	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.60	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.61	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.60.translation@SYLVESTRE[1]-medetur[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.60	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.60.translation@Est[1]-est[4]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.61	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.61	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.62	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.62	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.63	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.63	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.64RV	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.64	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.64	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.64	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.65	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.64	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.66	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.64	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.67	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.64.translation@HORTENSIS[1]-efficax[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.64	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.64.translation@Oreoselinum[1]-petroselinum[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.65	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.64.translation@Petroselinumin[1]-cientibus[2]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.66	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.64.translation@HipposelinumLatini[1]-effectus[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.67	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.65	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.68	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.66	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.69	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.67	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.70	proposed		
@@ -3039,8 +3036,8 @@ urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.94	edition_of	urn:cts:greekLit:tl
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.95	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.97	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.96	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.98	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.97	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.99	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.98	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.100	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.98	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.101	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.98.translation@LYCHNIS[1]-auxiliatur[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.100	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.98.translation@Lychnis[1]-reddi[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.101	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.99	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.102	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.100	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.103	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.101	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.104	proposed		
@@ -3089,8 +3086,8 @@ urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.144	edition_of	urn:cts:greekLit:t
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.145	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.145	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.146	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.146	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.147	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.147	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.148	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.148	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.148	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.149	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.148.translation@CANNABIS[1]-instillatur[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.148	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.148.translation@Syluestris[1]-accommodatus[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.149	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.149	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.150	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.150	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.151	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.151	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.152	proposed		
@@ -3103,14 +3100,14 @@ urn:cts:greekLit:tlg0656.tlg001.mattioli1554:3.157	edition_of	urn:cts:greekLit:t
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.1	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.1	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.2	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.2	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.3	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.3	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.4	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.4	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.4	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.5	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.4.translation@POLYGONVM[1]-illinuntur[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.4	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.4.translation@Sanguinaria[1]-inefficacior[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.5	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.5	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.6	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.6	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.7	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.7	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.180	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.8	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.8	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.9	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.9	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.9	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.10	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.9.translation@SYMPHYTON[1]-coalescunt[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.9	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.9.translation@Est[1]-illinuntur[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.10	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.10	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.11	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.11	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.12	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.12	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.13	proposed		
@@ -3123,17 +3120,17 @@ urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.19	edition_of	urn:cts:greekLit:tl
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.20	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.20	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.21	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.21	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.22	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.22	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.23	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.23	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.23	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.24	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.23	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.25	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.23.translation@ANCHVSA[1]-unguentorumspissamenta[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.23	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.23.translation@Est[1]-necabit[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.24	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.23.translation@Est[2]-tineasexcutit[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.25	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.24	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.26	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.25	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.27	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.26	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.28	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.27	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.141	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.28	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.29	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.28	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.30	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.28	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.31	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.28	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.32	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.28.translation@GRAMEN[1]-comminuit[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.29	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.28.translation@Est[1]-nascitur[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.30	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.28.translation@Quod[1]-uomitionesq́uesistit[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.31	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.28.translation@Natum[1]-sæpepascantur[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.32	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.29	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.33	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.30	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.34	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.31	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.35	proposed		
@@ -3147,8 +3144,8 @@ urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.38	edition_of	urn:cts:greekLit:tl
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.39	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.43	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.40	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.44	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.41	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.45	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.42	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.46	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.42	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.47	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.42.translation@EQVISETVM[1]-feruntur[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.46	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.42.translation@Alterum[1]-facultate[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.47	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.43	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.48	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.44	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.49	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.45	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.50	proposed		
@@ -3221,8 +3218,8 @@ urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.111	edition_of	urn:cts:greekLit:t
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.112	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.116	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.113	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.117	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.114	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.118	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.115	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.119	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.115	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.121@βοηθεῖ[1]-παίδων[1]	proposed	41	69
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.115.translation@ASTER[1]-hirsuta[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.119	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.115.translation@Feruenti[1]-liberat[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.121@βοηθεῖ[1]-παίδων[1]	proposed	41	69
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.116	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.120	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.117	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.121@ἴον[1]-προπτώσεσι[1]	proposed	0	53
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.118	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.122	proposed		
@@ -3250,8 +3247,8 @@ urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.140	edition_of	urn:cts:greekLit:t
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.141	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.144	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.142	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.145	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.143	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.146	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.144	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.147	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.144	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.147a	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.144.translation@CHAMAEDAPHNE[1]-bibuntur[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.147	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.144.translation@Potus[1]-appositus[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.147a	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.145	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.148	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.146	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.162	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:4.147	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.149	proposed		
@@ -3318,8 +3315,8 @@ urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.20	edition_of	urn:cts:greekLit:tl
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.21	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.17	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.22	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.18	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.23	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.19	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.24	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.20	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.24	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.21	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.24.translation@CYDONITES[1]-difficultati[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.20	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.24.translation@Melomeli[1]-compositio[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.21	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.25	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.22	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.26	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.23	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.27	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.24	proposed		
@@ -3330,48 +3327,48 @@ urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.31	edition_of	urn:cts:greekLit:tl
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.32	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.29	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.33	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.30	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.34	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.31	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.35	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.32	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.35	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.33	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.35.translation@CATORCHITES[1]-expleuerint[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.32	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.35.translation@Fit[1]-possit[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.33	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.36	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.34	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.37	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.35	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.38	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.36	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.38	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.37	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.38.translation@ARBORIBVS[1]-ualens[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.36	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.38.translation@Cedrites[1]-medetur[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.37	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.39	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.38	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.40	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.39	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.41	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.40	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.42	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.41	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.42	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.42	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.42	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.43	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.42	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.44	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.42	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.45	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.42	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.46	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.42	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.47	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.42	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.48	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.42	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.49	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.42	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.50	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.42	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.51	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.42	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.52	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.42	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.53	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.42.translation@SIMILI[1]-redditur[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.41	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.42.translation@Stœchadites[1]-sagapeno[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.42	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.42.translation@Fit[1]-effectus[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.43	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.42.translation@Fit[2]-utile[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.44	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.42.translation@Tragoriganites[1]-concoctionibus[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.45	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.42.translation@E'[1]-fatigatis[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.46	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.42.translation@Dictami[1]-subducit[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.47	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.42.translation@Marrubij[1]-quibusmarrubium[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.48	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.42.translation@Thymi[1]-locus[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.49	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.42.translation@Simili[1]-præstat[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.50	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.42.translation@Sic[1]-thymites[2]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.51	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.42.translation@E'[2]-moueant[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.52	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.42.translation@Fit[4]-efficax[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.53	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.43	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.54	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.44	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.55	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.44	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.56	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.44	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.57	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.44	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.58	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.44	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.59	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.45	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.60	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.45	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.61	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.45	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.62	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.45	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.63	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.45	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.64	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.45	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.65	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.45	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.66	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.45	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.67	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.45	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.68	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.45	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.69	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.45	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.70	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.45	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.71	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.45	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.72	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.45	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.73	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.44.translation@FACTA[1]-mensura[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.55	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.44.translation@Fit[1]-pellit[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.56	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.44.translation@E'[1]-adijciunt[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.57	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.44.translation@Asari[1]-conuenit[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.58	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.44.translation@Radicis[1]-stomachicis[2]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.59	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.45.translation@RADICIS[1]-vulsisq́ue[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.60	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.45.translation@Saluiæ[1]-menses[2]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.61	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.45.translation@Panacis[1]-auxiliatur[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.62	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.45.translation@Vina[1]-mouent[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.63	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.45.translation@Seminis[1]-facit[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.64	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.45.translation@Ex[1]-efficacia[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.65	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.45.translation@Fit[1]-prodest[2]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.66	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.45.translation@Fit[2]-dilutum[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.67	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.45.translation@Ramorum[1]-absumit[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.68	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.45.translation@Chamelæa[1]-purgantur[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.69	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.45.translation@Chamæpityinum[1]-ciet[2]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.70	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.45.translation@Librum[1]-præstat[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.71	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.45.translation@In[1]-efficax[3]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.72	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.45.translation@Scammonites[1]-extrahit[3]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.73	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.46	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.74	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.47	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.75	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.48	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.76	proposed		
@@ -3423,8 +3420,8 @@ urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.94	edition_of	urn:cts:greekLit:tl
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.95	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.118	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.96	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.119	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.97	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.120	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.98	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.121	proposed		
-urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.98	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.122	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.98.translation@CORALLIVM[1]-absumit[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.121	proposed		
+urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.98.translation@Quod[2]-habet[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.122	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.99	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.123	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.100	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.124	proposed		
 urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.101	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.125	proposed		
@@ -3475,7 +3472,7 @@ urn:cts:greekLit:tlg0656.tlg001.mattioli1554:5.praef	edition_of	urn:cts:greekLit
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:1.1	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.1	proposed		
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:1.2	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.2	proposed		
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:1.3	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.3	proposed		
-urn:cts:greekLit:tlg0656.tlg001.gunther1934:1.4	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.4	proposed		
+urn:cts:greekLit:tlg0656.tlg001.gunther1934:1.4@The[1]-ofoyntments[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.4	proposed		
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:1.5	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.6	proposed		
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:1.6	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.7	proposed		
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:1.7	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.8	proposed		
@@ -3590,8 +3587,8 @@ urn:cts:greekLit:tlg0656.tlg001.gunther1934:1.115	edition_of	urn:cts:greekLit:tl
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:1.116	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.87	proposed		
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:1.117	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.88	proposed		
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:1.118	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.89	proposed		
-urn:cts:greekLit:tlg0656.tlg001.gunther1934:1.119	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.90	proposed		
-urn:cts:greekLit:tlg0656.tlg001.gunther1934:1.119	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.90a	proposed		
+urn:cts:greekLit:tlg0656.tlg001.gunther1934:1.119@Christ’[1]-verticilum[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.90	proposed		
+urn:cts:greekLit:tlg0656.tlg001.gunther1934:1.119@The[1]-assalts[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.90a	proposed		
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:1.120	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.91	proposed		
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:1.121	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.92	proposed		
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:1.122	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.93	proposed		
@@ -3946,8 +3943,8 @@ urn:cts:greekLit:tlg0656.tlg001.gunther1934:3.65	edition_of	urn:cts:greekLit:tlg
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:3.66	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.57	proposed		
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:3.67	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.58	proposed		
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:3.68	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.59	proposed		
-urn:cts:greekLit:tlg0656.tlg001.gunther1934:3.69	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.60	proposed		
-urn:cts:greekLit:tlg0656.tlg001.gunther1934:3.69	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.61	proposed		
+urn:cts:greekLit:tlg0656.tlg001.gunther1934:3.69@CumminCuminum[1]-same[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.60	proposed		
+urn:cts:greekLit:tlg0656.tlg001.gunther1934:3.69@There[1]-boiled[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.61	proposed		
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:3.70	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.62	proposed		
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:3.71	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.63	proposed		
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:3.72	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.64RV@RV[1]-ἀρήγει[1]	proposed	0	63
@@ -4060,7 +4057,7 @@ urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.3	edition_of	urn:cts:greekLit:tlg0
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.4	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.4	proposed		
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.5	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.5	proposed		
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.6	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.6	proposed		
-urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.7	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.7	proposed		
+urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.7@PeriwinkleClematis[1]-ETERA[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.7	proposed		
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.8	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.8	proposed		
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.9	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.9	proposed		
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.10	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.10	proposed		
@@ -4085,8 +4082,8 @@ urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.30	edition_of	urn:cts:greekLit:tlg
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.31	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.141	proposed		
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.32	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.29	proposed		
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.33	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.30	proposed		
-urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.34	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.31	proposed		
-urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.34	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.32	proposed		
+urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.34@Grass[1]-belly[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.31	proposed		
+urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.34@But[2]-beasts[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.32	proposed		
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.35	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.33	proposed		
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.36	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.34	proposed		
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.37	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.35	proposed		
@@ -4155,7 +4152,7 @@ urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.99	edition_of	urn:cts:greekLit:tlg
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.100	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.97	proposed		
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.101	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.98	proposed		
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.102	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.99	proposed		
-urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.103	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.100	proposed		
+urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.103@POTAMOGEITON[1]-places[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.100	proposed		
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.104	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.101	proposed		
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.105	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.102	proposed		
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.106	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.103	proposed		
@@ -4187,7 +4184,6 @@ urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.131	edition_of	urn:cts:greekLit:tl
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.132	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.128	proposed		
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.133	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.133	proposed		
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.134	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.129	proposed		
-urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.134	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.130@ἀντίρρινον[1]-ἐκάλεσαν[1]	proposed	0	11
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.135	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.130@ἀντίρρινον[1]-κρινίνῳ[1]	proposed	0	51
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.136	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.131	proposed		
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.137	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.132	proposed		
@@ -4203,8 +4199,8 @@ urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.147	edition_of	urn:cts:greekLit:tl
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.148	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.144	proposed		
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.149	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.145	proposed		
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.150	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.146	proposed		
-urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.151	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.147	proposed		
-urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.151	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.147a	proposed		
+urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.151@Chamaedaphne[1]-tormina[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.147	proposed		
+urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.151@Butye[1]-same[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.147a	proposed		
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.152	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.148	proposed		
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.153	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.162	proposed		
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.154	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.149	proposed		
@@ -4444,3 +4440,14 @@ urn:cts:greekLit:tlg0656.tlg001.gunther1934:2.praef	edition_of	urn:cts:greekLit:
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:3.praef	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:3.arg	proposed		
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.praef	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.arg	proposed		
 urn:cts:greekLit:tlg0656.tlg001.gunther1934:5.praef	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:5.arg	proposed		
+urn:cts:greekLit:tlg0656.tlg001.sprengel1829:2.4@Πορφύρας[1]-⁸⁶[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.7	proposed		
+urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.7@Περὶ[1]-βρῶσιν[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.180	proposed		
+urn:cts:greekLit:tlg0656.tlg001.sprengel1829:4.99@²⁰[1]-τόποις²⁵[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.16	proposed		
+urn:cts:greekLit:tlg0656.tlg001.berendes1902:2.4@Der[1]-aus[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:2.7	proposed		
+urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.7@Andere[2]-eingemacht[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.180	proposed		
+urn:cts:greekLit:tlg0656.tlg001.berendes1902:4.99@Es[3]-Plätzen[2]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.16	proposed		
+urn:cts:greekLit:tlg0656.tlg001.gunther1934:1.4@Somme[1]-hayre[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:1.5	proposed		
+urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.103@There[1]-places[2]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.16	proposed		
+urn:cts:greekLit:tlg0656.tlg001.gunther1934:4.7@There[1]-meat[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.180	proposed		
+urn:cts:greekLit:tlg0656.tlg001.sprengel1830:4.7@Clematis[1]-exponetur[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.180	proposed		
+urn:cts:greekLit:tlg0656.tlg001.sprengel1830:4.99@Alteram[1]-efficax[1]	edition_of	urn:cts:greekLit:tlg0656.tlg001.wellmann1906:4.16	proposed		

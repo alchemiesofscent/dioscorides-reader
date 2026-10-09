@@ -73,3 +73,16 @@ def test_links_to_part_of_a_wellmann_chapter_keep_their_span(tmp_path):
     assert entry["spans"] == {"1.40": [["1.42", 0, 48, "1.42.1"]], "1.41": [["1.42", 48, 122, "1.42.2"]],
                               "1.30": [["1.30", 475, 501, "1.30.6 (part)"]]}
     assert concordance.wellmann_label("1.105.1-1.105.5") == "1.105.1-5"
+
+
+def test_a_span_of_the_editions_chapter_pairs_as_its_chapter(tmp_path):
+    head = "urn_a\trelation\turn_b\tstatus\tw_from\tw_to\n"
+    rows = [[M + "1.4.translation@CYPERVS[1]-adijcisolet[1]", "edition_of", W + "1.4", "proposed", "", ""],
+            [M + "1.4.translation@Aliud[1]-exhibet[1]", "edition_of", W + "1.5", "proposed", "", ""]]
+    data = (head + "".join("\t".join(r) + "\n" for r in rows)).encode()
+    (tmp_path / "edition_of.tsv").write_bytes(data)
+    lock = {"repository": "alchemiesofscent/concordance", "commit": "abc", "vendored": "edition_of.tsv",
+            "rows": len(rows), "edition_of_sha256": hashlib.sha256(data).hexdigest()}
+    (tmp_path / "concordance.lock.json").write_text(json.dumps(lock))
+    entry = concordance.load(tmp_path / "concordance.lock.json")["mattioli1554"]
+    assert entry["to_wellmann"] == {"1.4": ["1.4", "1.5"]}

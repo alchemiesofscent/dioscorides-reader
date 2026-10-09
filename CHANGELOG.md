@@ -8,6 +8,14 @@ shows it beside the reader version under **Reading settings**. Release tags
 While the reader is in alpha, a minor version (0.x.0) adds or reorganises how people read;
 a patch version (0.x.y) fixes behaviour without changing the layout.
 
+## 0.9.1-alpha — 2026-10-09
+
+- **No Wellmann chapter is skipped where an edition joins two.** Wellmann 1.4 and 1.5 are one chapter in
+  the other editions. Each Wellmann chapter is now linked to its part of that chapter, so Wellmann 1.5
+  shows Gunther, Berendes, Mattioli and Sprengel 1.4 (concordance 185ebb4). The same holds across the
+  work, with three passages found in other places: Wellmann 2.7 is in Sprengel 2.4, and 4.16 and 4.180
+  are also printed in Sprengel 4.99 and 4.7.
+
 ## 0.9.0-alpha — 2026-10-09
 
 - **Chapters pair by Wellmann's sections.** Where an edition divides a Wellmann chapter into several
