@@ -673,6 +673,11 @@
       e.currentTarget.classList.toggle("active", active);
       e.currentTarget.setAttribute("aria-pressed", String(active));
     });
+    $("#toggleChapterNumerals").addEventListener("click", (e) => {
+      const shown = !document.body.classList.toggle("hide-chapter-numerals");
+      e.currentTarget.classList.toggle("active", shown);
+      e.currentTarget.setAttribute("aria-pressed", String(shown));
+    });
     $("#toggleFw").addEventListener("click", (e) => {
       document.body.classList.toggle("show-fw");
       e.currentTarget.classList.toggle("active");

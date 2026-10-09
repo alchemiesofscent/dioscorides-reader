@@ -685,6 +685,16 @@ class ChapterRenderer:
         self.render_children(el, out)
         out.append("</del>")
 
+    def el_supplied(self, el: ET.Element, out: list[str]) -> None:
+        out.append('<span class="tei-supplied" title="supplied by the editor">⟨')
+        self.render_children(el, out)
+        out.append("⟩</span>")
+
+    def el_surplus(self, el: ET.Element, out: list[str]) -> None:
+        out.append('<span class="tei-surplus" title="deleted by the editor">[')
+        self.render_children(el, out)
+        out.append("]</span>")
+
     def el_hi(self, el: ET.Element, out: list[str]) -> None:
         rend = el.get("rend", "")
         tag = {"italic": "em", "bold": "strong"}.get(rend)
@@ -720,7 +730,8 @@ class ChapterRenderer:
         out.append("</span>")
 
     def el_label(self, el: ET.Element, out: list[str]) -> None:
-        out.append('<span class="tei-label">')
+        out.append('<span class="tei-label margin-label" data-place="margin">'
+                   if el.get("place") == "margin" else '<span class="tei-label">')
         self.render_children(el, out)
         out.append("</span>")
 

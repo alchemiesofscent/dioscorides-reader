@@ -126,6 +126,16 @@ async function main() {
     assert.match(await evaluate("document.querySelector('#pageView').href"), /0499$/);
     await evaluate("document.querySelector('#toggleLineation').click()");
     assert.equal(await evaluate("document.body.classList.contains('show-lineation')"), true);
+    // Synthetic numerals exercise the switch even with an older pinned corpus.
+    await evaluate(`document.querySelector('#paneL .chapter').insertAdjacentHTML('beforeend',
+      '<p id="numeralSmoke"><span class="tei-num tei-num-chapter">4</span> <span class="tei-num tei-num-section">2</span></p>')`);
+    assert.equal(await evaluate("document.querySelector('#toggleChapterNumerals').getAttribute('aria-pressed')"), "true");
+    assert.notEqual(await evaluate("getComputedStyle(document.querySelector('#numeralSmoke .tei-num-chapter')).display"), "none");
+    await evaluate("document.querySelector('#toggleChapterNumerals').click()");
+    assert.equal(await evaluate("document.body.classList.contains('hide-chapter-numerals')"), true);
+    assert.equal(await evaluate("document.querySelector('#toggleChapterNumerals').getAttribute('aria-pressed')"), "false");
+    assert.equal(await evaluate("getComputedStyle(document.querySelector('#numeralSmoke .tei-num-chapter')).display"), "none");
+    assert.notEqual(await evaluate("getComputedStyle(document.querySelector('#numeralSmoke .tei-num-section')).display"), "none");
     await rpc("Emulation.setDeviceMetricsOverride", { width: 390, height: 844, deviceScaleFactor: 1, mobile: false });
     await evaluate("if (!document.querySelector('#toc').classList.contains('hidden')) document.querySelector('#toggleToc').click()");
     await evaluate("document.querySelector('#paneL .edition-credits').open = true");
@@ -142,6 +152,11 @@ async function main() {
     assert.equal(await evaluate("getComputedStyle(document.querySelector('#paneR')).display"), "none");
     await evaluate("document.querySelector('#toggleMenu').click()");
     assert.equal(await evaluate("!document.querySelector('#readerMenu').hidden && !document.querySelector('#drawerBackdrop').hidden"), true);
+    assert.equal(await evaluate("document.querySelector('#toggleChapterNumerals').getBoundingClientRect().width > 0"), true);
+    await evaluate("document.querySelector('#toggleChapterNumerals').click()");
+    assert.equal(await evaluate("document.querySelector('#toggleChapterNumerals').getAttribute('aria-pressed')"), "true");
+    assert.notEqual(await evaluate("getComputedStyle(document.querySelector('#numeralSmoke .tei-num-chapter')).display"), "none");
+    await evaluate("document.querySelector('#numeralSmoke').remove()");
     await evaluate("document.querySelector('#closeMenu').click()");
     await evaluate("document.querySelector('#where').click()");
     assert.equal(await evaluate("!document.querySelector('#toc').classList.contains('hidden') && !!document.querySelector('.contents-search input')"), true);

@@ -282,6 +282,16 @@ a.fnref.note-hl { border-radius: 2px; }
   padding: 10px 14px; margin: 0.8em 0;
 }
 .tei-label { font-variant: small-caps; letter-spacing: 0.06em; }
+/* Printed chapter numerals in the running text (Wellmann) can be hidden; numbers that
+   are part of a chapter heading (Sprengel, Mattioli, Gunther) always stay. */
+body.hide-chapter-numerals .tei-num-chapter { display: none; }
+body.hide-chapter-numerals .chapter-head .tei-num-chapter { display: inline; }
+/* A printed marginal label (Wellmann's section numbers within a chapter) sits in the
+   section-number column beside its line; .section is the positioning box. */
+.pane-body .margin-label {
+  position: absolute; left: -2.2em; margin-top: 0.15em;
+  font: 11px var(--ui); font-variant: normal; letter-spacing: normal; color: var(--rubric);
+}
 /* printer's error kept as printed; the correction shows on hover */
 .sic { text-decoration: underline dotted var(--rubric); text-underline-offset: 3px; cursor: help; }
 .sic-add { color: var(--rubric); cursor: help; }

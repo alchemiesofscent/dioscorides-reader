@@ -38,7 +38,7 @@ jobs:
             --asset "$ASSET" --cache .cache/corpus --lock corpus.lock.json)
           echo "BUNDLE=$bundle" >> "$GITHUB_ENV"
       - name: Build public reader
-        run: python -m dioscorides_reader build --bundle "$BUNDLE" --lock corpus.lock.json --output dist --exclude beck2020
+        run: python -m dioscorides_reader build --bundle "$BUNDLE" --lock corpus.lock.json --output dist --exclude beck2020 --exclude paul-heiberg-vii
       - name: Refuse to publish Beck 2020
         run: |
           test ! -e dist/data/beck2020

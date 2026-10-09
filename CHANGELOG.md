@@ -8,6 +8,18 @@ shows it beside the reader version under **Reading settings**. Release tags
 While the reader is in alpha, a minor version (0.x.0) adds or reorganises how people read;
 a patch version (0.x.y) fixes behaviour without changing the layout.
 
+## 0.8.0-alpha — 2026-10-09
+
+- **Wellmann shows its printed structure.** Editorial additions appear in angle brackets
+  ⟨ ⟩ and deletions in square brackets [ ], as Wellmann prints them; the printed chapter
+  numerals stand on their line; the printed marginal section numbers sit in the margin
+  beside their line.
+- A **Chapter numerals** switch in the toolbar and mobile menu hides or shows the printed
+  chapter numerals in the running text; they are shown by default. Numbers that belong to
+  a chapter heading (Sprengel, Mattioli, Gunther) always stay.
+- Corpus corpus-0a3620f2bc9b715b (edition-workbench 86256ba0). Paul of Aegina VII is in
+  the corpus but not yet in the public build (no reader adapter yet).
+
 ## 0.7.0-alpha — 2026-10-09
 
 - **Gunther 1934 has its facsimile.** Every chapter opens on its printed page, and the
