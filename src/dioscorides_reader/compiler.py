@@ -9,7 +9,7 @@ import subprocess
 import tarfile
 from pathlib import Path
 
-from . import __version__, concordance, diplomatic, render, xml_utils, matter
+from . import __version__, concordance, diplomatic, render, venenis, xml_utils, matter
 from .bundle import Bundle, relative_path
 
 MARKER = ".dioscorides-reader-output"
@@ -34,7 +34,13 @@ def web_directory() -> Path:
 
 
 def compile_bundle(bundle_path: Path, output: Path, lock: Path | None = None,
-                   exclude: tuple[str, ...] = ()) -> dict:
+                   exclude: tuple[str, ...] = (), local_texts: dict[str, Path] | None = None) -> dict:
+    """local_texts: texts outside the bundle, by reader key, each from a local checkout (tlg1118: the treatises on
+    poisons, a TLG text, for a private build only). Without them nothing of those texts is built."""
+    local_texts = dict(local_texts or {})
+    unknown_local = sorted(set(local_texts) - {venenis.KEY})
+    if unknown_local:
+        raise ValueError(f"No local text of that name: {unknown_local}")
     bundle = Bundle(bundle_path)
     verify_lock(bundle, lock)
     # Excluded streams (e.g. in-copyright editions in a public build) leave no
@@ -56,6 +62,8 @@ def compile_bundle(bundle_path: Path, output: Path, lock: Path | None = None,
         raise ValueError("Refusing to replace a directory not created by dioscorides-reader")
     output.parent.mkdir(parents=True, exist_ok=True)
     staging = Path(tempfile.mkdtemp(prefix=f".{output.name}-build-", dir=output.parent))
+    # the TEI made from a local text is written here, never into the output
+    scratch = Path(tempfile.mkdtemp(prefix="dioscorides-local-"))
     old_root, old_table, old_facs = render.ROOT, render.CHAPTER_TABLE, render.FACSIMILES
     old_bundle = xml_utils.ACTIVE_BUNDLE
     try:
@@ -75,7 +83,7 @@ def compile_bundle(bundle_path: Path, output: Path, lock: Path | None = None,
         table = render.load_chapter_table()
         report = render.Report()
         configs = {entry["key"]: entry for entry in render.EDITIONS}
-        pairings = concordance.load()
+        pairings = concordance.load(venenis=venenis.KEY in local_texts)
         # Wellmann's chapters carry no titles; the Sprengel table's titles are Sprengel's numbering.
         # Through the concordance each Wellmann chapter takes the title of its first Sprengel chapter.
         wellmann_labels = concordance.relabel(table, pairings, "sprengel1829")
@@ -114,6 +122,20 @@ def compile_bundle(bundle_path: Path, output: Path, lock: Path | None = None,
             if pairing:
                 edition["pairing"] = pairing
             editions[key] = edition
+        if venenis.KEY in local_texts:
+            tei, entry = venenis.prepare(local_texts[venenis.KEY], scratch)
+            config = {**configs[venenis.KEY], "tei_path": str(tei)}
+            edition = render.build_edition(config, table, report, data)
+            if not edition or not edition["books"] or any(not book["chapters"] for book in edition["books"]):
+                raise ValueError(f"Selected edition did not produce complete readable books: {venenis.KEY}")
+            for book, title in zip(edition["books"], venenis.BOOKS):
+                book["label"] = title
+            edition.update(tei_path=f"{entry['repository']}@{entry['commit'][:12]}:"
+                                    + ",".join(item["path"] for item in entry["files"]),
+                           status="tlg-private", edition_id=venenis.KEY,
+                           source_sha256={item["path"]: item["sha256"] for item in entry["files"]},
+                           pairing=concordance.venenis_pairing(edition, pairings))
+            editions[venenis.KEY] = edition
         if any(key.startswith("sprengel1829-") for key in editions):
             selection = next(item for item in selections if item["id"].startswith("sprengel1829-"))
             diplomatic.build(bundle.read_json("payload/diplomatic/sprengel1829.json"),
@@ -165,6 +187,7 @@ def compile_bundle(bundle_path: Path, output: Path, lock: Path | None = None,
         xml_utils.ACTIVE_BUNDLE = old_bundle
         if staging.exists():
             shutil.rmtree(staging)
+        shutil.rmtree(scratch, ignore_errors=True)
 
 
 def fetch_bundle(source: Path, cache: Path, lock: Path | None = None) -> Path:

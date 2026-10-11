@@ -18,6 +18,9 @@ def main(argv: list[str] | None = None) -> int:
     build.add_argument("--lock", type=Path)
     build.add_argument("--exclude", action="append", default=[], metavar="STREAM",
                        help="Omit an exported stream from the output (repeatable)")
+    build.add_argument("--local-text", action="append", default=[], metavar="KEY=CHECKOUT",
+                       help="Add a text from outside the bundle, read from a local checkout and checked against "
+                            "local_texts.lock.json: tlg1118=CORPORA (a TLG text; private builds only)")
     fetch = commands.add_parser("fetch", help="Verify and cache a local immutable corpus export")
     fetch_source = fetch.add_mutually_exclusive_group(required=True)
     fetch_source.add_argument("--source", type=Path)
@@ -33,7 +36,13 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     try:
         if args.command == "build":
-            result = compile_bundle(args.bundle, args.output, args.lock, tuple(args.exclude))
+            local = {}
+            for item in args.local_text:
+                key, sep, path = item.partition("=")
+                if not sep or not path:
+                    raise ValueError(f"--local-text takes KEY=CHECKOUT, not {item!r}")
+                local[key] = Path(path)
+            result = compile_bundle(args.bundle, args.output, args.lock, tuple(args.exclude), local)
             print(f"Built {len(result['editions'])} streams from {result['bundle_id']} -> {args.output}")
         elif args.command == "fetch":
             if args.source:

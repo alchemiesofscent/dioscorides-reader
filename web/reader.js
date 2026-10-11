@@ -153,12 +153,15 @@
   // Wellmann's chapter when the left chapter renders only some of its sections or words (Gunther 1.52 =
   // Wellmann 1.42.2), or an edition's chapter that renders more Wellmann chapters than the left one (Gunther 1.4
   // is Wellmann 1.4 and 1.5; beside Wellmann 1.5 only its part). null: the whole chapter.
+  // A target text paired through keys of its own (pairing.target: the treatises on poisons, V1.n and V2.n, which
+  // Mattioli's Book 6 renders) is shown as Wellmann is.
   function selectionFor(edition, mine, key) {
     const pe = manifest.editions[edition].pairing;
-    if (!pe) {
-      const sels = mine.filter((m) => m[0] === key);
+    if (!pe || pe.target) {
+      const pivot = pe ? (pe.to_wellmann[key] || [key])[0] : key;
+      const sels = mine.filter((m) => m[0] === pivot);
       if (!sels.length || sels.some((m) => !m[4])) return null;
-      return { sels: sels.map((m) => m[4]), label: `Wellmann ${sels.map((m) => m[3]).join(", ")}` };
+      return { sels: sels.map((m) => m[4]), label: viaLabel(sels.map((m) => m[3])) };
     }
     const parts = pe.parts && pe.parts[key];
     if (!parts) return null;
@@ -168,6 +171,14 @@
     if (shared.length === theirs.length || !shared.every((w) => parts[w])) return null;
     const siblings = theirs.filter((w) => !mineW.has(w) && parts[w] && parts[w].sub).map((w) => parts[w]);
     return { sels: shared.map((w) => parts[w]), siblings, label: `the part rendering Wellmann ${shared.join(", ")}` };
+  }
+
+  // "Wellmann 1.42.1, 1.43", or the treatise's own label ("De venenatis animalibus 2 (part)").
+  const TREATISES = { V1: "De venenis", V2: "De venenatis animalibus" };
+  function viaLabel(labels) {
+    labels = labels.map((l) => l.replace(/^(V[12])\.(\S+)/, (_, t, n) => `${TREATISES[t]} ${n}`));
+    const w = labels.filter((l) => /^\d/.test(l)), other = labels.filter((l) => !/^\d/.test(l));
+    return [w.length ? `Wellmann ${w.join(", ")}` : "", ...other].filter(Boolean).join(", ");
   }
 
   // The chapters of `edition` that answer the route's chapter in `from` (the left edition).
@@ -191,8 +202,8 @@
     });
     const status = [pf, pe].some((p) => p && p.status !== "checked") ? "proposed concordance" : "concordance";
     const same = targets.length === 1 && targets[0].book === route.book && targets[0].ch === route.ch;
-    const via = pf && wkeys.length && !(wkeys.length === 1 && wkeys[0] === `${route.book}.${route.ch}`)
-      ? ` = Wellmann ${labels.join(", ")}` : "";
+    const via = pf && !pf.target && wkeys.length && !(wkeys.length === 1 && wkeys[0] === `${route.book}.${route.ch}`)
+      ? ` = ${viaLabel(labels)}` : "";
     const note = same ? "" : `${manifest.editions[from].label} ${route.book}.${route.ch}`
       + (wkeys.length ? `${via} = ${manifest.editions[edition].label} ${kept.length ? kept.join(", ") : "(none)"}`
         : " has no Wellmann counterpart")
