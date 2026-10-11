@@ -5,15 +5,19 @@
 Reads links.tsv at COMMIT (git show) and keeps the rows with relation edition_of, in the columns
 urn_a, relation, urn_b, status only: this repository is public and the concordance is private, so
 its evidence and notes stay there, and the rows of in-copyright editions (PRIVATE) are left out, as are
-rows whose other end is not Wellmann's Dioscorides (the reader pairs through Wellmann).
+rows whose other end is neither Wellmann's Dioscorides (the reader pairs through Wellmann) nor the
+pseudo-Dioscorides treatises on poisons (tlg1118.tlg001-002, which Mattioli's Book 6 renders: Sean, 2026-10-11).
+Those go to their own file, concordance/edition_of_tlg1118.tsv: the reader reads them only in a build given the
+treatises' Greek (a TLG text, never in a public build), and their offsets count the words of the treatise's
+chapter as w_from and w_to count Wellmann's.
 A link to part of a Wellmann chapter (a section, a run of sections, a span of words: Sean,
 2026-10-09) also gets w_from and w_to, the words of the chapter it covers, and a span (on either side) its
 first three words (a_lead, w_lead), by which the reader finds it on the page (0-based, end exclusive,
 as the concordance's tools/tokens.py cuts the pinned text; empty for a whole chapter), so that the
 reader pairs two parts only where they overlap. These are computed with the concordance's own
 tools/editions/sections.py, so the checkout must be at COMMIT with its local sources configured.
-Writes concordance/edition_of.tsv and concordance.lock.json (repository, commit, sha256 of
-links.tsv and of the vendored rows).
+Writes concordance/edition_of.tsv, concordance/edition_of_tlg1118.tsv and concordance.lock.json
+(repository, commit, sha256 of links.tsv and of the vendored rows of each file).
 """
 import hashlib
 import json
@@ -24,9 +28,27 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PRIVATE = ("beck2020",)
 WELLMANN = "urn:cts:greekLit:tlg0656.tlg001.wellmann1906:"
+VENENIS = ("urn:cts:greekLit:tlg1118.tlg001.", "urn:cts:greekLit:tlg1118.tlg002.")
 COLUMNS = ("urn_a", "relation", "urn_b", "status")
 SPAN = ("w_from", "w_to", "a_lead", "w_lead")
 LEAD = 3
+
+
+def text_id(S, urn):
+    """The manifest id of the text a URN names, by work and version (sprengel1830 names the commentary
+    on Dioscorides and the treatises on poisons alike)."""
+    work, version = urn.split(":")[3].rsplit(".", 1)
+    work = "urn:cts:greekLit:" + work
+    return next(m["id"] for m in S.U.manifest() if m["work"] == work and m["version"] == version)
+
+
+def unit_offsets(S, T, urn):
+    """(from, to) words of a treatise's chapter that a span of it covers; ("", "") for the whole chapter."""
+    head, _, sub = urn.rsplit(":", 1)[1].partition("@")
+    if not sub:
+        return "", ""
+    i, j = T.span(T.tokens(S.U.reading(S.index(text_id(S, urn))[head])), sub)
+    return str(i), str(j + 1)
 
 
 def offsets(S, T, passage):
@@ -50,9 +72,7 @@ def lead(S, T, urn):
     head, _, sub = urn.rsplit(":", 1)[1].partition("@")
     if not sub:
         return ""
-    version = urn.split(":")[3].split(".")[2]
-    mid = S.version_ids()[version]
-    words = T.tokens(S.U.reading(S.index(mid)[head]))
+    words = T.tokens(S.U.reading(S.index(text_id(S, urn))[head]))
     i, _ = T.span(words, sub)
     return " ".join(f for _, _, f in words[i:i + LEAD])
 
@@ -72,26 +92,36 @@ def main(checkout, commit):
     lines = links.decode("utf-8").splitlines()
     head = lines[0].split("\t")
     idx = [head.index(c) for c in COLUMNS]
-    rows = []
+    rows, venenis = [], []
     for line in lines[1:]:
         cells = line.split("\t")
         if cells[1] != "edition_of" or any(f".{v}:" in cells[0] for v in PRIVATE):
             continue
-        if WELLMANN not in cells[idx[2]]:     # the reader pairs through Wellmann; another work (Mattioli's
-            continue                          # Book 6 -> the pseudo-Dioscorides treatises) is not read here yet
-        span = offsets(S, T, cells[idx[2]].rsplit(":", 1)[1])
-        leads = (lead(S, T, cells[idx[0]]), lead(S, T, cells[idx[2]]))
-        rows.append("\t".join([*(cells[i] for i in idx), *span, *leads]) + "\n")
+        target = cells[idx[2]]
+        if target.startswith(VENENIS):        # Mattioli's Book 6 -> the treatises on poisons
+            span = unit_offsets(S, T, target)
+            into = venenis
+        elif WELLMANN in target:
+            span = offsets(S, T, target.rsplit(":", 1)[1])
+            into = rows
+        else:
+            continue
+        leads = (lead(S, T, cells[idx[0]]), lead(S, T, target))
+        into.append("\t".join([*(cells[i] for i in idx), *span, *leads]) + "\n")
+    out = ROOT / "concordance"
+    out.mkdir(exist_ok=True)
     data = ("\t".join(COLUMNS + SPAN) + "\n" + "".join(rows)).encode("utf-8")
-    out = ROOT / "concordance" / "edition_of.tsv"
-    out.parent.mkdir(exist_ok=True)
-    out.write_bytes(data)
+    (out / "edition_of.tsv").write_bytes(data)
+    vdata = ("\t".join(COLUMNS + SPAN) + "\n" + "".join(venenis)).encode("utf-8")
+    (out / "edition_of_tlg1118.tsv").write_bytes(vdata)
     lock = {"schema_version": 1, "repository": "alchemiesofscent/concordance", "commit": full,
             "links_sha256": hashlib.sha256(links).hexdigest(), "vendored": "concordance/edition_of.tsv",
             "rows": len(rows), "columns": list(COLUMNS + SPAN), "excluded_versions": list(PRIVATE),
-            "edition_of_sha256": hashlib.sha256(data).hexdigest()}
+            "edition_of_sha256": hashlib.sha256(data).hexdigest(),
+            "tlg1118": {"vendored": "concordance/edition_of_tlg1118.tsv", "rows": len(venenis),
+                        "sha256": hashlib.sha256(vdata).hexdigest()}}
     (ROOT / "concordance.lock.json").write_text(json.dumps(lock, indent=2) + "\n", encoding="utf-8")
-    print(f"{len(rows)} edition_of rows from {full[:12]}")
+    print(f"{len(rows)} edition_of rows and {len(venenis)} to the treatises on poisons from {full[:12]}")
 
 
 if __name__ == "__main__":

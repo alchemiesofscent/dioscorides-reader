@@ -18,5 +18,10 @@
   "excluded_versions": [
     "beck2020"
   ],
-  "edition_of_sha256": "2b04428c8ee80b091ad1fc6d6db5d82e802ee90ee783f2804f8e7f7e802a1c8a"
+  "edition_of_sha256": "2b04428c8ee80b091ad1fc6d6db5d82e802ee90ee783f2804f8e7f7e802a1c8a",
+  "tlg1118": {
+    "vendored": "concordance/edition_of_tlg1118.tsv",
+    "rows": 71,
+    "sha256": "2b532abba9aeeec90f31cd262ce80398d22fa07628547517466bf59f39e55149"
+  }
 }
