@@ -176,6 +176,19 @@ EDITIONS = [
         "concordance": "gunther1934",
     },
     {
+        # Not in the corpus bundle: a TLG text, read from a local corpora checkout in a private build only
+        # (venenis.py). Mattioli's Book 6 pairs with it through the concordance's rows to tlg1118.
+        "key": "tlg1118",
+        "label": "Ps.-Dioscorides, De venenis; De venenatis animalibus (Sprengel 1830, Greek, TLG)",
+        "lang": "grc",
+        "tei_path": "",
+        "stream": {"type": "edition", "lang": "grc"},
+        "facs": "none",
+        "label_source": "head",
+        "anchored_notes": False,
+        "section_routes": True,
+    },
+    {
         "key": "wellmann1906",
         "label": "Wellmann 1906 (Greek, critical)",
         "lang": "grc",

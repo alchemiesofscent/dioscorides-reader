@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "tlg1118": {
+    "repository": "alchemiesofscent/corpora",
+    "commit": "cf0e0be72ffe362e74cfe71db4f435a37f49e723",
+    "files": [
+      {"path": "tlg/tlg1118001.xml", "sha256": "ee70100965fcf7433ae1846e8aabe33885b58c221e7b2a948bab36a1c30db9e9"},
+      {"path": "tlg/tlg1118002.xml", "sha256": "fcd24c224c0cf5bcbaf978fbf25864e4b26266ce3c71f66cb8ef2a12c0f9b72d"}
+    ],
+    "rights": "TLG text: private builds only (D43); never in a public build (D42)"
+  }
+}

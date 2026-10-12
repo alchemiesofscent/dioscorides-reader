@@ -515,3 +515,25 @@ for (const unavailable of [false, true]) {
       "a new reader restores the choice, or uses the default when storage is blocked");
   });
 }
+
+test("Mattioli's Book 6 pairs with the treatises on poisons through their own keys", () => {
+  const { api } = harness("reader.js", `
+    globalThis.harness = { pairedTargets, setup(value) { manifest = value; } };`);
+  const books = (list) => list.map(([n, chapters]) => ({ n, chapters: chapters.map((c) => ({ n: c })) }));
+  api.setup({ editions: {
+    mattioli: { label: "M", books: books([["6", ["35", "37", "38"]]]), status: "proposed",
+      pairing: { status: "proposed", to_wellmann: { "6.35": ["V2.Pr"], "6.37": ["V2.2"], "6.38": ["V2.2"] },
+        spans: { "6.37": [["V2.2", 0, 3, "De venenatis animalibus 2 (part)", { sub: "a[1]-b[1]", lead: ["a"] }]] } } },
+    venenis: { label: "V", books: books([["1", ["1"]], ["2", ["Pr", "2"]]]),
+      pairing: { target: true, status: "proposed", to_wellmann: { "1.1": ["V1.1"], "2.Pr": ["V2.Pr"], "2.2": ["V2.2"] } } },
+    wellmann: { label: "W", books: books([["1", ["1"]]]) },
+  } });
+  const part = api.pairedTargets("mattioli", "venenis", { book: "6", ch: "37" });
+  assert.equal(part.targets.length, 1);
+  assert.equal(`${part.targets[0].book}.${part.targets[0].ch}`, "2.2");
+  assert.equal(part.targets[0].select.sels[0].sub, "a[1]-b[1]");
+  assert.match(api.pairedTargets("mattioli", "venenis", { book: "6", ch: "35" }).note, /= De venenatis animalibus Pr =/);
+  assert.equal(api.pairedTargets("venenis", "mattioli", { book: "2", ch: "2" }).targets.map((t) => t.ch).join(), "37,38");
+  assert.equal(api.pairedTargets("wellmann", "venenis", { book: "1", ch: "1" }).targets.length, 0);   // no Wellmann 1.1 here
+  assert.equal(api.pairedTargets("venenis", "wellmann", { book: "1", ch: "1" }).targets.length, 0);
+});

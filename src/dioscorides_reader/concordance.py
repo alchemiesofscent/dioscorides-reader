@@ -15,6 +15,12 @@ each by a span of its own words (urn_a ...:1.4@first[n]-last[m]); it pairs as th
 to_wellmann keeps the chapter keys; spans adds, per chapter of the
 edition, [Wellmann chapter, from, to, label] (from and to None for a whole chapter), so that two
 parts of one Wellmann chapter pair only where they overlap.
+
+Mattioli's Book 6 renders the pseudo-Dioscorides treatises on poisons (tlg1118.tlg001, De venenis; tlg1118.tlg002,
+De venenatis animalibus), not Wellmann. Those rows are vendored apart (concordance/edition_of_tlg1118.tsv) and read
+only when the build includes the treatises' Greek (a TLG text: private builds only). They pair through keys of
+their own, V1.n and V2.n, which no Wellmann chapter has; the treatises' stream maps its chapters 1.n and 2.n to them
+(venenis_pairing).
 """
 from __future__ import annotations
 
@@ -27,6 +33,8 @@ ROOT = Path(__file__).resolve().parents[2]
 LOCK = ROOT / "concordance.lock.json"
 WELLMANN = "wellmann1906"
 PREFIX = "urn:cts:greekLit:tlg0656.tlg001."
+VENENIS = {"urn:cts:greekLit:tlg1118.tlg001.": ("V1", "De venenis"),
+           "urn:cts:greekLit:tlg1118.tlg002.": ("V2", "De venenatis animalibus")}
 
 
 def split(urn: str) -> tuple[str, str]:
@@ -35,6 +43,17 @@ def split(urn: str) -> tuple[str, str]:
         raise ValueError(f"Not a Dioscorides passage URN: {urn}")
     version, passage = urn[len(PREFIX):].split(":", 1)
     return version, passage
+
+
+def venenis_target(urn: str) -> tuple[str, str, str]:
+    """(pivot key, passage, label) of a passage of the treatises on poisons: tlg1118.tlg002.sprengel1830:2@a[1]-b[1]
+    is V2.2, 2@a[1]-b[1], "De venenatis animalibus 2 (part)"."""
+    for prefix, (book, title) in VENENIS.items():
+        if urn.startswith(prefix) and ":" in urn[len(prefix):]:
+            passage = urn[len(prefix):].split(":", 1)[1]
+            head, at, _ = passage.partition("@")
+            return f"{book}.{head}", passage, f"{title} {head}" + (" (part)" if at else "")
+    raise ValueError(f"Not a passage of the treatises on poisons: {urn}")
 
 
 def wellmann_chapter(passage: str) -> str:
@@ -68,18 +87,31 @@ def selector(passage: str, chapter: str, lead: str = "") -> dict | None:
     return {"from": a[len(chapter) + 1:], "to": (b or a)[len(chapter) + 1:]}
 
 
-def load(lock_path: Path = LOCK) -> dict | None:
+def vendored(lock_path: Path, path: str, sha256: str, count: int) -> list[dict]:
+    """The rows of one vendored file, checked against its lock entry."""
+    data = (lock_path.parent / path).read_bytes()
+    if hashlib.sha256(data).hexdigest() != sha256:
+        raise ValueError(f"Vendored concordance rows differ from concordance.lock.json: {path}")
+    rows = list(csv.DictReader(data.decode("utf-8").splitlines(), delimiter="\t"))
+    if len(rows) != count:
+        raise ValueError(f"Vendored concordance row count differs from concordance.lock.json: {path}")
+    return rows
+
+
+def load(lock_path: Path = LOCK, venenis: bool = False) -> dict | None:
     """{version: {"to_wellmann": {key: [wellmann keys]}, "status": ...}} from the pinned rows;
-    None when no concordance is pinned (every edition then pairs by identical key)."""
+    None when no concordance is pinned (every edition then pairs by identical key). venenis: also the
+    rows to the treatises on poisons, for a build that includes their Greek."""
     if not lock_path.exists():
         return None
     lock = json.loads(lock_path.read_text(encoding="utf-8"))
-    path = lock_path.parent / lock["vendored"]
-    data = path.read_bytes()
-    if hashlib.sha256(data).hexdigest() != lock["edition_of_sha256"]:
-        raise ValueError("Vendored concordance rows differ from concordance.lock.json")
+    rows = vendored(lock_path, lock["vendored"], lock["edition_of_sha256"], lock["rows"])
+    extra = lock.get("tlg1118")
+    if venenis:
+        if not extra:
+            raise ValueError("The build includes the treatises on poisons but no rows to them are vendored")
+        rows += vendored(lock_path, extra["vendored"], extra["sha256"], extra["rows"])
     out: dict[str, dict] = {}
-    rows = list(csv.DictReader(data.decode("utf-8").splitlines(), delimiter="\t"))
     for row in rows:
         if row["relation"] != "edition_of":
             raise ValueError(f"Unexpected relation in vendored concordance rows: {row['relation']}")
@@ -87,10 +119,14 @@ def load(lock_path: Path = LOCK) -> dict | None:
         part = None
         if "@" in key:          # part of the edition's chapter (Mattioli's 1.4.translation@...): the chapter pairs
             part, key = key, wellmann_chapter(key)
-        target, passage = split(row["urn_b"])
-        if target != WELLMANN:
-            raise ValueError(f"edition_of must point into Wellmann: {row['urn_b']}")
-        wkey = wellmann_chapter(passage)
+        if row["urn_b"].startswith(PREFIX):
+            target, passage = split(row["urn_b"])
+            if target != WELLMANN:
+                raise ValueError(f"edition_of must point into Wellmann: {row['urn_b']}")
+            wkey, label = wellmann_chapter(passage), wellmann_label(passage)
+        else:
+            wkey, passage, label = venenis_target(row["urn_b"])
+            passage = wkey + passage[len(wkey.split(".", 1)[1]):]      # 2@a[1]-b[1] -> V2.2@a[1]-b[1]
         entry = out.setdefault(version, {"to_wellmann": {}, "spans": {}, "parts": {}, "statuses": set()})
         if part:
             entry["parts"].setdefault(key, {})[wkey] = selector(part, key, row.get("a_lead") or "")
@@ -99,11 +135,9 @@ def load(lock_path: Path = LOCK) -> dict | None:
             targets.append(wkey)
         start, end = row.get("w_from") or None, row.get("w_to") or None
         entry["spans"].setdefault(key, []).append(
-            [wkey, int(start) if start else None, int(end) if end else None, wellmann_label(passage),
+            [wkey, int(start) if start else None, int(end) if end else None, label,
              selector(passage, wkey, row.get("w_lead") or "")])
         entry["statuses"].add(row["status"])
-    if len(rows) != lock["rows"]:
-        raise ValueError("Vendored concordance row count differs from concordance.lock.json")
     for version, entry in out.items():
         # only chapters linked to part of a Wellmann chapter need their spans (a whole chapter overlaps all)
         entry["spans"] = {k: v for k, v in entry["spans"].items() if any(x[1] is not None for x in v)}
@@ -113,6 +147,16 @@ def load(lock_path: Path = LOCK) -> dict | None:
         entry["status"] = "checked" if statuses == {"checked"} else "proposed"
         entry["source"] = {"repository": lock["repository"], "commit": lock["commit"]}
     return out
+
+
+def venenis_pairing(edition: dict, pairings: dict | None) -> dict:
+    """The treatises' stream pairs its chapter n of treatise 1 or 2 (book 1, 2) through V1.n, V2.n; "target": it is
+    shown, as Wellmann is, in the part that the other edition's chapter renders."""
+    statuses = {pairings[v]["status"] for v in pairings or {} if any(
+        w.startswith("V") for ws in pairings[v]["to_wellmann"].values() for w in ws)}
+    return {"to_wellmann": {f"{book['n']}.{c['n']}": [f"V{book['n']}.{c['n']}"]
+                            for book in edition["books"] for c in book["chapters"]},
+            "target": True, "status": "checked" if statuses == {"checked"} else "proposed"}
 
 
 def pairing_for(config: dict, table: dict | None) -> dict | None:

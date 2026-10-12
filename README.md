@@ -52,6 +52,23 @@ The workflow needs two repository settings: Pages with source "GitHub Actions", 
 secret `CORPUS_TOKEN`, a fine-grained token with read-only Contents access to
 `alchemiesofscent/edition-workbench` so it can download the private corpus release.
 
+## Mattioli's Book 6 and the treatises on poisons (private builds)
+
+Mattioli's Book 6 renders the pseudo-Dioscorides treatises on poisons (De venenis, De venenatis
+animalibus: TLG 1118.001–002, Sprengel 1830), not Wellmann. Their Greek is a TLG text: it may be
+shown in a private build and never in a public one. It is not in the corpus bundle or in this
+repository; a build reads it from a local checkout of `alchemiesofscent/corpora` only when asked,
+and only files with the sha256 pinned in `local_texts.lock.json`:
+
+```bash
+.venv/bin/python -m dioscorides_reader build --bundle <bundle> --lock corpus.lock.json --output dist-private \
+  --exclude paul-heiberg-vii --local-text tlg1118=/path/to/corpora
+```
+
+Book 6 then pairs chapter by chapter with the treatises through the concordance's rows to them
+(`concordance/edition_of_tlg1118.tsv`: keys, offsets and lead words only). Without `--local-text`
+those rows are not read and nothing of the treatises is built, so the public site needs no change.
+
 ## Phones and small screens
 
 Up to 900px wide the reader switches to a compact layout. The routes, the data and the
