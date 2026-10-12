@@ -4,7 +4,8 @@
 
 Reads links.tsv at COMMIT (git show) and keeps the rows with relation edition_of, in the columns
 urn_a, relation, urn_b, status only: this repository is public and the concordance is private, so
-its evidence and notes stay there, and the rows of in-copyright editions (PRIVATE) are left out.
+its evidence and notes stay there, and the rows of in-copyright editions (PRIVATE) are left out, as are
+rows whose other end is not Wellmann's Dioscorides (the reader pairs through Wellmann).
 A link to part of a Wellmann chapter (a section, a run of sections, a span of words: Sean,
 2026-10-09) also gets w_from and w_to, the words of the chapter it covers, and a span (on either side) its
 first three words (a_lead, w_lead), by which the reader finds it on the page (0-based, end exclusive,
@@ -22,6 +23,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PRIVATE = ("beck2020",)
+WELLMANN = "urn:cts:greekLit:tlg0656.tlg001.wellmann1906:"
 COLUMNS = ("urn_a", "relation", "urn_b", "status")
 SPAN = ("w_from", "w_to", "a_lead", "w_lead")
 LEAD = 3
@@ -75,6 +77,8 @@ def main(checkout, commit):
         cells = line.split("\t")
         if cells[1] != "edition_of" or any(f".{v}:" in cells[0] for v in PRIVATE):
             continue
+        if WELLMANN not in cells[idx[2]]:     # the reader pairs through Wellmann; another work (Mattioli's
+            continue                          # Book 6 -> the pseudo-Dioscorides treatises) is not read here yet
         span = offsets(S, T, cells[idx[2]].rsplit(":", 1)[1])
         leads = (lead(S, T, cells[idx[0]]), lead(S, T, cells[idx[2]]))
         rows.append("\t".join([*(cells[i] for i in idx), *span, *leads]) + "\n")
