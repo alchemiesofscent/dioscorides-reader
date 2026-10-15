@@ -8,6 +8,17 @@ shows it beside the reader version under **Reading settings**. Release tags
 While the reader is in alpha, a minor version (0.x.0) adds or reorganises how people read;
 a patch version (0.x.y) fixes behaviour without changing the layout.
 
+## 0.11.0-alpha — 2026-10-15
+
+- Wellmann v1: recension (RV/C) blocks shown under their chapter as printed, with
+  joined continuations and page/line references; bracketed RV chapters retain their routes.
+- Corpus 7c9c1ff7: Wellmann v1 (text/wellmann1906/v1).
+- Wellmann v1 changed sections in 13 chapters; old section citations map as follows:
+  I 101, II 149, II 164, II 166, IV 182: the opening text is now section 1 (old 2, 3, 4 keep their numbers);
+  III 64RV: new section 1 before section 2; I 127: new section 2 begins at φύεται (sections 1 and 3 unchanged);
+  II 154: 1, 1, 3 → 1, 2, 3; IV 93: 91 → 1; IV 157: 2s → 2; IV 164: 22 → 2; V 11: 2a, 2b → 2, 3;
+  V 76: the false section 5 is removed (the "5" was a printed line number).
+
 ## 0.10.2-alpha — 2026-10-09
 
 - "Only the matching part" is now an on/off switch, above the part and in Reading settings. It is

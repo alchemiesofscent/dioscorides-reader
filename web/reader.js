@@ -185,14 +185,20 @@
   function pairedTargets(from, edition, route) {
     const plain = [{ book: route.book, ch: route.ch }];
     if (from === edition) return { targets: plain, note: "" };
+    const isRecension = (ed, book, ch) => {
+      const b = manifest.editions[ed].books.find((b) => b.n === book);
+      return b && b.chapters.some((c) => c.n === ch && c.recension);
+    };
+    if (isRecension(from, route.book, route.ch)) return { targets: [], note: "Recension: no translation counterpart" };
     const pf = manifest.editions[from].pairing, pe = manifest.editions[edition].pairing;
-    if (!pf && !pe) return { targets: plain, note: "" };
+    if (!pf && !pe) return isRecension(edition, route.book, route.ch)
+      ? { targets: [], note: "Recension: no translation counterpart" } : { targets: plain, note: "" };
     const wkeys = toWellmann(from, route.book, route.ch);
     const keys = fromWellmann(edition, wkeys);
     // a section key the other edition does not have (front matter, a preface it lacks) is no counterpart
     const present = new Set(flatChapters(edition).map((c) => `${c.book}.${c.ch}`));
     const mine = spansOf(from, `${route.book}.${route.ch}`);
-    const inChapter = keys.filter((k) => present.has(k));
+    const inChapter = keys.filter((k) => present.has(k) && !isRecension(edition, ...k.split(".")));
     const overlapping = inChapter.filter((k) => spansOf(edition, k).some((t) => mine.some((m) => overlaps(m, t))));
     const kept = overlapping.length ? overlapping : inChapter;
     const labels = [...new Set(mine.map((m) => m[3]))];

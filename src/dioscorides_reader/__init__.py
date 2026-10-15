@@ -1,2 +1,2 @@
 """Read-only presentation of immutable Dioscorides corpus exports."""
-__version__ = "0.10.2-alpha"
+__version__ = "0.11.0-alpha"

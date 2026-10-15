@@ -428,12 +428,14 @@ class ChapterRenderer:
         self.apps: dict[str, str] = {}
         self.app_counter = 0
         self.stand_off_apps = stand_off_apps or {}
+        self.recensions: dict[str, list[list[tuple[ET.Element, ET.Element | None, int]]]] = {}
         self._page_records: dict[ET.Element, dict] = {}
         # per-chapter state
         self.pages: list[dict] = []
         self.note_ids: list[str] = []
         self.ref_note_ids: list[str] = []
         self.sigla: list[str] = []
+        self._bracketed_chapter = False
         self._track_running_text = True
         self._last_running_text: tuple[list[str], int] | None = None
         self._pending_page_break: (
@@ -661,7 +663,13 @@ class ChapterRenderer:
         self._render_children_isolated(el, inner)
         self.sigla.append(f'<div class="siglorum" id="{esc(nid)}">{"".join(inner).strip()}</div>')
 
+    def el_ptr(self, el: ET.Element, out: list[str]) -> None:
+        if el.get("type") != "rv-line-key":
+            self.render_children(el, out)
+
     def el_ab(self, el: ET.Element, out: list[str]) -> None:
+        if self.cfg["key"] == "wellmann1906" and el.get("type") == "recension":
+            return  # rendered once, under the chapter named by @corresp
         if el.get("subtype") == "siglorum" or el.get("type") == "siglorum":
             self._sigla(el, xml_id(el))
             return
@@ -671,6 +679,8 @@ class ChapterRenderer:
         out.append("</div>")
 
     def el_head(self, el: ET.Element, out: list[str]) -> None:
+        if self._bracketed_chapter:
+            return
         out.append('<h3 class="chapter-head">')
         self.render_children(el, out)
         out.append("</h3>")
@@ -981,7 +991,39 @@ class ChapterRenderer:
         n = div.get("n", "")
         cid = xml_id(div)
         out.append(f'<div class="chapter" data-n="{esc(n)}" id="{esc(cid)}">')
+        bracketed = self.cfg["key"] == "wellmann1906" and is_bracketed_rv(div)
+        self._bracketed_chapter = bracketed
+        bracket_body = bracketed and div.get("rend") == "bracketed"
+        if bracketed:
+            out.append(f'<h3 class="chapter-head">[{esc(n.replace("RV", " RV"))}]</h3>')
+        if bracket_body:
+            out.append('<div class="tei-rv-bracketed"><span class="rv-bracket">[</span>')
         self.render_children(div, out)
+        if bracket_body:
+            out.append('<span class="rv-bracket">]</span></div>')
+        for group in self.recensions.get(cid, []):
+            out.append('<div class="tei-recension">')
+            self._last_running_text = None
+            self._pending_page_break = None
+            for position, (segment, page, index) in enumerate(group):
+                if position == 0:
+                    ptr = segment.find(f"{TEI}ptr[@type='rv-line-key']")
+                    label = ptr.get("n", "") if ptr is not None else segment.get("n", "")
+                    if label:
+                        subtype = segment.get("subtype", "")
+                        label = label.removesuffix(subtype).strip() if subtype else label
+                        out.append(f'<span class="rv-label">{esc(label)} {esc(subtype)}</span> ')
+                out.append(f'<span class="rv-segment" data-rv-segment="{index}">')
+                if page is not None:
+                    self.el_pb(page, out)
+                brackets = segment.get("rend") == "bracketed"
+                if brackets:
+                    out.append('<span class="tei-rv-bracketed"><span class="rv-bracket">[</span>')
+                self.render_children(segment, out)
+                if brackets:
+                    out.append('<span class="rv-bracket">]</span></span>')
+                out.append('</span>')
+            out.append('</div>')
         out.append("</div>")
         return {
             "id": cid,
@@ -1110,8 +1152,54 @@ def chapter_entry_page_breaks(root: ET.Element) -> dict[ET.Element, ET.Element]:
     return entry_pages
 
 
+def is_bracketed_rv(div: ET.Element) -> bool:
+    return "RV" in div.get("n", "") and (div.get("rend") == "bracketed" or
+        div.find(f'{TEI}ab[@type="recension"][@rend="bracketed"]') is not None)
+
+
+def recension_groups(stream: ET.Element) -> dict:
+    """Index physical segments by their semantic owner without changing the TEI."""
+    chapters = {xml_id(div) for div in stream.iter(f"{TEI}div")
+                if div.get("subtype") == "chapter"}
+    groups: dict = {}
+    active: dict = {}
+    page = None
+    index = 0
+    for element in stream.iter():
+        if element.tag == f"{TEI}pb":
+            page = element
+        if element.tag != f"{TEI}ab" or element.get("type") != "recension":
+            continue
+        owner = element.get("corresp", "").removeprefix("#")
+        if owner not in chapters:
+            raise ValueError(f"Recension has no chapter owner: {owner}")
+        key = (owner, element.get("subtype"), element.get("n", ""))
+        if element.get("part") in {"M", "F"}:
+            if not element.get("n"):
+                candidates = [k for k in active if k[:2] == key[:2]]
+                if len(candidates) == 1:
+                    key = candidates[0]
+            if key not in active:
+                raise ValueError(f"Recension continuation has no start: {key}")
+            group = active[key]
+        else:
+            group = []
+            groups.setdefault(owner, []).append(group)
+            if element.get("part") == "I":
+                active[key] = group
+        group.append((element, page, index))
+        index += 1
+        if element.get("part") == "F":
+            del active[key]
+    if active:
+        raise ValueError(f"Unfinished recension groups: {list(active)}")
+    return groups
+
+
 def chapter_label(cfg: dict, book_n: str, ch_n: str, div: ET.Element,
                   table: dict, report: Report) -> str | None:
+    if cfg["key"] == "wellmann1906" and is_bracketed_rv(div):
+        return f"[{ch_n.replace('RV', ' RV')}]"
     if ch_n == "praef":
         if book_n != "1":
             head = div.find(f"{TEI}head")
@@ -1194,6 +1282,8 @@ def build_edition(cfg: dict, table: dict, report: Report,
     renderer = ChapterRenderer(
         renderer_cfg, tei_path, witnesses, report, stand_off_apps
     )
+    if cfg["key"] == "wellmann1906":
+        renderer.recensions = recension_groups(stream)
     global_notes = global_footnote_bodies(root, renderer)
     # Born-digital translations deliberately have no physical-page model.  Other
     # editions retain root-level inheritance because some TEIs place the active
@@ -1298,7 +1388,8 @@ def build_edition(cfg: dict, table: dict, report: Report,
                 label = chapter_label(cfg, book_n, ch_n, chapter, table, report)
             rendered["label"] = label
             chapters[ch_n] = rendered
-            chapter_list.append({"n": ch_n, "label": label})
+            chapter_list.append({"n": ch_n, "label": label, **({"recension": True}
+                                if cfg["key"] == "wellmann1906" and is_bracketed_rv(chapter) else {})})
         chunk = {
             "edition": cfg["key"],
             "book": book_n,

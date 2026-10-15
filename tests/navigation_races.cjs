@@ -371,6 +371,14 @@ test("chapters pair through Wellmann where an edition has concordance rows", () 
   const front = api.pairedTargets("mattioli1554", "berendes1902", { book: "2", ch: "praef" });
   assert.equal(keys(front), "");
   assert.match(front.note, /\(none\)/);
+  // Bracketed RV routes never acquire translation counterparts, even with identical keys.
+  api.setup({ editions: {
+    rvWellmann: { label: "W", books: [{ n: "3", chapters: [{ n: "64RV", recension: true }, { n: "73a" }] }] },
+    rvTranslation: { label: "T", books: [{ n: "3", chapters: [{ n: "64RV" }, { n: "73a" }] }] },
+  } });
+  assert.equal(keys(api.pairedTargets("rvWellmann", "rvTranslation", { book: "3", ch: "64RV" })), "");
+  assert.equal(keys(api.pairedTargets("rvTranslation", "rvWellmann", { book: "3", ch: "64RV" })), "");
+  assert.equal(keys(api.pairedTargets("rvWellmann", "rvTranslation", { book: "3", ch: "73a" })), "3.73a");
   // (fresh edition names: the chapter lists are cached per edition)
   // parts of one Wellmann chapter pair by the sections they render (Sean's example: Wellmann
   // 1.42.1 = Mattioli 1.40 = Gunther 1.51; 1.42.2 = Mattioli 1.41 = Gunther 1.52)

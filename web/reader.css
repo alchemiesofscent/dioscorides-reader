@@ -393,3 +393,9 @@ body.hide-chapter-numerals .chapter-head .tei-num-chapter { display: inline; }
 .part-bar .part-toggle { font-size: inherit; }
 #onlyMatchingPart { margin-bottom: 10px; }
 .part-gap { text-align: center; color: var(--muted, #666); }
+
+/* Wellmann's separately printed recension layer. */
+.tei-recension { margin-top: 1.2em; padding-top: .6em; font-size: .85em; }
+.tei-recension::before { content: ""; display: block; width: 5em; border-top: 1px solid currentColor; margin-bottom: .6em; }
+.rv-label { font-weight: 600; margin-right: .4em; }
+.tei-rv-bracketed { color: inherit; }

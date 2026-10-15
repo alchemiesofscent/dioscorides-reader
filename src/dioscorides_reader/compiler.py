@@ -140,6 +140,22 @@ def compile_bundle(bundle_path: Path, output: Path, lock: Path | None = None,
             selection = next(item for item in selections if item["id"].startswith("sprengel1829-"))
             diplomatic.build(bundle.read_json("payload/diplomatic/sprengel1829.json"),
                              bundle.path(selection["tei_path"]), data / "sprengel1829-diplomatic")
+        # Recension routes remain addressable witnesses, outside translation pairings.
+        rv_keys = {f"{book['n']}.{chapter['n']}"
+                   for book in editions.get("wellmann1906", {}).get("books", [])
+                   for chapter in book["chapters"] if chapter.get("recension")}
+        for edition in editions.values():
+            pairing = edition.get("pairing")
+            if not pairing:
+                continue
+            pairing["to_wellmann"] = {key: [w for w in targets if w not in rv_keys]
+                                      for key, targets in pairing["to_wellmann"].items()}
+            if "spans" in pairing:
+                pairing["spans"] = {key: [span for span in spans if span[0] not in rv_keys]
+                                    for key, spans in pairing["spans"].items()}
+            if "parts" in pairing:
+                pairing["parts"] = {key: {w: part for w, part in parts.items() if w not in rv_keys}
+                                    for key, parts in pairing["parts"].items()}
         # Broken textual links/structure must not silently become a completed build.
         fatal = [item for item in report.items if item[1] in {
             "structure", "footnote ref target missing", "stand-off apparatus",
