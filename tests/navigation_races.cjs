@@ -545,3 +545,56 @@ test("Mattioli's Book 6 pairs with the treatises on poisons through their own ke
   assert.equal(api.pairedTargets("wellmann", "venenis", { book: "1", ch: "1" }).targets.length, 0);   // no Wellmann 1.1 here
   assert.equal(api.pairedTargets("venenis", "wellmann", { book: "1", ch: "1" }).targets.length, 0);
 });
+
+
+test("hosted facsimiles show recorded rights and clear them on edition changes", async () => {
+  const { nodes, api } = harness("reader.js", `
+    globalThis.harness = {
+      openFacs, render, setFacsVisible,
+      route(route) { Object.assign(state, route); },
+      setup(editions, chunk) {
+        manifest = { editions };
+        syncFacsNavigation = () => {};
+        openSource = () => {};
+        loadChunk = () => Promise.resolve(chunk);
+        buildToc = () => {};
+        updateDiplomaticLink = () => {};
+      }
+    };
+  `);
+  const licence = "All rights reserved (research preview; licence pending the open-data office). Alchemies of Scent, 2026.";
+  const scope = "This reservation covers the page images as published here.";
+  const credits = {sections: [{title: "Publication and rights", entries: [
+    {label: "Authority", text: "Alchemies of Scent"},
+    {label: "Recorded rights statement", text: licence},
+    {label: "Recorded rights statement", text: scope},
+  ]}]};
+  const page = {n: "1", facs: {kind: "image", url: "facsimiles/gunther1934/0001.jpg"}};
+  const chunk = {chapters: {
+    "1": {html: "With page", pages: [page], noteIds: []},
+    "2": {html: "No pages", pages: [], noteIds: []},
+  }, notes: {}, apps: {}};
+  api.setup({gunther: {label: "Gunther", facs_mode: "site", credits},
+             remote: {label: "Remote", facs_mode: "iiif", credits},
+             missing: {label: "Missing", facs_mode: "site"}}, chunk);
+  api.openFacs(page, "gunther");
+  assert.equal(nodes.get("#facsRights").textContent, licence + " " + scope);
+  assert.equal(nodes.get("#facsRights").htmlAssigned, undefined);
+  api.openFacs(page, "remote");
+  assert.equal(nodes.get("#facsRights").textContent, "");
+  api.openFacs(page, "gunther");
+  assert.equal(nodes.get("#facsRights").textContent, licence + " " + scope);
+  api.openFacs(page, "missing");
+  assert.equal(nodes.get("#facsRights").textContent, "");
+
+  api.route({edL: "gunther", edR: "-", book: "1", ch: "1"});
+  await api.render();
+  api.setFacsVisible(true);
+  assert.equal(nodes.get("#facs").hidden, false);
+  assert.equal(nodes.get("#facsRights").textContent, licence + " " + scope);
+  api.route({ch: "2"});
+  await api.render();
+  assert.equal(nodes.get("#facs").hidden, false);
+  assert.equal(nodes.get("#facsLabel").textContent, "No facsimile is recorded for this chapter.");
+  assert.equal(nodes.get("#facsRights").textContent, "");
+});

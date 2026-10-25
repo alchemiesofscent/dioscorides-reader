@@ -787,12 +787,20 @@
     else if (visible) {
       osd?.close();
       $("#facsLabel").textContent = "No facsimile is recorded for this chapter.";
+      $("#facsRights").textContent = "";
       $("#facsDirect").hidden = true;
       facsIndex = -1;
     }
     syncFacsNavigation();
   }
   function openFacs(page, edition) {
+    const ed = manifest.editions[edition];
+    const rights = ed.facs_mode === "site"
+      ? (ed.credits?.sections || []).find(section => section.title === "Publication and rights")
+      : null;
+    $("#facsRights").textContent = (rights?.entries || [])
+      .filter(entry => entry.label === "Recorded rights statement")
+      .map(entry => entry.text).join(" ");
     facsIndex = facsPages.findIndex(p => p.n === page.n);
     syncFacsNavigation();
     if (!page.facs) {
@@ -804,7 +812,6 @@
     }
     facsRetried = false;
     currentFacs = page.facs;
-    const ed = manifest.editions[edition];
     $("#facsLabel").textContent = `${ed.label} — printed p. ${page.n}`;
     const a = $("#facsDirect");
     const direct = page.facs.direct || page.facs.url;
