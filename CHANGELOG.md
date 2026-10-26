@@ -8,6 +8,16 @@ shows it beside the reader version under **Reading settings**. Release tags
 While the reader is in alpha, a minor version (0.x.0) adds or reorganises how people read;
 a patch version (0.x.y) fixes behaviour without changing the layout.
 
+## 0.12.0-alpha — 2026-10-25
+
+- Corpus 34d01a52: Wellmann v4 (text/wellmann1906/v4): the main text checked against an independent reading of the
+  scans (1,491 corrections), 17 passages lost in v1 restored, and the Recensio Vindobonensis encoded as Sean chose
+  (29 restored blocks; labels now give the RV citation and witness, e.g. "2.105 R"). Sprengel 1829 v2, Paul VII v3 (not
+  in the public build).
+- Rights (D110): Mattioli 1554 (Latin, English), Gunther 1934 and the draft English translations show "All rights
+  reserved (research preview; licence pending the open-data office)"; the facsimile viewer now shows the edition's
+  recorded rights statement for site-hosted page images (Gunther).
+
 ## 0.11.0-alpha — 2026-10-15
 
 - Wellmann v1: recension (RV/C) blocks shown under their chapter as printed, with
