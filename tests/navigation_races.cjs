@@ -598,3 +598,23 @@ test("hosted facsimiles show recorded rights and clear them on edition changes",
   assert.equal(nodes.get("#facsLabel").textContent, "No facsimile is recorded for this chapter.");
   assert.equal(nodes.get("#facsRights").textContent, "");
 });
+
+test("private draft label is visible in the edition picker and pane", async () => {
+  const label = "In-house draft, not yet reviewed";
+  const { nodes, api } = harness("reader.js", `
+    globalThis.harness = {
+      editionOptions, renderPane,
+      setup(label) {
+        manifest = { editions: { "dioscorides-inhouse": { label, lang: "eng", status: "draft" } } };
+        loadChunk = () => Promise.resolve({chapters: {"1": {html: "Synthetic fixture", noteIds: []}}, notes: {}});
+      }
+    };
+  `);
+  api.setup(label);
+  const picker = node();
+  api.editionOptions(picker, "dioscorides-inhouse", false);
+  assert.ok(picker.children.some(option => option.textContent === label));
+  const pane = nodes.get("#paneL");
+  await api.renderPane(pane, "dioscorides-inhouse", {book: "1", ch: "1"}, 0);
+  assert.match(pane.querySelector(".pane-head").textContent, /In-house draft, not yet reviewed/);
+});

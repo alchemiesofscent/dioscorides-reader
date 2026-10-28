@@ -18,6 +18,9 @@ def main(argv: list[str] | None = None) -> int:
     build.add_argument("--lock", type=Path)
     build.add_argument("--exclude", action="append", default=[], metavar="STREAM",
                        help="Omit an exported stream from the output (repeatable)")
+    build.add_argument("--private-include", action="append", default=[],
+                       choices=["dioscorides-inhouse"], metavar="STREAM",
+                       help="Include a restricted draft for a local private build only")
     build.add_argument("--local-text", action="append", default=[], metavar="KEY=CHECKOUT",
                        help="Add a text from outside the bundle, read from a local checkout and checked against "
                             "local_texts.lock.json: tlg1118=CORPORA (a TLG text; private builds only)")
@@ -42,7 +45,8 @@ def main(argv: list[str] | None = None) -> int:
                 if not sep or not path:
                     raise ValueError(f"--local-text takes KEY=CHECKOUT, not {item!r}")
                 local[key] = Path(path)
-            result = compile_bundle(args.bundle, args.output, args.lock, tuple(args.exclude), local)
+            result = compile_bundle(args.bundle, args.output, args.lock, tuple(args.exclude), local,
+                                    private_include=tuple(args.private_include))
             print(f"Built {len(result['editions'])} streams from {result['bundle_id']} -> {args.output}")
         elif args.command == "fetch":
             if args.source:

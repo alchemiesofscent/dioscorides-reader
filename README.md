@@ -221,3 +221,18 @@ Automated/AI-assisted methods and review limits remain explicit.
 The September 2026 Wellmann attribution correction preserves every non-header XML byte.
 The reader still displays the same chapter text and apparatus, and inherited full-document
 EpiDoc limitations remain recorded by the producer.
+
+### Local in-house draft
+
+For a local D42 bundle only, append `--private-include dioscorides-inhouse` to
+the build command. The stream must carry `restricted: true`, `ruling: "D42"`
+and the label "In-house draft, not yet reviewed" in its bundle entry. That label
+appears in the edition picker and pane. Keep the input bundle and output outside
+repositories. This flag is never passed by CI or the Pages workflow. Without
+the flag, the stream and its facsimile records are omitted, and the build rejects
+private identifiers or copied running-text fingerprints before replacing output.
+Shared wording is permitted only in an included edition's own book files when
+that edition's verified source attests it. Stray files receive no exemption.
+`python scripts/check_wellmann_streams.py DIST BUNDLE` repeats the public leak
+check alongside the Wellmann stream checks; use it on public output. No restricted
+wording belongs in test fixtures.
