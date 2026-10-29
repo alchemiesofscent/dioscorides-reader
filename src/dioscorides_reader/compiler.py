@@ -9,7 +9,7 @@ import subprocess
 import tarfile
 from pathlib import Path
 
-from . import __version__, concordance, diplomatic, render, venenis, xml_utils, matter
+from . import __version__, concordance, diplomatic, render, venenis, xml_utils, matter, private_streams
 from .bundle import Bundle, relative_path
 
 MARKER = ".dioscorides-reader-output"
@@ -34,7 +34,8 @@ def web_directory() -> Path:
 
 
 def compile_bundle(bundle_path: Path, output: Path, lock: Path | None = None,
-                   exclude: tuple[str, ...] = (), local_texts: dict[str, Path] | None = None) -> dict:
+                   exclude: tuple[str, ...] = (), local_texts: dict[str, Path] | None = None,
+                   private_include: tuple[str, ...] = ()) -> dict:
     """local_texts: texts outside the bundle, by reader key, each from a local checkout (tlg1118: the treatises on
     poisons, a TLG text, for a private build only). Without them nothing of those texts is built."""
     local_texts = dict(local_texts or {})
@@ -49,7 +50,15 @@ def compile_bundle(bundle_path: Path, output: Path, lock: Path | None = None,
     unknown = sorted(set(exclude) - set(exported))
     if unknown:
         raise ValueError(f"Cannot exclude streams absent from the bundle: {unknown}")
-    selections = [item for item in bundle.manifest["editions"] if item["id"] not in exclude]
+    if set(private_include) - {private_streams.KEY}:
+        raise ValueError("Unknown private stream")
+    if set(private_include) - set(exported):
+        raise ValueError("Private stream is absent from bundle")
+    if set(private_include) & set(exclude):
+        raise ValueError("Private stream cannot also be excluded")
+    omitted_private = {private_streams.KEY} - set(private_include)
+    selections = [item for item in bundle.manifest["editions"]
+                  if item["id"] not in set(exclude) | omitted_private]
     if not selections:
         raise ValueError("Every exported stream was excluded")
     if output.is_symlink():
@@ -83,6 +92,12 @@ def compile_bundle(bundle_path: Path, output: Path, lock: Path | None = None,
         table = render.load_chapter_table()
         report = render.Report()
         configs = {entry["key"]: entry for entry in render.EDITIONS}
+        if private_streams.KEY in private_include:
+            configs[private_streams.KEY] = {
+                "key": private_streams.KEY, "label": private_streams.LABEL,
+                "lang": "eng", "stream": {"type": "translation", "lang": "en"},
+                "facs": "none", "label_source": "head", "anchored_notes": True,
+            }
         pairings = concordance.load(venenis=venenis.KEY in local_texts)
         # Wellmann's chapters carry no titles; the Sprengel table's titles are Sprengel's numbering.
         # Through the concordance each Wellmann chapter takes the title of its first Sprengel chapter.
@@ -118,7 +133,13 @@ def compile_bundle(bundle_path: Path, output: Path, lock: Path | None = None,
                 raise ValueError(f"Selected edition did not produce complete readable books: {key}")
             edition.update(status=selection["status"], source_sha256=selection["source_sha256"],
                            edition_id=selection.get("edition_id", key))
-            pairing = concordance.pairing_for(config, pairings)
+            if key == private_streams.KEY:
+                if (selection.get("restricted") is not True or selection.get("ruling") != "D42"
+                        or selection.get("label") != private_streams.LABEL):
+                    raise ValueError("Private stream requires D42 restriction and draft label")
+                edition.update(restricted=True, ruling="D42", label=private_streams.LABEL)
+            pairing = (private_streams.chapter_pairing(bundle, selection) if key == private_streams.KEY
+                       else concordance.pairing_for(config, pairings))
             if pairing:
                 edition["pairing"] = pairing
             editions[key] = edition
@@ -171,7 +192,7 @@ def compile_bundle(bundle_path: Path, output: Path, lock: Path | None = None,
                                             encoding="utf-8")
         report.write(data / "REPORT.md")
         # Retain retrieval guidance even when optional facsimile images are unavailable.
-        if exclude:
+        if exclude or omitted_private & set(exported):
             included_tei = {item["tei_path"] for item in selections}
             facsimiles["resources"] = [item for item in facsimiles["resources"]
                                        if item["tei_path"] in included_tei]
@@ -184,6 +205,10 @@ def compile_bundle(bundle_path: Path, output: Path, lock: Path | None = None,
             '<!doctype html><html lang="en"><meta charset="utf-8"><title>Dioscorides reader</title>'
             '<meta http-equiv="refresh" content="0;url=reader.html"><a href="reader.html">Open reader</a></html>\n',
             encoding="utf-8")
+        if private_streams.KEY not in private_include:
+            leaks = private_streams.check_public_output(staging, bundle)
+            if leaks:
+                raise ValueError("Public output contains restricted material: " + "; ".join(leaks))
         backup = None
         if output.exists():
             backup = Path(tempfile.mkdtemp(prefix=f".{output.name}-previous-", dir=output.parent))

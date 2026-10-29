@@ -8,6 +8,10 @@ shows it beside the reader version under **Reading settings**. Release tags
 While the reader is in alpha, a minor version (0.x.0) adds or reorganises how people read;
 a patch version (0.x.y) fixes behaviour without changing the layout.
 
+## Unreleased
+
+- Local private builds can opt into the D42 in-house English draft, visibly labeled as unreviewed. Public builds omit it and reject leaked identifiers or text.
+
 ## 0.12.0-alpha — 2026-10-25
 
 - Corpus 34d01a52: Wellmann v4 (text/wellmann1906/v4): the main text checked against an independent reading of the

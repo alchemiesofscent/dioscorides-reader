@@ -11,8 +11,13 @@ from collections import Counter
 import json
 from pathlib import Path
 import re
+import sys
 import unicodedata
 from lxml import etree, html
+# Use the checker and guard from the same checkout, including in worktrees.
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'src'))
+from dioscorides_reader.bundle import Bundle
+from dioscorides_reader.private_streams import check_public_output
 
 NS = {'t': 'http://www.tei-c.org/ns/1.0'}
 XML_ID = '{http://www.w3.org/XML/1998/namespace}id'
@@ -66,7 +71,7 @@ def check(dist: Path, bundle: Path):
         book = json.loads(path.read_text())
         for ch in book['chapters'].values():
             chapters[ch['id']] = html.fromstring(ch['html'])
-    errors = []
+    errors = check_public_output(dist, Bundle(bundle)) if (bundle / "manifest.json").exists() else []
     def compare(label, actual, wanted):
         a, b = tokens(actual), tokens(wanted)
         if a != b:
